@@ -39,10 +39,5 @@
             "type": "vcs",
             "url": "git@github.com:sitkoru/yii2-ar-cache.git"
         }
-    ],
-    "config": {
-        "github-oauth": {
-            "github.com": "88c745eb265bb64d95995edfaaf4ae220aa741bb"
-        }
-    }
+    ]
 }
