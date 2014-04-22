@@ -1,0 +1,48 @@
+{
+    "name": "BioEngine",
+    "description": "BioEngine",
+    "keywords": ["bioengine"],
+    "homepage": "http://bioware.ru/",
+    "type": "project",
+    "license": "closed",
+    "support": {
+        "issues": "https://github.com/sonicgd/bioengine/issues?state=open",
+        "source": "https://github.com/sonicgd/bioengine"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "dev-master",
+        "yiisoft/yii2-gii": "dev-master",
+        "yiisoft/yii2-redis": "dev-master",
+        "yiisoft/yii2-debug": "dev-master",
+        "yvann/urlify": "dev-master",
+        "yurkinx/yii2-image": "dev-master",
+        "yiisoft/yii2-swiftmailer": "dev-master",
+        "sitkoru/yii2-ar-cache": "dev-master"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "0.4.*@dev"
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "yii\\composer\\Installer::setPermission"
+        ]
+    },
+    "extra": {
+        "executable": [
+            "yii"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:sitkoru/yii2-ar-cache.git"
+        }
+    ],
+    "config": {
+        "github-oauth": {
+            "github.com": "88c745eb265bb64d95995edfaaf4ae220aa741bb"
+        }
+    }
+}
