@@ -1,7 +1,6 @@
 <?php
 namespace bioengine\backend\controllers;
 
-use Yii;
 use yii\web\Controller;
 
 /**
