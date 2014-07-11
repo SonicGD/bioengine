@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_news".
+ * This is the model class for table "news".
  *
  * @property integer $id
  * @property integer $game_id
@@ -31,14 +32,14 @@ use Yii;
  * @property integer $comments
  * @property string $twitter_id
  */
-class News extends \yii\db\ActiveRecord
+class News extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_news}}';
+        return '{{%news}}';
     }
 
     /**

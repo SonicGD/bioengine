@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_topics".
+ * This is the model class for table "topics".
  *
  * @property integer $tid
  * @property string $title
@@ -43,14 +44,14 @@ use Yii;
  * @property integer $moved_on
  * @property string $banned_members
  */
-class ForumTopic extends \yii\db\ActiveRecord
+class IpbTopic extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_topics}}';
+        return '{{%topics}}';
     }
 
     /**

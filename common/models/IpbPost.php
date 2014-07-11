@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_posts".
+ * This is the model class for table "posts".
  *
  * @property integer $pid
  * @property integer $append_edit
@@ -33,14 +34,14 @@ use Yii;
  * @property string $post_field_t1
  * @property string $post_field_t2
  */
-class Post extends \yii\db\ActiveRecord
+class IpbPost extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_posts}}';
+        return '{{%posts}}';
     }
 
     /**

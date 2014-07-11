@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_poll_who".
+ * This is the model class for table "poll_who".
  *
  * @property string $poll_who_id
  * @property string $poll_id
@@ -16,14 +17,14 @@ use Yii;
  * @property string $ip
  * @property string $session_id
  */
-class PollWho extends \yii\db\ActiveRecord
+class PollWho extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_poll_who}}';
+        return '{{%poll_who}}';
     }
 
     /**
@@ -46,13 +47,13 @@ class PollWho extends \yii\db\ActiveRecord
     {
         return [
             'poll_who_id' => Yii::t('app', 'Poll Who ID'),
-            'poll_id' => Yii::t('app', 'Poll ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'login' => Yii::t('app', 'Login'),
-            'vote_date' => Yii::t('app', 'Vote Date'),
-            'voteoption' => Yii::t('app', 'Voteoption'),
-            'ip' => Yii::t('app', 'Ip'),
-            'session_id' => Yii::t('app', 'Session ID'),
+            'poll_id'     => Yii::t('app', 'Poll ID'),
+            'user_id'     => Yii::t('app', 'User ID'),
+            'login'       => Yii::t('app', 'Login'),
+            'vote_date'   => Yii::t('app', 'Vote Date'),
+            'voteoption'  => Yii::t('app', 'Voteoption'),
+            'ip'          => Yii::t('app', 'Ip'),
+            'session_id'  => Yii::t('app', 'Session ID'),
         ];
     }
 }

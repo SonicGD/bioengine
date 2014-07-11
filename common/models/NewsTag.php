@@ -3,22 +3,23 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_news_tags".
+ * This is the model class for table "news_tags".
  *
  * @property integer $id
  * @property integer $news_id
  * @property integer $tag_id
  */
-class NewsTag extends \yii\db\ActiveRecord
+class NewsTag extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_news_tags}}';
+        return '{{%news_tags}}';
     }
 
     /**

@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_files_cats".
+ * This is the model class for table "files_cats".
  *
  * @property integer $id
  * @property integer $pid
@@ -16,14 +17,14 @@ use Yii;
  * @property string $descr
  * @property string $url
  */
-class FileCat extends \yii\db\ActiveRecord
+class FileCat extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_files_cats}}';
+        return '{{%files_cats}}';
     }
 
     /**

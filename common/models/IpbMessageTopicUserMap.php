@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_message_topic_user_map".
+ * This is the model class for table "message_topic_user_map".
  *
  * @property integer $map_id
  * @property integer $map_user_id
@@ -21,14 +22,14 @@ use Yii;
  * @property integer $map_ignore_notification
  * @property integer $map_last_topic_reply
  */
-class MessageTopicUserMap extends \yii\db\ActiveRecord
+class IpbMessageTopicUserMap extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_message_topic_user_map}}';
+        return '{{%message_topic_user_map}}';
     }
 
     /**

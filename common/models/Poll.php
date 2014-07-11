@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_poll".
+ * This is the model class for table "poll".
  *
  * @property string $poll_id
  * @property string $question
@@ -16,14 +17,14 @@ use Yii;
  * @property integer $multiple
  * @property integer $onoff
  */
-class Poll extends \yii\db\ActiveRecord
+class Poll extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_poll}}';
+        return '{{%poll}}';
     }
 
     /**

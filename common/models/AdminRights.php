@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_admins_rights".
+ * This is the model class for table "admins_rights".
  *
  * @property integer $id
  * @property integer $uid
@@ -18,7 +19,7 @@ use Yii;
  * @property integer $admins
  * @property integer $sup
  */
-class AdminRights extends \yii\db\ActiveRecord
+class AdminRights extends ActiveRecord
 {
     /**
      * @inheritdoc

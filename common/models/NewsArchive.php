@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_news_archive".
+ * This is the model class for table "news_archive".
  *
  * @property integer $id
  * @property integer $news_id
@@ -21,14 +22,14 @@ use Yii;
  * @property integer $date
  * @property integer $change_date
  */
-class NewsArchive extends \yii\db\ActiveRecord
+class NewsArchive extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_news_archive}}';
+        return '{{%news_archive}}';
     }
 
     /**

@@ -3,22 +3,23 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_content_cache_posts".
+ * This is the model class for table "content_cache_posts".
  *
- * @property string $cache_content_id
- * @property string $cache_content
+ * @property string  $cache_content_id
+ * @property string  $cache_content
  * @property integer $cache_updated
  */
-class ContentCachePost extends \yii\db\ActiveRecord
+class IpbContentCachePost extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_content_cache_posts}}';
+        return '{{%content_cache_posts}}';
     }
 
     /**
@@ -41,8 +42,8 @@ class ContentCachePost extends \yii\db\ActiveRecord
     {
         return [
             'cache_content_id' => Yii::t('app', 'Cache Content ID'),
-            'cache_content' => Yii::t('app', 'Cache Content'),
-            'cache_updated' => Yii::t('app', 'Cache Updated'),
+            'cache_content'    => Yii::t('app', 'Cache Content'),
+            'cache_updated'    => Yii::t('app', 'Cache Updated'),
         ];
     }
 }

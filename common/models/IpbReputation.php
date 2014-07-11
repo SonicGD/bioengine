@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_reputation".
+ * This is the model class for table "reputation".
  *
  * @property integer $rep_id
  * @property integer $rep_to_id
@@ -15,14 +16,14 @@ use Yii;
  * @property string $rep_text
  * @property integer $rep_time
  */
-class Reputation extends \yii\db\ActiveRecord
+class IpbReputation extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_reputation}}';
+        return '{{%reputation}}';
     }
 
     /**

@@ -3,16 +3,17 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_activity".
+ * This is the model class for table "activity".
  *
  * @property integer $id
  * @property integer $user_id
  * @property string $page
  * @property integer $time
  */
-class Activity extends \yii\db\ActiveRecord
+class Activity extends ActiveRecord
 {
     /**
      * @inheritdoc

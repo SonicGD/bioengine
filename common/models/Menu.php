@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_menu".
+ * This is the model class for table "menu".
  *
  * @property integer $id
  * @property string $key
@@ -13,14 +14,14 @@ use Yii;
  * @property string $code
  * @property integer $date
  */
-class Menu extends \yii\db\ActiveRecord
+class Menu extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_menu}}';
+        return '{{%menu}}';
     }
 
     /**

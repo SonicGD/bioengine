@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_config".
+ * This is the model class for table "config".
  *
  * @property integer $site_id
  * @property string $title
@@ -23,14 +24,14 @@ use Yii;
  * @property integer $news_forum
  * @property integer $debug
  */
-class Config extends \yii\db\ActiveRecord
+class Config extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_config}}';
+        return '{{%config}}';
     }
 
     /**

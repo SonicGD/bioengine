@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_site_team".
+ * This is the model class for table "site_team".
  *
  * @property integer $id
  * @property integer $member_id
@@ -19,14 +20,14 @@ use Yii;
  * @property integer $tags
  * @property integer $active
  */
-class SiteTeam extends \yii\db\ActiveRecord
+class SiteTeam extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_site_team}}';
+        return '{{%site_team}}';
     }
 
     /**
@@ -36,7 +37,10 @@ class SiteTeam extends \yii\db\ActiveRecord
     {
         return [
             [['member_id'], 'required'],
-            [['member_id', 'developers', 'games', 'news', 'articles', 'files', 'gallery', 'polls', 'tags', 'active'], 'integer']
+            [
+                ['member_id', 'developers', 'games', 'news', 'articles', 'files', 'gallery', 'polls', 'tags', 'active'],
+                'integer'
+            ]
         ];
     }
 
@@ -46,17 +50,17 @@ class SiteTeam extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'member_id' => Yii::t('app', 'Member ID'),
+            'id'         => Yii::t('app', 'ID'),
+            'member_id'  => Yii::t('app', 'Member ID'),
             'developers' => Yii::t('app', 'Developers'),
-            'games' => Yii::t('app', 'Games'),
-            'news' => Yii::t('app', 'News'),
-            'articles' => Yii::t('app', 'Articles'),
-            'files' => Yii::t('app', 'Files'),
-            'gallery' => Yii::t('app', 'Gallery'),
-            'polls' => Yii::t('app', 'Polls'),
-            'tags' => Yii::t('app', 'Tags'),
-            'active' => Yii::t('app', 'Active'),
+            'games'      => Yii::t('app', 'Games'),
+            'news'       => Yii::t('app', 'News'),
+            'articles'   => Yii::t('app', 'Articles'),
+            'files'      => Yii::t('app', 'Files'),
+            'gallery'    => Yii::t('app', 'Gallery'),
+            'polls'      => Yii::t('app', 'Polls'),
+            'tags'       => Yii::t('app', 'Tags'),
+            'active'     => Yii::t('app', 'Active'),
         ];
     }
 }

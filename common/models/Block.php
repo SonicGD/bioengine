@@ -3,22 +3,23 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_blocks".
+ * This is the model class for table "blocks".
  *
- * @property string $index
- * @property string $content
+ * @property string  $index
+ * @property string  $content
  * @property integer $active
  */
-class Block extends \yii\db\ActiveRecord
+class Block extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_blocks}}';
+        return '{{%blocks}}';
     }
 
     /**
@@ -40,9 +41,9 @@ class Block extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'index' => Yii::t('app', 'Index'),
+            'index'   => Yii::t('app', 'Index'),
             'content' => Yii::t('app', 'Content'),
-            'active' => Yii::t('app', 'Active'),
+            'active'  => Yii::t('app', 'Active'),
         ];
     }
 }

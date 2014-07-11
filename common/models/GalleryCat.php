@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_gallery_cats".
+ * This is the model class for table "gallery_cats".
  *
  * @property integer $id
  * @property string $game_old
@@ -16,14 +17,14 @@ use Yii;
  * @property string $desc
  * @property string $url
  */
-class GalleryCat extends \yii\db\ActiveRecord
+class GalleryCat extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_gallery_cats}}';
+        return '{{%gallery_cats}}';
     }
 
     /**

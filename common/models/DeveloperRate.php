@@ -3,9 +3,10 @@
 namespace bioengine\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "be_developer_rate".
+ * This is the model class for table "developer_rate".
  *
  * @property integer $id
  * @property integer $developer_id
@@ -13,14 +14,14 @@ use Yii;
  * @property integer $pos
  * @property integer $date
  */
-class DeveloperRate extends \yii\db\ActiveRecord
+class DeveloperRate extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%be_developer_rate}}';
+        return '{{%developer_rate}}';
     }
 
     /**
