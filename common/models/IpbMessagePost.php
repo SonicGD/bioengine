@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "message_posts".
@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property string  $msg_ip_address
  * @property integer $msg_is_first_post
  */
-class IpbMessagePost extends ActiveRecord
+class IpbMessagePost extends BioActiveRecord
 {
     /**
      * @inheritdoc

@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "content_cache_posts".
@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property string  $cache_content
  * @property integer $cache_updated
  */
-class IpbContentCachePost extends ActiveRecord
+class IpbContentCachePost extends BioActiveRecord
 {
     /**
      * @inheritdoc

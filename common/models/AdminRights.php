@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "admins_rights".
@@ -19,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $admins
  * @property integer $sup
  */
-class AdminRights extends ActiveRecord
+class AdminRights extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -46,16 +46,16 @@ class AdminRights extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'uid' => Yii::t('app', 'Uid'),
-            'admin' => Yii::t('app', 'Admin'),
-            'news' => Yii::t('app', 'News'),
+            'id'       => Yii::t('app', 'ID'),
+            'uid'      => Yii::t('app', 'Uid'),
+            'admin'    => Yii::t('app', 'Admin'),
+            'news'     => Yii::t('app', 'News'),
             'articles' => Yii::t('app', 'Articles'),
-            'files' => Yii::t('app', 'Files'),
-            'gallery' => Yii::t('app', 'Gallery'),
-            'polls' => Yii::t('app', 'Polls'),
-            'admins' => Yii::t('app', 'Admins'),
-            'sup' => Yii::t('app', 'Sup'),
+            'files'    => Yii::t('app', 'Files'),
+            'gallery'  => Yii::t('app', 'Gallery'),
+            'polls'    => Yii::t('app', 'Polls'),
+            'admins'   => Yii::t('app', 'Admins'),
+            'sup'      => Yii::t('app', 'Sup'),
         ];
     }
 }

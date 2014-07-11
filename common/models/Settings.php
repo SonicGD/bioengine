@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "settings".
@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property string  $desc
  * @property string  $value
  */
-class Settings extends ActiveRecord
+class Settings extends BioActiveRecord
 {
     /**
      * @inheritdoc

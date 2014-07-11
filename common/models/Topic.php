@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "nuke_topics".
@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property string  $logo
  * @property string  $desc
  */
-class Topic extends ActiveRecord
+class Topic extends BioActiveRecord
 {
     /**
      * @inheritdoc

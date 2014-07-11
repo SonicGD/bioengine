@@ -2,18 +2,18 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "activity".
  *
  * @property integer $id
  * @property integer $user_id
- * @property string $page
+ * @property string  $page
  * @property integer $time
  */
-class Activity extends ActiveRecord
+class Activity extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,10 +41,10 @@ class Activity extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id'      => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'page' => Yii::t('app', 'Page'),
-            'time' => Yii::t('app', 'Time'),
+            'page'    => Yii::t('app', 'Page'),
+            'time'    => Yii::t('app', 'Time'),
         ];
     }
 }

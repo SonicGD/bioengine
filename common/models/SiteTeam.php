@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "site_team".
@@ -20,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property integer $tags
  * @property integer $active
  */
-class SiteTeam extends ActiveRecord
+class SiteTeam extends BioActiveRecord
 {
     /**
      * @inheritdoc

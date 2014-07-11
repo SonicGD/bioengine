@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "news_tags".
@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property integer $news_id
  * @property integer $tag_id
  */
-class NewsTag extends ActiveRecord
+class NewsTag extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -39,9 +39,9 @@ class NewsTag extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
+            'id'      => Yii::t('app', 'ID'),
             'news_id' => Yii::t('app', 'News ID'),
-            'tag_id' => Yii::t('app', 'Tag ID'),
+            'tag_id'  => Yii::t('app', 'Tag ID'),
         ];
     }
 }

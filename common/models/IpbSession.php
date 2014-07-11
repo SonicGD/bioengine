@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "sessions".
@@ -35,7 +35,7 @@ use yii\db\ActiveRecord;
  * @property integer $search_thread_time
  * @property integer $session_msg_id
  */
-class IpbSession extends ActiveRecord
+class IpbSession extends BioActiveRecord
 {
     /**
      * @inheritdoc

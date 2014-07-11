@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "profile_portal".
@@ -43,7 +43,7 @@ use yii\db\ActiveRecord;
  * @property string  $pp_customization
  * @property string  $vk_bwoptions
  */
-class IpbProfilePortal extends ActiveRecord
+class IpbProfilePortal extends BioActiveRecord
 {
     /**
      * @inheritdoc

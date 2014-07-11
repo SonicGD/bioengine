@@ -2,22 +2,22 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "gallery_cats".
  *
  * @property integer $id
- * @property string $game_old
+ * @property string  $game_old
  * @property integer $pid
  * @property integer $game_id
  * @property integer $developer_id
- * @property string $title
- * @property string $desc
- * @property string $url
+ * @property string  $title
+ * @property string  $desc
+ * @property string  $url
  */
-class GalleryCat extends ActiveRecord
+class GalleryCat extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -48,14 +48,14 @@ class GalleryCat extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'game_old' => Yii::t('app', 'Game Old'),
-            'pid' => Yii::t('app', 'Pid'),
-            'game_id' => Yii::t('app', 'Game ID'),
+            'id'           => Yii::t('app', 'ID'),
+            'game_old'     => Yii::t('app', 'Game Old'),
+            'pid'          => Yii::t('app', 'Pid'),
+            'game_id'      => Yii::t('app', 'Game ID'),
             'developer_id' => Yii::t('app', 'Developer ID'),
-            'title' => Yii::t('app', 'Title'),
-            'desc' => Yii::t('app', 'Desc'),
-            'url' => Yii::t('app', 'Url'),
+            'title'        => Yii::t('app', 'Title'),
+            'desc'         => Yii::t('app', 'Desc'),
+            'url'          => Yii::t('app', 'Url'),
         ];
     }
 }

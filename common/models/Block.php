@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "blocks".
@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property string  $content
  * @property integer $active
  */
-class Block extends ActiveRecord
+class Block extends BioActiveRecord
 {
     /**
      * @inheritdoc

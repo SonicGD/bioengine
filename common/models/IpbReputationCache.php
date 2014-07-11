@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "reputation_cache".
@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property integer $rep_points
  * @property string  $rep_like_cache
  */
-class IpbReputationCache extends ActiveRecord
+class IpbReputationCache extends BioActiveRecord
 {
     /**
      * @inheritdoc

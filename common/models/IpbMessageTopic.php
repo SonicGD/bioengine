@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "message_topics".
@@ -25,7 +25,7 @@ use yii\db\ActiveRecord;
  * @property integer $mt_is_deleted
  * @property integer $mt_is_system
  */
-class IpbMessageTopic extends ActiveRecord
+class IpbMessageTopic extends BioActiveRecord
 {
     /**
      * @inheritdoc

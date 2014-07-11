@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "poll_who".
@@ -17,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $ip
  * @property string $session_id
  */
-class PollWho extends ActiveRecord
+class PollWho extends BioActiveRecord
 {
     /**
      * @inheritdoc

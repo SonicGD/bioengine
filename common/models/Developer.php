@@ -2,27 +2,27 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "developers".
  *
  * @property integer $id
- * @property string $url
- * @property string $name
- * @property string $info
- * @property string $desc
- * @property string $logo
+ * @property string  $url
+ * @property string  $name
+ * @property string  $info
+ * @property string  $desc
+ * @property string  $logo
  * @property integer $found_year
- * @property string $location
- * @property string $peoples
- * @property string $site
+ * @property string  $location
+ * @property string  $peoples
+ * @property string  $site
  * @property integer $rate_pos
  * @property integer $rate_neg
- * @property string $voted_users
+ * @property string  $voted_users
  */
-class Developer extends ActiveRecord
+class Developer extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -51,18 +51,18 @@ class Developer extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'url' => Yii::t('app', 'Url'),
-            'name' => Yii::t('app', 'Name'),
-            'info' => Yii::t('app', 'Info'),
-            'desc' => Yii::t('app', 'Desc'),
-            'logo' => Yii::t('app', 'Logo'),
-            'found_year' => Yii::t('app', 'Found Year'),
-            'location' => Yii::t('app', 'Location'),
-            'peoples' => Yii::t('app', 'Peoples'),
-            'site' => Yii::t('app', 'Site'),
-            'rate_pos' => Yii::t('app', 'Rate Pos'),
-            'rate_neg' => Yii::t('app', 'Rate Neg'),
+            'id'          => Yii::t('app', 'ID'),
+            'url'         => Yii::t('app', 'Url'),
+            'name'        => Yii::t('app', 'Name'),
+            'info'        => Yii::t('app', 'Info'),
+            'desc'        => Yii::t('app', 'Desc'),
+            'logo'        => Yii::t('app', 'Logo'),
+            'found_year'  => Yii::t('app', 'Found Year'),
+            'location'    => Yii::t('app', 'Location'),
+            'peoples'     => Yii::t('app', 'Peoples'),
+            'site'        => Yii::t('app', 'Site'),
+            'rate_pos'    => Yii::t('app', 'Rate Pos'),
+            'rate_neg'    => Yii::t('app', 'Rate Neg'),
             'voted_users' => Yii::t('app', 'Voted Users'),
         ];
     }

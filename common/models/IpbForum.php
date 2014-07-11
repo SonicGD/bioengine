@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "forums".
@@ -66,7 +66,7 @@ use yii\db\ActiveRecord;
  * @property string  $tag_predefined
  * @property string  $ipseo_priority
  */
-class IpbForum extends ActiveRecord
+class IpbForum extends BioActiveRecord
 {
     /**
      * @inheritdoc

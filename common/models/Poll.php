@@ -2,22 +2,22 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "poll".
  *
- * @property string $poll_id
- * @property string $question
+ * @property string  $poll_id
+ * @property string  $question
  * @property integer $startdate
- * @property string $options
- * @property string $votes
+ * @property string  $options
+ * @property string  $votes
  * @property integer $num_choices
  * @property integer $multiple
  * @property integer $onoff
  */
-class Poll extends ActiveRecord
+class Poll extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -45,14 +45,14 @@ class Poll extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'poll_id' => Yii::t('app', 'Poll ID'),
-            'question' => Yii::t('app', 'Question'),
-            'startdate' => Yii::t('app', 'Startdate'),
-            'options' => Yii::t('app', 'Options'),
-            'votes' => Yii::t('app', 'Votes'),
+            'poll_id'     => Yii::t('app', 'Poll ID'),
+            'question'    => Yii::t('app', 'Question'),
+            'startdate'   => Yii::t('app', 'Startdate'),
+            'options'     => Yii::t('app', 'Options'),
+            'votes'       => Yii::t('app', 'Votes'),
             'num_choices' => Yii::t('app', 'Num Choices'),
-            'multiple' => Yii::t('app', 'Multiple'),
-            'onoff' => Yii::t('app', 'Onoff'),
+            'multiple'    => Yii::t('app', 'Multiple'),
+            'onoff'       => Yii::t('app', 'Onoff'),
         ];
     }
 }

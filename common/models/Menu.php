@@ -2,19 +2,19 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "menu".
  *
  * @property integer $id
- * @property string $key
- * @property string $title
- * @property string $code
+ * @property string  $key
+ * @property string  $title
+ * @property string  $code
  * @property integer $date
  */
-class Menu extends ActiveRecord
+class Menu extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -43,11 +43,11 @@ class Menu extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'key' => Yii::t('app', 'Key'),
+            'id'    => Yii::t('app', 'ID'),
+            'key'   => Yii::t('app', 'Key'),
             'title' => Yii::t('app', 'Title'),
-            'code' => Yii::t('app', 'Code'),
-            'date' => Yii::t('app', 'Date'),
+            'code'  => Yii::t('app', 'Code'),
+            'date'  => Yii::t('app', 'Date'),
         ];
     }
 }

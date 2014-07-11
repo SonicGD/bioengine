@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "members".
@@ -90,7 +90,7 @@ use yii\db\ActiveRecord;
  * @property string  $vk_token
  * @property integer $use_sign
  */
-class IpbMember extends ActiveRecord
+class IpbMember extends BioActiveRecord
 {
     /**
      * @inheritdoc

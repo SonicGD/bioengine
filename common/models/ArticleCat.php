@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "articles_cats".
@@ -13,14 +13,14 @@ use yii\db\ActiveRecord;
  * @property integer $game_id
  * @property integer $developer_id
  * @property integer $topic_id
- * @property string $title
- * @property string $url
- * @property string $descr
- * @property string $game_old
- * @property string $content
+ * @property string  $title
+ * @property string  $url
+ * @property string  $descr
+ * @property string  $game_old
+ * @property string  $content
  * @property integer $articles
  */
-class ArticleCat extends ActiveRecord
+class ArticleCat extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -50,17 +50,17 @@ class ArticleCat extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'pid' => Yii::t('app', 'Pid'),
-            'game_id' => Yii::t('app', 'Game ID'),
+            'id'           => Yii::t('app', 'ID'),
+            'pid'          => Yii::t('app', 'Pid'),
+            'game_id'      => Yii::t('app', 'Game ID'),
             'developer_id' => Yii::t('app', 'Developer ID'),
-            'topic_id' => Yii::t('app', 'Topic ID'),
-            'title' => Yii::t('app', 'Title'),
-            'url' => Yii::t('app', 'Url'),
-            'descr' => Yii::t('app', 'Descr'),
-            'game_old' => Yii::t('app', 'Game Old'),
-            'content' => Yii::t('app', 'Content'),
-            'articles' => Yii::t('app', 'Articles'),
+            'topic_id'     => Yii::t('app', 'Topic ID'),
+            'title'        => Yii::t('app', 'Title'),
+            'url'          => Yii::t('app', 'Url'),
+            'descr'        => Yii::t('app', 'Descr'),
+            'game_old'     => Yii::t('app', 'Game Old'),
+            'content'      => Yii::t('app', 'Content'),
+            'articles'     => Yii::t('app', 'Articles'),
         ];
     }
 }

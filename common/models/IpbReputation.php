@@ -2,8 +2,8 @@
 
 namespace bioengine\common\models;
 
+use bioengine\common\components\BioActiveRecord;
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "reputation".
@@ -13,10 +13,10 @@ use yii\db\ActiveRecord;
  * @property integer $rep_by_id
  * @property integer $rep_pos
  * @property integer $rep_neg
- * @property string $rep_text
+ * @property string  $rep_text
  * @property integer $rep_time
  */
-class IpbReputation extends ActiveRecord
+class IpbReputation extends BioActiveRecord
 {
     /**
      * @inheritdoc
@@ -43,13 +43,13 @@ class IpbReputation extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rep_id' => Yii::t('app', 'Rep ID'),
+            'rep_id'    => Yii::t('app', 'Rep ID'),
             'rep_to_id' => Yii::t('app', 'Rep To ID'),
             'rep_by_id' => Yii::t('app', 'Rep By ID'),
-            'rep_pos' => Yii::t('app', 'Rep Pos'),
-            'rep_neg' => Yii::t('app', 'Rep Neg'),
-            'rep_text' => Yii::t('app', 'Rep Text'),
-            'rep_time' => Yii::t('app', 'Rep Time'),
+            'rep_pos'   => Yii::t('app', 'Rep Pos'),
+            'rep_neg'   => Yii::t('app', 'Rep Neg'),
+            'rep_text'  => Yii::t('app', 'Rep Text'),
+            'rep_time'  => Yii::t('app', 'Rep Time'),
         ];
     }
 }
