@@ -1,7 +1,7 @@
 <?php
 namespace bioengine\backend\controllers;
 
-use yii\web\Controller;
+use bioengine\backend\components\Controller;
 
 /**
  * Site controller
