@@ -1,8 +1,8 @@
 <?php
 namespace bioengine\backend\controllers;
 
-use bioengine\backend\components\Controller;
-use bioengine\common\models\IpbPost;
+use bioengine\common\modules\ipb\models\IpbPost;
+use yii\web\Controller;
 
 /**
  * Site controller
