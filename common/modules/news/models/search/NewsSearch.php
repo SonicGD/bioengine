@@ -18,7 +18,26 @@ class NewsSearch extends News
     public function rules()
     {
         return [
-            [['id', 'game_id', 'developer_id', 'topic_id', 'author_id', 'tid', 'pid', 'sticky', 'date', 'last_change_date', 'pub', 'rate_pos', 'rate_neg', 'comments', 'twitter_id'], 'integer'],
+            [
+                [
+                    'id',
+                    'game_id',
+                    'developer_id',
+                    'topic_id',
+                    'author_id',
+                    'tid',
+                    'pid',
+                    'sticky',
+                    'date',
+                    'last_change_date',
+                    'pub',
+                    'rate_pos',
+                    'rate_neg',
+                    'comments',
+                    'twitter_id'
+                ],
+                'integer'
+            ],
             [['url', 'source', 'game_old', 'title', 'short_text', 'add_text', 'addgames', 'voted_users'], 'safe'],
         ];
     }
@@ -43,31 +62,35 @@ class NewsSearch extends News
     {
         $query = News::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'game_id' => $this->game_id,
-            'developer_id' => $this->developer_id,
-            'topic_id' => $this->topic_id,
-            'author_id' => $this->author_id,
-            'tid' => $this->tid,
-            'pid' => $this->pid,
-            'sticky' => $this->sticky,
-            'date' => $this->date,
-            'last_change_date' => $this->last_change_date,
-            'pub' => $this->pub,
-            'rate_pos' => $this->rate_pos,
-            'rate_neg' => $this->rate_neg,
-            'comments' => $this->comments,
-            'twitter_id' => $this->twitter_id,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id'               => $this->id,
+                'game_id'          => $this->game_id,
+                'developer_id'     => $this->developer_id,
+                'topic_id'         => $this->topic_id,
+                'author_id'        => $this->author_id,
+                'tid'              => $this->tid,
+                'pid'              => $this->pid,
+                'sticky'           => $this->sticky,
+                'date'             => $this->date,
+                'last_change_date' => $this->last_change_date,
+                'pub'              => $this->pub,
+                'rate_pos'         => $this->rate_pos,
+                'rate_neg'         => $this->rate_neg,
+                'comments'         => $this->comments,
+                'twitter_id'       => $this->twitter_id,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'source', $this->source])

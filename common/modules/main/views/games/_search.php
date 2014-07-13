@@ -11,10 +11,12 @@ use yii\widgets\ActiveForm;
 
 <div class="game-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'action' => ['index'],
+            'method' => 'get',
+        ]
+    ); ?>
 
     <?= $form->field($model, 'id') ?>
 

@@ -1,8 +1,8 @@
 <?php
 
 use bioengine\common\modules\main\models\search\SettingsSearch;
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel SettingsSearch */
@@ -17,26 +17,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Settings',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(
+            Yii::t(
+                'app',
+                'Create {modelClass}',
+                [
+                    'modelClass' => 'Settings',
+                ]
+            ),
+            ['create'],
+            ['class' => 'btn btn-success']
+        ) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?= GridView::widget(
+        [
+            'dataProvider' => $dataProvider,
+            'filterModel'  => $searchModel,
+            'columns'      => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'name',
+                'title',
+                'type',
+                'desc:ntext',
+                // 'value:ntext',
 
-            'id',
-            'name',
-            'title',
-            'type',
-            'desc:ntext',
-            // 'value:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]
+    ); ?>
 
 </div>

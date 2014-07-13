@@ -17,42 +17,48 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a(
+            Yii::t('app', 'Delete'),
+            ['delete', 'id' => $model->id],
+            [
+                'class' => 'btn btn-danger',
+                'data'  => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                    'method'  => 'post',
+                ],
+            ]
+        ) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'game_id',
-            'developer_id',
-            'topic_id',
-            'url:url',
-            'source',
-            'game_old',
-            'title',
-            'short_text:ntext',
-            'add_text:ntext',
-            'author_id',
-            'tid',
-            'pid',
-            'sticky',
-            'date',
-            'last_change_date',
-            'pub',
-            'addgames',
-            'rate_pos',
-            'rate_neg',
-            'voted_users:ntext',
-            'comments',
-            'twitter_id',
-        ],
-    ]) ?>
+    <?= DetailView::widget(
+        [
+            'model'      => $model,
+            'attributes' => [
+                'id',
+                'game_id',
+                'developer_id',
+                'topic_id',
+                'url:url',
+                'source',
+                'game_old',
+                'title',
+                'short_text:ntext',
+                'add_text:ntext',
+                'author_id',
+                'tid',
+                'pid',
+                'sticky',
+                'date',
+                'last_change_date',
+                'pub',
+                'addgames',
+                'rate_pos',
+                'rate_neg',
+                'voted_users:ntext',
+                'comments',
+                'twitter_id',
+            ],
+        ]
+    ) ?>
 
 </div>

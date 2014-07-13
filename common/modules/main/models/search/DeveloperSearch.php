@@ -43,20 +43,24 @@ class DeveloperSearch extends Developer
     {
         $query = Developer::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'found_year' => $this->found_year,
-            'rate_pos' => $this->rate_pos,
-            'rate_neg' => $this->rate_neg,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id'         => $this->id,
+                'found_year' => $this->found_year,
+                'rate_pos'   => $this->rate_pos,
+                'rate_neg'   => $this->rate_neg,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'name', $this->name])

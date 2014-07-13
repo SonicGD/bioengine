@@ -43,17 +43,21 @@ class SettingsSearch extends Settings
     {
         $query = Settings::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id' => $this->id,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'title', $this->title])

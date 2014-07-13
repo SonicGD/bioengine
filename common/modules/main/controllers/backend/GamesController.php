@@ -6,8 +6,8 @@ use bioengine\common\components\BackendController;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\search\GameSearch;
 use Yii;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * GamesController implements the CRUD actions for Game model.
@@ -18,7 +18,7 @@ class GamesController extends BackendController
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
                 ],
@@ -35,10 +35,13 @@ class GamesController extends BackendController
         $searchModel = new GameSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'searchModel'  => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]
+        );
     }
 
     /**
@@ -48,9 +51,12 @@ class GamesController extends BackendController
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->render(
+            'view',
+            [
+                'model' => $this->findModel($id),
+            ]
+        );
     }
 
     /**
@@ -65,9 +71,12 @@ class GamesController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->render(
+                'create',
+                [
+                    'model' => $model,
+                ]
+            );
         }
     }
 
@@ -84,9 +93,12 @@ class GamesController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render(
+                'update',
+                [
+                    'model' => $model,
+                ]
+            );
         }
     }
 

@@ -43,17 +43,21 @@ class BlockSearch extends Block
     {
         $query = Block::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'active' => $this->active,
-        ]);
+        $query->andFilterWhere(
+            [
+                'active' => $this->active,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'index', $this->index])
             ->andFilterWhere(['like', 'content', $this->content]);

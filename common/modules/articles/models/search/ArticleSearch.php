@@ -18,7 +18,10 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'cat_id', 'game_id', 'developer_id', 'topic_id', 'author_id', 'count', 'date', 'pub', 'fs'], 'integer'],
+            [
+                ['id', 'cat_id', 'game_id', 'developer_id', 'topic_id', 'author_id', 'count', 'date', 'pub', 'fs'],
+                'integer'
+            ],
             [['url', 'source', 'game_old', 'title', 'announce', 'text'], 'safe'],
         ];
     }
@@ -43,26 +46,30 @@ class ArticleSearch extends Article
     {
         $query = Article::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'cat_id' => $this->cat_id,
-            'game_id' => $this->game_id,
-            'developer_id' => $this->developer_id,
-            'topic_id' => $this->topic_id,
-            'author_id' => $this->author_id,
-            'count' => $this->count,
-            'date' => $this->date,
-            'pub' => $this->pub,
-            'fs' => $this->fs,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id'           => $this->id,
+                'cat_id'       => $this->cat_id,
+                'game_id'      => $this->game_id,
+                'developer_id' => $this->developer_id,
+                'topic_id'     => $this->topic_id,
+                'author_id'    => $this->author_id,
+                'count'        => $this->count,
+                'date'         => $this->date,
+                'pub'          => $this->pub,
+                'fs'           => $this->fs,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'source', $this->source])

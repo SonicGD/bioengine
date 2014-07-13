@@ -19,7 +19,32 @@ class GameSearch extends Game
     {
         return [
             [['id', 'developer_id', 'status', 'date', 'rate_pos', 'rate_neg'], 'integer'],
-            [['id_old', 'url', 'title', 'admin_title', 'genre', 'release_date', 'platforms', 'dev', 'desc', 'keywords', 'publisher', 'localizator', 'logo', 'small_logo', 'status_old', 'tweettag', 'news_desc', 'info', 'specs', 'ozon', 'voted_users'], 'safe'],
+            [
+                [
+                    'id_old',
+                    'url',
+                    'title',
+                    'admin_title',
+                    'genre',
+                    'release_date',
+                    'platforms',
+                    'dev',
+                    'desc',
+                    'keywords',
+                    'publisher',
+                    'localizator',
+                    'logo',
+                    'small_logo',
+                    'status_old',
+                    'tweettag',
+                    'news_desc',
+                    'info',
+                    'specs',
+                    'ozon',
+                    'voted_users'
+                ],
+                'safe'
+            ],
         ];
     }
 
@@ -43,22 +68,26 @@ class GameSearch extends Game
     {
         $query = Game::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'developer_id' => $this->developer_id,
-            'status' => $this->status,
-            'date' => $this->date,
-            'rate_pos' => $this->rate_pos,
-            'rate_neg' => $this->rate_neg,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id' => $this->id,
+                'developer_id' => $this->developer_id,
+                'status' => $this->status,
+                'date' => $this->date,
+                'rate_pos' => $this->rate_pos,
+                'rate_neg' => $this->rate_neg,
+            ]
+        );
 
         $query->andFilterWhere(['like', 'id_old', $this->id_old])
             ->andFilterWhere(['like', 'url', $this->url])

@@ -18,7 +18,22 @@ class SiteTeamSearch extends SiteTeam
     public function rules()
     {
         return [
-            [['id', 'member_id', 'developers', 'games', 'news', 'articles', 'files', 'gallery', 'polls', 'tags', 'active'], 'integer'],
+            [
+                [
+                    'id',
+                    'member_id',
+                    'developers',
+                    'games',
+                    'news',
+                    'articles',
+                    'files',
+                    'gallery',
+                    'polls',
+                    'tags',
+                    'active'
+                ],
+                'integer'
+            ],
         ];
     }
 
@@ -42,27 +57,31 @@ class SiteTeamSearch extends SiteTeam
     {
         $query = SiteTeam::find();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+            ]
+        );
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'member_id' => $this->member_id,
-            'developers' => $this->developers,
-            'games' => $this->games,
-            'news' => $this->news,
-            'articles' => $this->articles,
-            'files' => $this->files,
-            'gallery' => $this->gallery,
-            'polls' => $this->polls,
-            'tags' => $this->tags,
-            'active' => $this->active,
-        ]);
+        $query->andFilterWhere(
+            [
+                'id'         => $this->id,
+                'member_id'  => $this->member_id,
+                'developers' => $this->developers,
+                'games'      => $this->games,
+                'news'       => $this->news,
+                'articles'   => $this->articles,
+                'files'      => $this->files,
+                'gallery'    => $this->gallery,
+                'polls'      => $this->polls,
+                'tags'       => $this->tags,
+                'active'     => $this->active,
+            ]
+        );
 
         return $dataProvider;
     }

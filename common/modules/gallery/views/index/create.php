@@ -7,9 +7,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model GalleryPic */
 
-$this->title = Yii::t('app', 'Create {modelClass}', [
-    'modelClass' => 'Gallery Pic',
-]);
+$this->title = Yii::t(
+    'app',
+    'Create {modelClass}',
+    [
+        'modelClass' => 'Gallery Pic',
+    ]
+);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Gallery Pics'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,8 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?= $this->render(
+        '_form',
+        [
+            'model' => $model,
+        ]
+    ) ?>
 
 </div>
