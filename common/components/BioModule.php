@@ -29,10 +29,12 @@ abstract class BioModule extends Module implements BootstrapInterface
             UrlHelper::addRules($rules);
         }
         //}
-
         //TODO: register menu
+        $this->registerMenu();
 
     }
 
     abstract protected function getRulesPath();
+
+    abstract protected function registerMenu();
 }

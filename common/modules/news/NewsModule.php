@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\news;
 
 use bioengine\common\components\BioModule;
+use bioengine\common\components\MenuBuilder;
 
 /**
  * Class NewsModule
@@ -23,5 +24,27 @@ class NewsModule extends BioModule
     protected function getRulesPath()
     {
         return __DIR__ . "/config/rules.php";
+    }
+
+    protected function registerMenu()
+    {
+        $items = [];
+        $items[] = MenuBuilder::createMenuItem(
+            'news/index',
+            [],
+            'Список новостей'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'news/index/create',
+            [],
+            'Добавить новость'
+        );
+        MenuBuilder::registerMenu(
+            'news',
+            'Новости',
+            $items,
+            20,
+            'fa-list'
+        );
     }
 }

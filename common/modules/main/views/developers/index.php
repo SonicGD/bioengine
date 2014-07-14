@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="developer-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -37,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
                 'id',
-                'url:url',
+                //'url:url',
                 'name',
-                'info:ntext',
-                'desc:ntext',
+                //'info:ntext',
+                //'desc:ntext',
                 // 'logo',
                 // 'found_year',
                 // 'location:ntext',
@@ -54,5 +53,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]
     ); ?>
+
+    <p>
+        <?= Html::a(
+            Yii::t(
+                'app',
+                'Create {modelClass}',
+                [
+                    'modelClass' => 'Developer',
+                ]
+            ),
+            ['create'],
+            ['class' => 'btn btn-success']
+        ) ?>
+    </p>
 
 </div>

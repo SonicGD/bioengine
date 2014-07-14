@@ -24,4 +24,9 @@ class GalleryModule extends BioModule
     {
         return __DIR__ . "/config/rules.php";
     }
+
+    protected function registerMenu()
+    {
+        // TODO: Implement registerMenu() method.
+    }
 }

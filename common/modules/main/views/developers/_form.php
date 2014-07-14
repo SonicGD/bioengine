@@ -10,33 +10,44 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="developer-form">
-
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'location')->textarea(['rows' => 6]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'peoples')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'location')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'site')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'peoples')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'voted_users')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'site')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'found_year')->textInput() ?>
 
-    <?= $form->field($model, 'voted_users')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'rate_pos')->textInput() ?>
 
-    <?= $form->field($model, 'found_year')->textInput() ?>
+                    <?= $form->field($model, 'rate_neg')->textInput() ?>
+                </div>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'rate_pos')->textInput() ?>
-
-    <?= $form->field($model, 'rate_neg')->textInput() ?>
-
+    </div>
     <div class="form-group">
         <?= Html::submitButton(
             $model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
