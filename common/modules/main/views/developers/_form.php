@@ -19,7 +19,13 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'info')->widget(
+                        \dosamigos\ckeditor\CKEditor::className(),
+                        [
+                            'options' => ['rows' => 6],
+                            'preset'  => 'basic'
+                        ]
+                    ) ?>
 
                     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 

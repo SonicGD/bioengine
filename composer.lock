@@ -4,8 +4,52 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8a492b07c5d03ac05eff11e456bde573",
+    "hash": "4aea58670046f69b5e32004b993156ea",
     "packages": [
+        {
+            "name": "2amigos/yii2-ckeditor-widget",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-ckeditor-widget.git",
+                "reference": "8c7c4b5d47a7017348bfb28442363b65ce881514"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-ckeditor-widget/zipball/8c7c4b5d47a7017348bfb28442363b65ce881514",
+                "reference": "8c7c4b5d47a7017348bfb28442363b65ce881514",
+                "shasum": ""
+            },
+            "require": {
+                "ckeditor/ckeditor": "4.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\ckeditor\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "ramirez.cobos@gmail.com",
+                    "homepage": "http://2amigos.us"
+                }
+            ],
+            "description": "CKEditor widget for Yii2.",
+            "keywords": [
+                "CKEditor",
+                "extension",
+                "widget",
+                "yii"
+            ],
+            "time": "2014-06-24 14:29:47"
+        },
         {
             "name": "cebe/markdown",
             "version": "0.9.x-dev",
@@ -51,7 +95,7 @@
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
                     "homepage": "http://cebe.cc/",
-                    "role": "Creator"
+                    "role": "Core framework development"
                 }
             ],
             "description": "A super fast highly extensible markdown parser for PHP",
@@ -64,6 +108,47 @@
                 "markdown-extra"
             ],
             "time": "2014-03-05 16:30:51"
+        },
+        {
+            "name": "ckeditor/ckeditor",
+            "version": "4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ckeditor/ckeditor-releases.git",
+                "reference": "7d88a6ab0efe61890edb131420a53dc8c7568a74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/7d88a6ab0efe61890edb131420a53dc8c7568a74",
+                "reference": "7d88a6ab0efe61890edb131420a53dc8c7568a74",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+",
+                "LGPL-2.1+",
+                "MPL-1.1+"
+            ],
+            "authors": [
+                {
+                    "name": "CKSource - Frederico Knabben",
+                    "homepage": "http://cksource.com"
+                }
+            ],
+            "description": "JavaScript WYSIWYG web text editor.",
+            "homepage": "http://ckeditor.com",
+            "keywords": [
+                "CKEditor",
+                "editor",
+                "fckeditor",
+                "html",
+                "javascript",
+                "richtext",
+                "text",
+                "wysiwyg"
+            ],
+            "time": "2014-04-24 14:05:16"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -203,12 +288,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "2c540b7e330eb2e8ecedfd7d62fb603f96ee39db"
+                "reference": "5c1746c556753a19a980ab13d0ce23daebb6022f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/2c540b7e330eb2e8ecedfd7d62fb603f96ee39db",
-                "reference": "2c540b7e330eb2e8ecedfd7d62fb603f96ee39db",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/5c1746c556753a19a980ab13d0ce23daebb6022f",
+                "reference": "5c1746c556753a19a980ab13d0ce23daebb6022f",
                 "shasum": ""
             },
             "replace": {
@@ -246,7 +331,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2014-07-13 07:08:25"
+            "time": "2014-07-14 21:52:36"
         },
         {
             "name": "yiisoft/jquery",
@@ -303,12 +388,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ee25fd235fc310fce387bf83006dcf9c9ead421c"
+                "reference": "6459473942c42b8369a1d36729d38aa98575a020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ee25fd235fc310fce387bf83006dcf9c9ead421c",
-                "reference": "ee25fd235fc310fce387bf83006dcf9c9ead421c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/6459473942c42b8369a1d36729d38aa98575a020",
+                "reference": "6459473942c42b8369a1d36729d38aa98575a020",
                 "shasum": ""
             },
             "require": {
@@ -376,7 +461,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2014-07-14 01:35:35"
+            "time": "2014-07-15 04:10:57"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
