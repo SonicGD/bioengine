@@ -15,17 +15,15 @@ use yii\widgets\ActiveForm;
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-body">
-                    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
                     <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
+
+                    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 
                     <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
                     <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
 
-                    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'location')->textarea(['rows' => 6]) ?>
                 </div>
             </div>
         </div>
@@ -36,13 +34,11 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'site')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'voted_users')->textarea(['rows' => 6]) ?>
-
                     <?= $form->field($model, 'found_year')->textInput() ?>
 
-                    <?= $form->field($model, 'rate_pos')->textInput() ?>
+                    <?= $form->field($model, 'logo')->fileInput() ?>
 
-                    <?= $form->field($model, 'rate_neg')->textInput() ?>
+                    <?= $form->field($model, 'location')->textInput(['maxlength' => 255]) ?>
                 </div>
             </div>
         </div>

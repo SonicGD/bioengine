@@ -1,6 +1,6 @@
 <?php
 
-return [
+$config = [
     'id'                  => 'app-backend',
     'name'                => 'BioEngine',
     'basePath'            => dirname(__DIR__),
@@ -70,5 +70,10 @@ return [
             'class' => \bioengine\common\modules\polls\PollsModule::className(),
         ],
     ],
-    'params'              => $params,
 ];
+
+return yii\helpers\ArrayHelper::merge(
+    require(__DIR__ . '/../../common/config/main.php'),
+    $config
+);
+

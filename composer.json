@@ -15,7 +15,8 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "netgusto/AdminLTE": "*"
+        "netgusto/AdminLTE": "*",
+        "2amigos/yii2-ckeditor-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

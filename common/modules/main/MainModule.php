@@ -4,6 +4,7 @@ namespace bioengine\common\modules\main;
 
 use bioengine\common\components\BioModule;
 use bioengine\common\components\MenuBuilder;
+use yii\i18n\PhpMessageSource;
 
 /**
  * Class ArticlesModule
@@ -16,6 +17,16 @@ class MainModule extends BioModule
     public function init()
     {
         parent::init();
+        \Yii::setAlias('@mainModule', dirname(__FILE__));
+        \Yii::$app->i18n->translations['main*'] = [
+            'class'            => PhpMessageSource::className(),
+            'basePath'         => '@mainModule/messages',
+            'forceTranslation' => true,
+            'sourceLanguage'   => 'ru',
+            'fileMap'          => [
+                'main/developers' => 'developers.php',
+            ],
+        ];
     }
 
     /**

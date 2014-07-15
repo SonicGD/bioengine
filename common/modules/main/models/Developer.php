@@ -41,7 +41,13 @@ class Developer extends BioActiveRecord
             [['url', 'name', 'info', 'desc', 'logo', 'location', 'peoples', 'site', 'voted_users'], 'required'],
             [['info', 'desc', 'location', 'peoples', 'voted_users'], 'string'],
             [['found_year', 'rate_pos', 'rate_neg'], 'integer'],
-            [['url', 'name', 'logo', 'site'], 'string', 'max' => 255]
+            [['url', 'name', 'logo', 'site'], 'string', 'max' => 255],
+            //custom
+            [['voted_users'], 'default', 'value' => json_encode([])],
+            [
+                ['site'],
+                'url'
+            ]
         ];
     }
 
@@ -51,19 +57,19 @@ class Developer extends BioActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'          => Yii::t('app', 'ID'),
-            'url'         => Yii::t('app', 'Url'),
-            'name'        => Yii::t('app', 'Name'),
-            'info'        => Yii::t('app', 'Info'),
-            'desc'        => Yii::t('app', 'Desc'),
-            'logo'        => Yii::t('app', 'Logo'),
-            'found_year'  => Yii::t('app', 'Found Year'),
-            'location'    => Yii::t('app', 'Location'),
-            'peoples'     => Yii::t('app', 'Peoples'),
-            'site'        => Yii::t('app', 'Site'),
-            'rate_pos'    => Yii::t('app', 'Rate Pos'),
-            'rate_neg'    => Yii::t('app', 'Rate Neg'),
-            'voted_users' => Yii::t('app', 'Voted Users'),
+            'id'          => Yii::t('main/developers', 'ID'),
+            'url'         => Yii::t('main/developers', 'Url'),
+            'name'        => Yii::t('main/developers', 'Name'),
+            'info'        => Yii::t('main/developers', 'Info'),
+            'desc'        => Yii::t('main/developers', 'Desc'),
+            'logo'        => Yii::t('main/developers', 'Logo'),
+            'found_year'  => Yii::t('main/developers', 'Found Year'),
+            'location'    => Yii::t('main/developers', 'Location'),
+            'peoples'     => Yii::t('main/developers', 'Peoples'),
+            'site'        => Yii::t('main/developers', 'Site'),
+            'rate_pos'    => Yii::t('main/developers', 'Rate Pos'),
+            'rate_neg'    => Yii::t('main/developers', 'Rate Neg'),
+            'voted_users' => Yii::t('main/developers', 'Voted Users'),
         ];
     }
 }
