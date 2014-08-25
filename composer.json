@@ -1,7 +1,11 @@
 {
     "name": "sonicgd/bioengine",
     "description": "BioEngine",
-    "keywords": ["bioengine", "cms", "yii2"],
+    "keywords": [
+        "bioengine",
+        "cms",
+        "yii2"
+    ],
     "homepage": "https://github.com/sonicgd/bioengine",
     "type": "project",
     "license": "BSD-3-Clause",
@@ -16,7 +20,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "netgusto/AdminLTE": "*",
-        "2amigos/yii2-ckeditor-widget": "*"
+        "2amigos/yii2-ckeditor-widget": "*",
+        "haslv/ipbwi": "1.0.*@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

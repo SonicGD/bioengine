@@ -3,6 +3,7 @@
 namespace bioengine\frontend\components;
 
 use bioengine\common\modules\main\models\Settings;
+use IPBWI\ipbwi;
 use yii\web\Cookie;
 
 /**
@@ -40,6 +41,10 @@ class Controller extends \yii\web\Controller
                 $this->redirect($requestUri . "/", true, 301);
             }
         }
+
+        $ipbwi = new ipbwi();
+        $member_info = $ipbwi->member->info();
+        var_dump($member_info);
 
         /**
          * @var Settings[] $settings
