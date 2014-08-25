@@ -86,4 +86,21 @@ class File extends BioActiveRecord
             'date'         => Yii::t('app', 'Date'),
         ];
     }
+
+    public static function parseVideo($text)
+    {
+        if (strpos($text, "[video id") !== false) {
+            define("VIDEO", true);
+        }
+        $text = preg_replace("#<p>\s*\[video#i", "[video", $text);
+        $text = preg_replace("#video\]\s*(<br \/>)?<\/p>#i", "video]", $text);
+        $player_yt = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$5\"><img style=\"\" src=\"/themes/" . Yii::app(
+            )->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a><p style=\"text-align:center\"><a rel=\"external nofollow\" href=\"$4\">РЎРјРѕС‚СЂРµС‚СЊ РЅР° YouTube</a></p>";
+        $text = preg_replace("#\[video id\=(([0-9]+)?) uri\=(.*?) yt\=(.*?)\](.*?)\[/video\]#i", $player_yt, $text);
+        $player = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$4\"><img style=\"\" src=\"/themes/" . Yii::app(
+            )->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a>";
+        $text = preg_replace("#\[video id\=(([0-9]+)?) uri\=(.*?)\](.*?)\[/video\]#i", $player, $text);
+
+        return $text;
+    }
 }
