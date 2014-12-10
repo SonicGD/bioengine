@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
  */
 class AdminLTEAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/netgusto/adminlte';
+    public $sourcePath = '@vendor/almasaeed2010/adminlte';
     public $css = [
         'css/font-awesome.min.css', // THIS CHANGE
         'css/ionicons.css', // THIS CHANGE
