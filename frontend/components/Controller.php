@@ -51,8 +51,8 @@ class Controller extends \yii\web\Controller
             }
         }
 
-        $ipbwi = new ipbwi();
-        $member_info = $ipbwi->member->info();
+        /*$ipbwi = new ipbwi();
+        $member_info = $ipbwi->member->info();*/
 
         /**
          * @var Settings[] $settings
