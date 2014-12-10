@@ -42,9 +42,17 @@ class Controller extends \yii\web\Controller
             }
         }
 
+        /**
+         * @var Settings[] $settings
+         */
+        if ($settings = Settings::find()->all()) {
+            foreach ($settings as $setting) {
+                $this->settings[$setting->name] = $setting->value;
+            }
+        }
+
         $ipbwi = new ipbwi();
         $member_info = $ipbwi->member->info();
-        var_dump($member_info);
 
         /**
          * @var Settings[] $settings

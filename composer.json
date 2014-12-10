@@ -19,7 +19,7 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "netgusto/AdminLTE": "*",
+        "almasaeed2010/adminlte": "dev-master",
         "2amigos/yii2-ckeditor-widget": "*",
         "haslv/ipbwi": "1.0.*@dev"
     },
@@ -49,7 +49,11 @@
 
             "frontend/runtime",
             "frontend/web/assets"
-        ]
+        ],
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
     },
     "autoload": {
         "psr-4": {
