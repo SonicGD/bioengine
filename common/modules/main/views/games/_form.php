@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\main\models\Game;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,58 +13,77 @@ use yii\widgets\ActiveForm;
 <div class="game-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'developer_id')->textInput() ?>
+                    <?= $form->field($model, 'developer_id')->widget(Select2::classname(), [
+                        'data'          => array_merge(["" => ""], $developers),
+                        'language'      => 'ru',
+                        'options'       => ['placeholder' => 'Разработчик'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ]
+                    ]) ?>
 
-    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'publisher')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'keywords')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'localizator')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'localizator')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'release_date')->textInput(['maxlength' => 255]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'platforms')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'news_desc')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'genre')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'admin_title')->textInput(['maxlength' => 8]) ?>
 
-    <?= $form->field($model, 'specs')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'tweettag')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'ozon')->textarea(['rows' => 6]) ?>
+                    <?= $form->field($model, 'small_logo')->textInput(['maxlength' => 255]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'rate_pos')->textInput() ?>
-
-    <?= $form->field($model, 'rate_neg')->textInput() ?>
-
-    <?= $form->field($model, 'voted_users')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'id_old')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'release_date')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'platforms')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'publisher')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'small_logo')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'status_old')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'tweettag')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'admin_title')->textInput(['maxlength' => 8]) ?>
-
-    <?= $form->field($model, 'genre')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'dev')->textInput(['maxlength' => 40]) ?>
+    <?= $form->field($model, 'desc')->widget(
+        \dosamigos\ckeditor\CKEditor::className(),
+        [
+            'options' => ['rows' => 6],
+            'preset'  => 'standard'
+        ]
+    ) ?>
+    <?= $form->field($model, 'news_desc')->widget(
+        \dosamigos\ckeditor\CKEditor::className(),
+        [
+            'options' => ['rows' => 6],
+            'preset'  => 'standard'
+        ]
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(

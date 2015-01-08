@@ -3,6 +3,8 @@
 namespace bioengine\common\modules\main\controllers\backend;
 
 use bioengine\common\components\BackendController;
+use bioengine\common\helpers\ArrayHelper;
+use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\search\GameSearch;
 use Yii;
@@ -71,10 +73,12 @@ class GamesController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $developers = $this->getSelectValues();
             return $this->render(
                 'create',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'developers' => $developers,
                 ]
             );
         }
@@ -93,10 +97,12 @@ class GamesController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $developers = $this->getSelectValues();
             return $this->render(
                 'update',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'developers' => $developers,
                 ]
             );
         }
@@ -129,5 +135,15 @@ class GamesController extends BackendController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getSelectValues()
+    {
+        $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
+        ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
+        return $developers;
     }
 }
