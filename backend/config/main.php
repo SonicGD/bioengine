@@ -45,6 +45,13 @@ $config = [
                 ],
             ]
         ],
+        'request'      => [
+            'class'               => \yii\web\Request::className(),
+            'cookieValidationKey' => 'somesecretvalisadasddationkey',
+            'parsers'             => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
+        ],
     ],
     'modules'             => [
         'gii'      => [
