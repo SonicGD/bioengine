@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class AdminLTEAsset extends AssetBundle
 {
@@ -27,8 +27,6 @@ class AdminLTEAsset extends AssetBundle
         'js/AdminLTE/app.js' // THIS CHANGE
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset'
+        BootstrapPluginAsset::class
     ];
 }
