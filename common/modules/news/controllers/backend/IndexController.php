@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\news\controllers\backend;
 
 use bioengine\common\components\BackendController;
+use bioengine\common\helpers\ArrayHelper;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
@@ -10,7 +11,6 @@ use bioengine\common\modules\news\models\News;
 use bioengine\common\modules\news\models\search\NewsSearch;
 use Yii;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -75,9 +75,7 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
-            $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
-            $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
+            list($games, $developers, $topics) = $this->getSelectValues();
             return $this->render(
                 'create',
                 [
@@ -103,9 +101,7 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
-            $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
-            $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
+            list($games, $developers, $topics) = $this->getSelectValues();
             return $this->render(
                 'update',
                 [
@@ -145,5 +141,19 @@ class IndexController extends BackendController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getSelectValues()
+    {
+        $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
+        ArrayHelper::unShiftAssoc($games, 0, 'Выберите игру');
+        $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
+        ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
+        $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
+        ArrayHelper::unShiftAssoc($topics, 0, 'Выберите тему');
+        return array($games, $developers, $topics);
     }
 }

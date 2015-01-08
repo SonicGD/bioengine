@@ -49,6 +49,18 @@ class News extends BioActiveRecord
     {
         return [
             [
+                ['game_id'],
+                'required',
+                'when' => function ($model) {
+                    return $model->developer_id == 0 && $model->topic_id == 0;
+                },
+            ],
+            [
+                ['game_id', 'developer_id', 'topic_id'],
+                'default',
+                'value' => 0
+            ],
+            [
                 [
                     'game_id',
                     'developer_id',
@@ -71,15 +83,10 @@ class News extends BioActiveRecord
                 [
                     'source',
                     'title',
+                    'url',
                     'short_text',
                     'add_text',
                     'last_change_date',
-                    'addgames',
-                    'rate_pos',
-                    'rate_neg',
-                    'voted_users',
-                    'comments',
-                    'twitter_id'
                 ],
                 'required'
             ],
@@ -96,16 +103,16 @@ class News extends BioActiveRecord
     {
         return [
             'id'               => Yii::t('app', 'ID'),
-            'game_id'          => Yii::t('app', 'Game ID'),
-            'developer_id'     => Yii::t('app', 'Developer ID'),
-            'topic_id'         => Yii::t('app', 'Topic ID'),
+            'game_id'          => Yii::t('app', 'Game'),
+            'developer_id'     => Yii::t('app', 'Developer'),
+            'topic_id'         => Yii::t('app', 'Topic'),
             'url'              => Yii::t('app', 'Url'),
             'source'           => Yii::t('app', 'Source'),
             'game_old'         => Yii::t('app', 'Game Old'),
             'title'            => Yii::t('app', 'Title'),
             'short_text'       => Yii::t('app', 'Short Text'),
             'add_text'         => Yii::t('app', 'Add Text'),
-            'author_id'        => Yii::t('app', 'Author ID'),
+            'author_id'        => Yii::t('app', 'Author'),
             'tid'              => Yii::t('app', 'Tid'),
             'pid'              => Yii::t('app', 'Pid'),
             'sticky'           => Yii::t('app', 'Sticky'),
@@ -119,5 +126,14 @@ class News extends BioActiveRecord
             'comments'         => Yii::t('app', 'Comments'),
             'twitter_id'       => Yii::t('app', 'Twitter ID'),
         ];
+    }
+
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+            $this->last_change_date = time();
+            return true;
+        }
+        return false;
     }
 }

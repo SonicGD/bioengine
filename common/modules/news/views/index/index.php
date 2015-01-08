@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(
             Yii::t(
                 'app',
-                'Create {modelClass}',
+                'Добавить новость',
                 [
                     'modelClass' => 'News',
                 ]
