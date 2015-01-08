@@ -3,10 +3,14 @@
 namespace bioengine\common\modules\news\controllers\backend;
 
 use bioengine\common\components\BackendController;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
+use bioengine\common\modules\main\models\Topic;
 use bioengine\common\modules\news\models\News;
 use bioengine\common\modules\news\models\search\NewsSearch;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -71,10 +75,16 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
+            $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
+            $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
             return $this->render(
                 'create',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'games'      => $games,
+                    'developers' => $developers,
+                    'topics'     => $topics
                 ]
             );
         }
@@ -93,10 +103,16 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
+            $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
+            $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
             return $this->render(
                 'update',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'games'      => $games,
+                    'developers' => $developers,
+                    'topics'     => $topics
                 ]
             );
         }

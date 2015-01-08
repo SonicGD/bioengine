@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\news\models\News;
+use kartik\typeahead\TypeaheadBasic;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,33 +14,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'game_id')->textInput() ?>
+    <?= $form->field($model, 'game_id')->dropDownList($games) ?>
 
-    <?= $form->field($model, 'developer_id')->textInput() ?>
+    <?= $form->field($model, 'developer_id')->dropDownList($developers) ?>
 
-    <?= $form->field($model, 'topic_id')->textInput() ?>
+    <?= $form->field($model, 'topic_id')->widget(TypeaheadBasic::classname(), [
+        'data'          => $topics ,
+        'pluginOptions' => ['highlight' => true],
+        'options'       => ['placeholder' => 'Filter as you type ...'],
+    ]) ?>
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
+    <?= $form->field($model, 'sticky')->checkbox() ?>
 
-    <?= $form->field($model, 'tid')->textInput() ?>
-
-    <?= $form->field($model, 'pid')->textInput() ?>
-
-    <?= $form->field($model, 'sticky')->textInput() ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'last_change_date')->textInput() ?>
-
-    <?= $form->field($model, 'pub')->textInput() ?>
-
-    <?= $form->field($model, 'rate_pos')->textInput() ?>
-
-    <?= $form->field($model, 'rate_neg')->textInput() ?>
-
-    <?= $form->field($model, 'comments')->textInput() ?>
-
-    <?= $form->field($model, 'twitter_id')->textInput(['maxlength' => 11]) ?>
+    <?= $form->field($model, 'pub')->checkbox() ?>
 
     <?= $form->field($model, 'source')->textInput(['maxlength' => 255]) ?>
 
@@ -51,11 +38,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'addgames')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'voted_users')->textarea(['rows' => 6]) ?>
-
     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'game_old')->textInput(['maxlength' => 40]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(
