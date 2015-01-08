@@ -26,15 +26,15 @@ class MenuBuilder
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function getMenu()
     {
         ArrayHelper::multisort(self::$menu, "position", SORT_ASC);
         foreach (self::$menu as $name => $menuItem) {
             foreach ($menuItem['items'] as $key => $item) {
-                if (\Yii::$app->requestedRoute == $item['route']) {
-                    self::$menu[$name]['active'] = self::$menu[$name]['items'][$key]['active'] = true;
-                    break;
-                }
+                self::$menu[$name]['active'] = self::$menu[$name]['items'][$key]['active'] = \Yii::$app->requestedRoute == $item['route'];
             }
         }
         return self::$menu;
