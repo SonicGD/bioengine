@@ -21,7 +21,7 @@
     "yiisoft/yii2-swiftmailer": "dev-master",
     "almasaeed2010/adminlte": "dev-master",
     "2amigos/yii2-ckeditor-widget": "*",
-    "kartik-v/yii2-widget-typeahead": "*",
+    "kartik-v/yii2-widget-select2": "*",
     "haslv/ipbwi": "1.0.*@dev"
   },
   "require-dev": {
