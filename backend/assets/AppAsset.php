@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class AppAsset extends AssetBundle
 {
@@ -16,7 +16,11 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
     ];
+    public $js = [
+        'js/admin.js',
+    ];
     public $depends = [
         'bioengine\backend\assets\AdminLTEAsset',
+        'bioengine\backend\assets\PhoenixAsset',
     ];
 }
