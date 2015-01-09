@@ -33,8 +33,9 @@ class Poll extends BioActiveRecord
     public function rules()
     {
         return [
+            [['num_choices'], 'default', 'value' => 1],
             [['startdate', 'num_choices', 'multiple', 'onoff'], 'integer'],
-            [['options', 'votes'], 'string'],
+            [['options', 'votes', 'optionsEdit'], 'string'],
             [['question'], 'string', 'max' => 200]
         ];
     }
@@ -61,9 +62,28 @@ class Poll extends BioActiveRecord
     {
         $opts = json_decode($this->options, true);
         $items = [];
-        foreach ($opts as $opt) {
-            $items[] = $opt['text'];
+        if ($opts) {
+            foreach ($opts as $opt) {
+                $items[] = $opt['text'];
+            }
         }
         return implode(PHP_EOL, $items);
+    }
+
+    public function setOptionsEdit($text)
+    {
+        $options = [];
+        $opts = explode('\r\n', $text);
+        $i = 0;
+        if ($opts) {
+            foreach ($opts as $opt) {
+                $options[] = [
+                    'id'   => $i,
+                    'text' => $opt
+                ];
+                $i++;
+            }
+        }
+        $this->options = json_encode($options);
     }
 }

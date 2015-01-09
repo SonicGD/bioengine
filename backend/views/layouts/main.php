@@ -54,7 +54,7 @@ $pageTitle = $this->title ? $this->title : \Yii::$app->name;
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img src="http://www.bioware.ru/forum/uploads/profile/photo-thumb-1.png"
+                                <img src="http://uploads.bioware.ru/profile/photo-thumb-1.png?_r=1420268727"
                                      class="img-circle" alt="User Image"/>
 
                                 <p>
@@ -85,7 +85,7 @@ $pageTitle = $this->title ? $this->title : \Yii::$app->name;
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="http://www.bioware.ru/forum/uploads/profile/photo-thumb-1.png" class="img-circle"
+                        <img src="http://uploads.bioware.ru/profile/photo-thumb-1.png?_r=1420268727" class="img-circle"
                              alt="User Image"/>
                     </div>
                     <div class="pull-left info">
