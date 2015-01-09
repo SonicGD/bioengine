@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
     'app',
-    'Create {modelClass}',
+    'Добавить опрос',
     [
         'modelClass' => 'Poll',
     ]
@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Polls'), 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="poll-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render(
         '_form',

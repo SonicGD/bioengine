@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
         'app',
-        'Update {modelClass}: ',
+        'Редактировать опрос: ',
         [
             'modelClass' => 'Poll',
         ]
@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = ['label' => $model->poll_id, 'url' => ['view', 
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="poll-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render(
         '_form',

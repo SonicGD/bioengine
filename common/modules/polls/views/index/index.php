@@ -13,14 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="poll-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(
             Yii::t(
                 'app',
-                'Create {modelClass}',
+                'Добавить опрос',
                 [
                     'modelClass' => 'Poll',
                 ]
@@ -36,11 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel'  => $searchModel,
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
-                'poll_id',
                 'question',
-                'startdate',
-                'options:ntext',
-                'votes:ntext',
+                'startdate:date',
+                'optionsEdit:html',
                 // 'num_choices',
                 // 'multiple',
                 // 'onoff',

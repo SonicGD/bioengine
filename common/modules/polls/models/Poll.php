@@ -45,14 +45,25 @@ class Poll extends BioActiveRecord
     public function attributeLabels()
     {
         return [
-            'poll_id'     => Yii::t('app', 'Poll ID'),
+            'poll_id'     => Yii::t('app', 'Poll'),
             'question'    => Yii::t('app', 'Question'),
-            'startdate'   => Yii::t('app', 'Startdate'),
+            'startdate'   => Yii::t('app', 'Start date'),
             'options'     => Yii::t('app', 'Options'),
+            'optionsEdit' => Yii::t('app', 'Options'),
             'votes'       => Yii::t('app', 'Votes'),
             'num_choices' => Yii::t('app', 'Num Choices'),
             'multiple'    => Yii::t('app', 'Multiple'),
             'onoff'       => Yii::t('app', 'Onoff'),
         ];
+    }
+
+    public function getOptionsEdit()
+    {
+        $opts = json_decode($this->options, true);
+        $items = [];
+        foreach ($opts as $opt) {
+            $items[] = $opt['text'];
+        }
+        return implode(PHP_EOL, $items);
     }
 }

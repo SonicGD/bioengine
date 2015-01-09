@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\polls;
 
 use bioengine\common\components\BioModule;
+use bioengine\common\components\MenuBuilder;
 
 /**
  * Class PollsModule
@@ -27,6 +28,23 @@ class PollsModule extends BioModule
 
     protected function registerMenu()
     {
-        // TODO: Implement registerMenu() method.
+        $items = [];
+        $items[] = MenuBuilder::createMenuItem(
+            'polls/index',
+            [],
+            'Список опросов'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'polls/index/create',
+            [],
+            'Добавить опрос'
+        );
+        MenuBuilder::registerMenu(
+            'polls',
+            'Опросы',
+            $items,
+            11,
+            'fa-bar-chart '
+        );
     }
 }

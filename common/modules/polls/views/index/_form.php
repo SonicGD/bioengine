@@ -12,20 +12,27 @@ use yii\widgets\ActiveForm;
 <div class="poll-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'question')->textInput(['maxlength' => 200]) ?>
+                    <?= $form->field($model, 'onoff')->checkbox() ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'multiple')->checkbox() ?>
+                    <?= $form->field($model, 'num_choices')->textInput() ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'startdate')->textInput() ?>
+    <?= $form->field($model, 'optionsEdit')->textarea(['rows' => 12]) ?>
 
-    <?= $form->field($model, 'num_choices')->textInput() ?>
-
-    <?= $form->field($model, 'multiple')->textInput() ?>
-
-    <?= $form->field($model, 'onoff')->textInput() ?>
-
-    <?= $form->field($model, 'options')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'votes')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'question')->textInput(['maxlength' => 200]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(
