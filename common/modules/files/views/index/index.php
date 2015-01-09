@@ -13,14 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="file-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a(
             Yii::t(
                 'app',
-                'Create {modelClass}',
+                'Добавить файл',
                 [
                     'modelClass' => 'File',
                 ]
@@ -36,13 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel'  => $searchModel,
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
-                'id',
+                'title',
                 'url:url',
-                'game_old',
                 'cat_id',
                 'game_id',
-                // 'developer_id',
-                // 'title',
+                'developer_id',
                 // 'desc:ntext',
                 // 'announce:ntext',
                 // 'file',

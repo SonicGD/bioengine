@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
         'app',
-        'Update {modelClass}: ',
+        'Редактировать файл: ',
         [
             'modelClass' => 'File',
         ]
@@ -24,7 +24,9 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
     <?= $this->render(
         '_form',
         [
-            'model' => $model,
+            'model'      => $model,
+            'games'      => $games,
+            'developers' => $developers,
         ]
     ) ?>
 

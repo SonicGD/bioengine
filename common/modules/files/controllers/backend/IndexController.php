@@ -3,10 +3,16 @@
 namespace bioengine\common\modules\files\controllers\backend;
 
 use bioengine\common\components\BackendController;
+use bioengine\common\helpers\ArrayHelper;
 use bioengine\common\modules\files\models\File;
+use bioengine\common\modules\files\models\FileCat;
 use bioengine\common\modules\files\models\search\FileSearch;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
+use bioengine\common\modules\main\models\Topic;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -71,10 +77,13 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            list($games, $developers) = $this->getSelectValues();
             return $this->render(
                 'create',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'games'      => $games,
+                    'developers' => $developers,
                 ]
             );
         }
@@ -93,10 +102,13 @@ class IndexController extends BackendController
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            list($games, $developers) = $this->getSelectValues();
             return $this->render(
                 'update',
                 [
-                    'model' => $model,
+                    'model'      => $model,
+                    'games'      => $games,
+                    'developers' => $developers,
                 ]
             );
         }
@@ -129,5 +141,53 @@ class IndexController extends BackendController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getSelectValues()
+    {
+        $games = ArrayHelper::map(Game::find()->all(), 'id', 'title');
+        ArrayHelper::unShiftAssoc($games, 0, 'Выберите игру');
+        $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
+        ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
+        return array($games, $developers, $topics);
+    }
+
+    /**
+     * @param null $search
+     * @param null $id
+     * @param null $gameId
+     * @param null $developerId
+     * @param null $topicId
+     */
+    public function actionCatList($search = null, $id = null, $gameId = null, $developerId = null, $topicId = null)
+    {
+        $out = ['more' => false, 'results' => []];
+        $query = FileCat::find();
+
+        if ($gameId) {
+            $query->andWhere(['game_id' => $gameId]);
+        }
+        if ($developerId) {
+            $query->andWhere(['topic_id' => $developerId]);
+        }
+        if ($topicId) {
+            $query->andWhere(['topic_id' => $topicId]);
+        }
+        if ($search) {
+            $query->andWhere('title LIKE "%' . $search . '%"');
+        }
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if ($data) {
+            foreach ($data as $entry) {
+                $out['results'][] = ['id' => $entry['id'], 'text' => $entry['title']];
+            }
+        } else {
+            $out['results'] = ['id' => 0, 'text' => 'No matching records found'];
+        }
+        echo Json::encode($out);
     }
 }

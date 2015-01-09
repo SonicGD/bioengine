@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\files;
 
 use bioengine\common\components\BioModule;
+use bioengine\common\components\MenuBuilder;
 
 /**
  * Class FilesModule
@@ -27,6 +28,33 @@ class FilesModule extends BioModule
 
     protected function registerMenu()
     {
-        // TODO: Implement registerMenu() method.
+        $items = [];
+        $items[] = MenuBuilder::createMenuItem(
+            'files/index',
+            [],
+            'Список файлов'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'files/index/create',
+            [],
+            'Добавить файл'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'files/cats',
+            [],
+            'Список категорий'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'files/cats/create',
+            [],
+            'Добавить категорию'
+        );
+        MenuBuilder::registerMenu(
+            'files',
+            'Файлы',
+            $items,
+            20,
+            'fa-file'
+        );
     }
 }
