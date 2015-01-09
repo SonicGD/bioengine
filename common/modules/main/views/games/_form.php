@@ -62,7 +62,7 @@ use yii\widgets\ActiveForm;
                                     ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
                             ],
                             'initialCaption'   => "logo",
-                            'overwriteInitial' => false
+                            'overwriteInitial' => true
                         ]
                     ]) ?>
                 </div>
@@ -83,7 +83,7 @@ use yii\widgets\ActiveForm;
                                     ['class' => 'file-preview-image', 'alt' => 'small logo', 'title' => 'small logo']),
                             ],
                             'initialCaption'   => "Small logo",
-                            'overwriteInitial' => false
+                            'overwriteInitial' => true
                         ]
                     ]) ?>
                 </div>

@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
                                     ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
                             ],
                             'initialCaption'   => "logo",
-                            'overwriteInitial' => false
+                            'overwriteInitial' => true
                         ]
                     ]) ?>
 

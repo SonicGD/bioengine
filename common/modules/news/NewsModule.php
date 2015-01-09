@@ -44,7 +44,7 @@ class NewsModule extends BioModule
             'Новости',
             $items,
             20,
-            'fa-list'
+            'fa-newspaper-o'
         );
     }
 }

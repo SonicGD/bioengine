@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $searchModel TopicSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Topics');
+$this->title = Yii::t('app', 'Темы');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="topic-index">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(
             Yii::t(
                 'app',
-                'Create {modelClass}',
+                'Добавить тему',
                 [
                     'modelClass' => 'Topic',
                 ]
@@ -36,10 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel'  => $searchModel,
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
-                'id',
                 'title',
                 'url:url',
-                'logo',
+                'logo:image',
                 'desc:ntext',
                 ['class' => 'yii\grid\ActionColumn'],
             ],

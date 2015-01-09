@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
         'app',
-        'Update {modelClass}: ',
+        'Редактировать тему: ',
         [
             'modelClass' => 'Topic',
         ]

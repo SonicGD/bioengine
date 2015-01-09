@@ -77,5 +77,24 @@ class MainModule extends BioModule
             11,
             'fa-gamepad'
         );
+        //topics
+        $items = [];
+        $items[] = MenuBuilder::createMenuItem(
+            'main/topics',
+            [],
+            'Список тем'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'main/topics/create',
+            [],
+            'Добавить тему'
+        );
+        MenuBuilder::registerMenu(
+            'topics',
+            'Темы',
+            $items,
+            11,
+            'fa-comments'
+        );
     }
 }

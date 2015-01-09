@@ -8,7 +8,7 @@ use bioengine\common\modules\main\models\Developer;
 
 $this->title = Yii::t(
     'main/developers',
-    'Create developer'
+    'Добавить разработчика'
 );
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Developers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;

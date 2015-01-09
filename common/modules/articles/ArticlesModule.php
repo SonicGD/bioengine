@@ -54,7 +54,7 @@ class ArticlesModule extends BioModule
             'Статьи',
             $items,
             20,
-            'fa-list'
+            'fa-book'
         );
     }
 }

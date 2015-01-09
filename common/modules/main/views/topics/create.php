@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
     'app',
-    'Create {modelClass}',
+    'Добавить тему',
     [
         'modelClass' => 'Topic',
     ]
