@@ -3,28 +3,28 @@
 use bioengine\modules\articles\models\Article;
 use yii\helpers\Html;
 
+
 /* @var $this yii\web\View */
-/* @var $model Article */
+/* @var $model ArticleCat */
 
 $this->title = Yii::t(
-        'app',
-        'Редактировать статью: ',
-        [
-            'modelClass' => 'Article',
-        ]
-    ) . ' ' . $model->title;
+    'app',
+    'Добавить категорию',
+    [
+        'modelClass' => 'ArticleCat',
+    ]
+);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="article-update">
+<div class="article-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render(
         '_form',
         [
-            'model'      => $model,
+            'model' => $model,
             'games'      => $games,
             'developers' => $developers,
             'topics'     => $topics

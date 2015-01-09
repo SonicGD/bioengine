@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\articles;
 
 use bioengine\common\components\BioModule;
+use bioengine\common\components\MenuBuilder;
 
 /**
  * Class ArticlesModule
@@ -27,6 +28,33 @@ class ArticlesModule extends BioModule
 
     protected function registerMenu()
     {
-        // TODO: Implement registerMenu() method.
+        $items = [];
+        $items[] = MenuBuilder::createMenuItem(
+            'articles/index',
+            [],
+            'Список статей'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'articles/index/create',
+            [],
+            'Добавить статью'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'articles/cats',
+            [],
+            'Список категорий'
+        );
+        $items[] = MenuBuilder::createMenuItem(
+            'articles/cats/create',
+            [],
+            'Добавить категорию'
+        );
+        MenuBuilder::registerMenu(
+            'articles',
+            'Статьи',
+            $items,
+            20,
+            'fa-list'
+        );
     }
 }

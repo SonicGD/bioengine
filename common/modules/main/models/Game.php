@@ -101,8 +101,7 @@ class Game extends BioActiveRecord
     {
         return [
             'id'           => Yii::t('app', 'ID'),
-            'id_old'       => Yii::t('app', 'Id Old'),
-            'developer_id' => Yii::t('app', 'Developer ID'),
+            'developer_id' => Yii::t('app', 'Developer'),
             'url'          => Yii::t('app', 'Url'),
             'title'        => Yii::t('app', 'Title'),
             'admin_title'  => Yii::t('app', 'Admin Title'),

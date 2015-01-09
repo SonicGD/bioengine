@@ -1,6 +1,6 @@
 <?php
 
-namespace bioengine\modules\articles\models;
+namespace bioengine\common\modules\articles\models;
 
 use bioengine\common\components\BioActiveRecord;
 use Yii;
@@ -51,10 +51,10 @@ class ArticleCat extends BioActiveRecord
     {
         return [
             'id'           => Yii::t('app', 'ID'),
-            'pid'          => Yii::t('app', 'Pid'),
-            'game_id'      => Yii::t('app', 'Game ID'),
-            'developer_id' => Yii::t('app', 'Developer ID'),
-            'topic_id'     => Yii::t('app', 'Topic ID'),
+            'pid'          => Yii::t('app', 'Parent Cat'),
+            'game_id'      => Yii::t('app', 'Game'),
+            'developer_id' => Yii::t('app', 'Developer'),
+            'topic_id'     => Yii::t('app', 'Topic'),
             'title'        => Yii::t('app', 'Title'),
             'url'          => Yii::t('app', 'Url'),
             'descr'        => Yii::t('app', 'Descr'),
@@ -63,4 +63,6 @@ class ArticleCat extends BioActiveRecord
             'articles'     => Yii::t('app', 'Articles'),
         ];
     }
+
+
 }

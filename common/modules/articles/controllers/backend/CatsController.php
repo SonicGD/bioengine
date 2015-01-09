@@ -4,9 +4,8 @@ namespace bioengine\common\modules\articles\controllers\backend;
 
 use bioengine\common\components\BackendController;
 use bioengine\common\helpers\ArrayHelper;
-use bioengine\common\modules\articles\models\Article;
 use bioengine\common\modules\articles\models\ArticleCat;
-use bioengine\common\modules\articles\models\search\ArticleSearch;
+use bioengine\common\modules\articles\models\search\ArticleCatSearch;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
@@ -16,9 +15,9 @@ use yii\helpers\Json;
 use yii\web\NotFoundHttpException;
 
 /**
- * ArticlesController implements the CRUD actions for Article model.
+ * ArticlesCatsController implements the CRUD actions for Article model.
  */
-class IndexController extends BackendController
+class CatsController extends BackendController
 {
     public function behaviors()
     {
@@ -33,12 +32,12 @@ class IndexController extends BackendController
     }
 
     /**
-     * Lists all Article models.
+     * Lists all ArticleCat models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ArticleSearch();
+        $searchModel = new ArticleCatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render(
@@ -51,7 +50,7 @@ class IndexController extends BackendController
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single ArticleCat model.
      * @param integer $id
      * @return mixed
      */
@@ -66,13 +65,13 @@ class IndexController extends BackendController
     }
 
     /**
-     * Creates a new Article model.
+     * Creates a new ArticleCat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Article();
+        $model = new ArticleCat();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -91,7 +90,7 @@ class IndexController extends BackendController
     }
 
     /**
-     * Updates an existing Article model.
+     * Updates an existing ArticleCat model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -117,7 +116,7 @@ class IndexController extends BackendController
     }
 
     /**
-     * Deletes an existing Article model.
+     * Deletes an existing ArticleCat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -130,15 +129,15 @@ class IndexController extends BackendController
     }
 
     /**
-     * Finds the Article model based on its primary key value.
+     * Finds the ArticleCat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Article the loaded model
+     * @return ArticleCat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Article::findOne($id)) !== null) {
+        if (($model = ArticleCat::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

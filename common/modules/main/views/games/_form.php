@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\main\models\Game;
+use kartik\file\FileInput;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -53,7 +54,17 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'genre')->textInput(['maxlength' => 20]) ?>
 
-                    <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'logo')->widget(FileInput::classname(), [
+                        'options'       => ['accept' => 'image/*'],
+                        'pluginOptions' => [
+                            'initialPreview'   => [
+                                Html::img($model->logo,
+                                    ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
+                            ],
+                            'initialCaption'   => "logo",
+                            'overwriteInitial' => false
+                        ]
+                    ]) ?>
                 </div>
             </div>
         </div>
@@ -64,7 +75,17 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'tweettag')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'small_logo')->textInput(['maxlength' => 255]) ?>
+                    <?= $form->field($model, 'small_logo')->widget(FileInput::classname(), [
+                        'options'       => ['accept' => 'image/*'],
+                        'pluginOptions' => [
+                            'initialPreview'   => [
+                                Html::img($model->small_logo,
+                                    ['class' => 'file-preview-image', 'alt' => 'small logo', 'title' => 'small logo']),
+                            ],
+                            'initialCaption'   => "Small logo",
+                            'overwriteInitial' => false
+                        ]
+                    ]) ?>
                 </div>
             </div>
         </div>

@@ -2,15 +2,15 @@
 
 namespace bioengine\common\modules\articles\models\search;
 
-use bioengine\common\modules\articles\models\Article;
+use bioengine\common\modules\articles\models\ArticleCat;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ArticleSearch represents the model behind the search form about `Article`.
+ * ArticleCatSearch represents the model behind the search form about `ArticleCat`.
  */
-class ArticleSearch extends Article
+class ArticleCatSearch extends ArticleCat
 {
     /**
      * @inheritdoc
@@ -18,11 +18,13 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [
-                ['id', 'cat_id', 'game_id', 'developer_id', 'topic_id', 'author_id', 'count', 'date', 'pub', 'fs'],
-                'integer'
-            ],
-            [['url', 'source', 'game_old', 'title', 'announce', 'text'], 'safe'],
+
+            [['pid', 'game_id', 'developer_id', 'topic_id', 'articles'], 'integer'],
+            [['content'], 'string'],
+            [['title', 'url'], 'string', 'max' => 255],
+            [['descr'], 'string', 'max' => 100],
+            [['game_old'], 'string', 'max' => 40]
+
         ];
     }
 
@@ -44,7 +46,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = ArticleCat::find();
 
         $dataProvider = new ActiveDataProvider(
             [
@@ -59,24 +61,19 @@ class ArticleSearch extends Article
         $query->andFilterWhere(
             [
                 'id'           => $this->id,
-                'cat_id'       => $this->cat_id,
+                'pid'          => $this->pid,
                 'game_id'      => $this->game_id,
                 'developer_id' => $this->developer_id,
                 'topic_id'     => $this->topic_id,
-                'author_id'    => $this->author_id,
-                'count'        => $this->count,
-                'date'         => $this->date,
-                'pub'          => $this->pub,
-                'fs'           => $this->fs,
+                'articles'     => $this->articles
             ]
         );
 
         $query->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'game_old', $this->game_old])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'announce', $this->announce])
-            ->andFilterWhere(['like', 'text', $this->text]);
+            ->andFilterWhere(['like', 'content', $this->content])
+            ->andFilterWhere(['like', 'descr', $this->descr]);
 
         return $dataProvider;
     }

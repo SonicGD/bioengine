@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(
             Yii::t(
                 'app',
-                'Добавить статью    ',
+                'Добавить категорию',
                 [
                     'modelClass' => 'Article',
                 ]
@@ -36,22 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel'  => $searchModel,
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
+                'title:url',
                 'url:url',
-                'source',
-                'cat_id',
+                'pid',
                 'game_id',
-                // 'developer_id',
-                // 'topic_id',
-                // 'game_old',
-                // 'title',
-                // 'announce:ntext',
-                // 'text:ntext',
-                // 'author_id',
-                // 'count',
-                // 'date',
-                // 'pub',
-                // 'fs',
-
+                'developer_id',
+                'topic_id',
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]

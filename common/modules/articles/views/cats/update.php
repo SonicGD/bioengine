@@ -4,16 +4,16 @@ use bioengine\modules\articles\models\Article;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model Article */
+/* @var $model ArticleCat */
 
 $this->title = Yii::t(
         'app',
-        'Редактировать статью: ',
+        'Редактировать категорию: ',
         [
-            'modelClass' => 'Article',
+            'modelClass' => 'ArticleCat',
         ]
     ) . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Article Cats'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>

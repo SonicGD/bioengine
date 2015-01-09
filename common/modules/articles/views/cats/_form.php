@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\articles\models\Article;
+use bioengine\common\modules\articles\models\ArticleCat;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\web\JsExpression;
@@ -8,7 +9,7 @@ use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model Article */
+/* @var $model ArticleCat */
 /* @var $form yii\widgets\ActiveForm */
 
 // The controller action that will render the list
@@ -38,27 +39,27 @@ $this->registerJs($script, View::POS_HEAD);
         var value = false;
         switch (type) {
             case 'game':
-                $('#article-developer_id').val(0).trigger("change");
-                $('#article-topic_id').val(0).trigger("change");
-                value = $('#article-game_id').val();
+                $('#articlecat-developer_id').val(0).trigger("change");
+                $('#articlecat-topic_id').val(0).trigger("change");
+                value = $('#articlecat-game_id').val();
                 break;
             case 'developer':
-                $('#article-game_id').val(0).trigger("change");
-                $('#article-topic_id').val(0).trigger("change");
-                value = $('#article-developer_id').val();
+                $('#articlecat-game_id').val(0).trigger("change");
+                $('#articlecat-topic_id').val(0).trigger("change");
+                value = $('#articlecat-developer_id').val();
                 break;
             case 'topic':
-                $('#article-developer_id').val(0).trigger("change");
-                $('#article-game_id').val(0).trigger("change");
-                value = $('#article-topic_id').val();
+                $('#articlecat-developer_id').val(0).trigger("change");
+                $('#articlecat-game_id').val(0).trigger("change");
+                value = $('#articlecat-topic_id').val();
                 break;
         }
-        $('#article-cat_id').select2("val", "");
+        $('#articlecat-pid').select2("val", "");
         if (value > 0) {
-            $('#article-cat_id').removeAttr('disabled');
+            $('#articlecat-pid').removeAttr('disabled');
         }
         else {
-            $('#article-cat_id').attr('disabled', 'disabled');
+            $('#articlecat-pid').attr('disabled', 'disabled');
         }
         inChange = false;
     }
@@ -122,8 +123,6 @@ $this->registerJs($script, View::POS_HEAD);
                             "change" => 'function() { selectType("topic"); }',
                         ]
                     ]) ?>
-
-                    <?= $form->field($model, 'pub')->textInput() ?>
                 </div>
             </div>
         </div>
@@ -133,7 +132,7 @@ $this->registerJs($script, View::POS_HEAD);
 
                     <?= $form->field($model, 'title')->textInput(['maxlength' => 150]) ?>
 
-                    <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
+                    <?= $form->field($model, 'pid')->widget(Select2::classname(), [
                         'options'       => ['placeholder' => 'Выберите раздел', 'disabled' => $model->isNewRecord],
                         'pluginOptions' => [
                             'allowClear'    => true,
@@ -150,15 +149,13 @@ $this->registerJs($script, View::POS_HEAD);
                     ]) ?>
 
                     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-                    <?= $form->field($model, 'source')->textInput(['maxlength' => 255]) ?>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <?= $form->field($model, 'announce')->widget(
+    <?= $form->field($model, 'descr')->widget(
         \dosamigos\ckeditor\CKEditor::className(),
         [
             'options' => ['rows' => 6],
@@ -166,7 +163,7 @@ $this->registerJs($script, View::POS_HEAD);
         ]
     ) ?>
 
-    <?= $form->field($model, 'text')->widget(
+    <?= $form->field($model, 'content')->widget(
         \dosamigos\ckeditor\CKEditor::className(),
         [
             'options' => ['rows' => 6],

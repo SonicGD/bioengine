@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t(
     'app',
-    'Create {modelClass}',
+    'Добавить статью',
     [
         'modelClass' => 'Article',
     ]
@@ -25,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         '_form',
         [
             'model' => $model,
+            'games'      => $games,
+            'developers' => $developers,
+            'topics'     => $topics
         ]
     ) ?>
 

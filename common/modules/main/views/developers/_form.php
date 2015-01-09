@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\main\models\Developer;
+use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -19,7 +20,17 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'logo')->fileInput() ?>
+                    <?= $form->field($model, 'logo')->widget(FileInput::classname(), [
+                        'options'       => ['accept' => 'image/*'],
+                        'pluginOptions' => [
+                            'initialPreview'   => [
+                                Html::img($model->logo,
+                                    ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
+                            ],
+                            'initialCaption'   => "logo",
+                            'overwriteInitial' => false
+                        ]
+                    ]) ?>
 
                     <?= $form->field($model, 'found_year')->textInput() ?>
                 </div>
