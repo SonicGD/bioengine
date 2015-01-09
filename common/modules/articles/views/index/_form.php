@@ -123,7 +123,7 @@ $this->registerJs($script, View::POS_HEAD);
                         ]
                     ]) ?>
 
-                    <?= $form->field($model, 'pub')->textInput() ?>
+                    <?= $form->field($model, 'pub')->checkbox() ?>
                 </div>
             </div>
         </div>
