@@ -12,7 +12,6 @@ class AdminLTEAsset extends AssetBundle
 {
     public $sourcePath = '@appVendor/almasaeed2010/adminlte';
     public $css = [
-        'css/font-awesome.min.css', // THIS CHANGE
         'css/ionicons.css', // THIS CHANGE
         'css/morris/morris.css', // THIS CHANGE
         'css/daterangepicker/daterangepicker-bs3.css', // THIS CHANGE
@@ -20,13 +19,13 @@ class AdminLTEAsset extends AssetBundle
         'css/AdminLTE.css', // THIS CHANGE
     ];
     public $js = [
-        'js/jquery-ui-1.10.3.min.js', // THIS CHANGE
         'js/plugins/daterangepicker/daterangepicker.js', // THIS CHANGE
         'js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js', // THIS CHANGE
         'js/plugins/iCheck/icheck.min.js', // THIS CHANGE
         'js/AdminLTE/app.js' // THIS CHANGE
     ];
     public $depends = [
-        BootstrapPluginAsset::class
+        BootstrapPluginAsset::class,
+        FontAwesomeAsset::class
     ];
 }

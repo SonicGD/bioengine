@@ -9,9 +9,9 @@
 namespace bioengine\backend\assets;
 
 
-use yii\web\JqueryAsset;
+use yii\web\AssetBundle;
 
-class PhoenixAsset extends JqueryAsset
+class PhoenixAsset extends AssetBundle
 {
     public $sourcePath = '@appBower/phoenix';
     public $js = [
