@@ -13,14 +13,18 @@ use yii\web\AssetBundle;
 
 class ELFinderAsset extends AssetBundle
 {
-    public $sourcePath = '@appVendor/studio-42/elfinder';
+    public $sourcePath = '@appVendor/studio-42/elfinder/build';
     public $css = [
-        'build/elfinder.min.css',
+        'css/elfinder.min.css',
         'css/theme.css',
     ];
 
     public $js = [
-        "js/elfinder.min.js",
+        "js/elfinder.full.js",
         "js/i18n/elfinder.ru.js",
+    ];
+
+    public $depends = [
+        JqueryUIAsset::class
     ];
 }

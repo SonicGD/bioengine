@@ -26,6 +26,7 @@
     "haslv/ipbwi": "1.0.*@dev",
     "bower-asset/phoenix": "*",
     "bower-asset/components-font-awesome": "*",
+    "bower-asset/jquery-ui": "*",
     "studio-42/elfinder": "dev-jake-fixes"
   },
   "require-dev": {

@@ -19,6 +19,7 @@ $script = <<<EOF
 EOF;
 $this->registerJs($script, View::POS_HEAD);
 ?>
+<div id="dialog">dialog</div>
 <script type="text/javascript">
 
     var baseUrl = '<?=$url?>';
@@ -76,6 +77,9 @@ $this->registerJs($script, View::POS_HEAD);
 
 
     }
+
+
+
 </script>
 
 <div class="file-form">
