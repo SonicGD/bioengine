@@ -26,7 +26,7 @@
     "haslv/ipbwi": "1.0.*@dev",
     "bower-asset/phoenix": "*",
     "bower-asset/components-font-awesome": "*",
-    "pendalf89/yii2-filemanager": "*"
+    "studio-42/elfinder": "dev-jake-fixes"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
@@ -42,6 +42,9 @@
   "scripts": {
     "post-create-project-cmd": [
       "yii\\composer\\Installer::setPermission"
+    ],
+    "post-update-cmd": [
+      "cd vendor/studio-42/elfinder && npm install uglify-js csso && mkdir -p build && jake -C ./build elfinder"
     ]
   },
   "config": {
@@ -66,5 +69,11 @@
     "psr-4": {
       "bioengine\\": ""
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:sonicgd/elFinder.git"
+    }
+  ]
 }

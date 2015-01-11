@@ -26,6 +26,7 @@ class AdminLTEAsset extends AssetBundle
     ];
     public $depends = [
         BootstrapPluginAsset::class,
-        FontAwesomeAsset::class
+        FontAwesomeAsset::class,
+        ELFinderAsset::class
     ];
 }
