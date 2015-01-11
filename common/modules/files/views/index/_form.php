@@ -111,9 +111,7 @@ $this->registerJs($script, View::POS_HEAD);
                         ]
                     ]) ?>
 
-
-
-                    <?= $form->field($model, 'pub')->checkbox() ?>
+                    <?= $form->field($model, 'link')->textInput(['maxlength' => 255]) ?>
                 </div>
             </div>
         </div>
@@ -140,47 +138,47 @@ $this->registerJs($script, View::POS_HEAD);
                     ]) ?>
 
                     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-                    <?= $form->field($model, 'source')->textInput(['maxlength' => 255]) ?>
                 </div>
             </div>
         </div>
 
     </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'stream')->checkbox() ?>
+                    <?= $form->field($model, 'streamfile')->textInput(['maxlength' => 255]) ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <?= $form->field($model, 'yt_status')->checkbox() ?>
+                    <?= $form->field($model, 'yt_title')->textInput(['maxlength' => 60]) ?>
+                </div>
+            </div>
+        </div>
 
+    </div>
 
-    <?= $form->field($model, 'size')->textInput() ?>
+    <?= $form->field($model, 'announce')->widget(
+        \dosamigos\ckeditor\CKEditor::className(),
+        [
+            'options' => ['rows' => 6],
+            'preset'  => 'standard'
+        ]
+    ) ?>
 
-    <?= $form->field($model, 'stream')->textInput() ?>
-
-    <?= $form->field($model, 'yt_status')->textInput() ?>
-
-    <?= $form->field($model, 'author_id')->textInput() ?>
-
-    <?= $form->field($model, 'count')->textInput() ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'desc')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'announce')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'link')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'streamfile')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'yt_url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'game_old')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'file')->textInput(['maxlength' => 50]) ?>
-
-    <?= $form->field($model, 'yt_title')->textInput(['maxlength' => 60]) ?>
+    <?= $form->field($model, 'desc')->widget(
+        \dosamigos\ckeditor\CKEditor::className(),
+        [
+            'options' => ['rows' => 6],
+            'preset'  => 'standard'
+        ]
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton(

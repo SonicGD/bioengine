@@ -152,7 +152,7 @@ class IndexController extends BackendController
         ArrayHelper::unShiftAssoc($games, 0, 'Выберите игру');
         $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
         ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
-        return array($games, $developers, $topics);
+        return array($games, $developers);
     }
 
     /**
