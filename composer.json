@@ -26,6 +26,7 @@
     "haslv/ipbwi": "1.0.*@dev",
     "bower-asset/phoenix": "*",
     "bower-asset/components-font-awesome": "*",
+    "bower-asset/jquery-ui": "*",
     "sonicgd/yii2-elfinder": "dev-master"
   },
   "require-dev": {
@@ -44,7 +45,6 @@
       "yii\\composer\\Installer::setPermission"
     ],
     "post-update-cmd": [
-      "cd vendor/studio-42/elfinder && npm install uglify-js csso && mkdir -p build && jake -C ./build elfinder"
     ]
   },
   "config": {
