@@ -26,8 +26,8 @@
     "haslv/ipbwi": "1.0.*@dev",
     "bower-asset/phoenix": "*",
     "bower-asset/components-font-awesome": "*",
-    "bower-asset/jquery-ui": "*",
-    "nao-pon/elfinder-nightly": "2.1.*@dev"
+    "nao-pon/elfinder-nightly": "2.1.*@dev",
+    "yiisoft/yii2-jui": "*"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
