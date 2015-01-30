@@ -27,7 +27,7 @@
     "bower-asset/phoenix": "*",
     "bower-asset/components-font-awesome": "*",
     "bower-asset/jquery-ui": "*",
-    "sonicgd/yii2-elfinder": "dev-master"
+    "nao-pon/elfinder-nightly": "2.1.*@dev"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
@@ -69,15 +69,5 @@
     "psr-4": {
       "bioengine\\": ""
     }
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.com:sonicgd/elFinder.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:sonicgd/yii2-elfinder.git"
-    }
-  ]
+  }
 }
