@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\backend\widgets\ElFinderWidget;
 use bioengine\common\modules\files\models\File;
 use kartik\select2\Select2;
 use yii\helpers\Html;
@@ -19,7 +20,6 @@ $script = <<<EOF
 EOF;
 $this->registerJs($script, View::POS_HEAD);
 ?>
-<div id="dialog">dialog</div>
 <script type="text/javascript">
 
     var baseUrl = '<?=$url?>';
@@ -79,7 +79,6 @@ $this->registerJs($script, View::POS_HEAD);
     }
 
 
-
 </script>
 
 <div class="file-form">
@@ -115,7 +114,10 @@ $this->registerJs($script, View::POS_HEAD);
                         ]
                     ]) ?>
 
-                    <?= $form->field($model, 'link')->textInput(['maxlength' => 255]) ?>
+
+                    <?= $form->field($model, 'link')->widget(ElFinderWidget::className(), [
+                        'connectorUrl' => 'uploads/list'
+                    ]) ?>
                 </div>
             </div>
         </div>
