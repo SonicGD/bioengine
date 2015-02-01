@@ -1,8 +1,9 @@
 <?php
 use bioengine\backend\assets\AppAsset;
+use bioengine\components\View;
 use yii\helpers\Html;
 
-/* @var $this \yii\web\View */
+/* @var $this View */
 /* @var $content string */
 
 AppAsset::register($this);
@@ -49,26 +50,25 @@ $pageTitle = $this->title ? $this->title : \Yii::$app->name;
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i>
-                            <span>Sonic <i class="caret"></i></span>
+                            <span><?= $this->context->user->members_display_name ?> <i
+                                    class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img src="http://uploads.bioware.ru/profile/photo-thumb-1.png?_r=1420268727"
+                                <img src="<?= $this->context->user->getAvatarUrl() ?>"
                                      class="img-circle" alt="User Image"/>
 
                                 <p>
-                                    Sonic
+                                    <?= $this->context->user->members_display_name ?>
                                     <small>www.BioWare.ru</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="<?= \yii\helpers\Url::toRoute('/login/logout') ?>"
+                                       class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -85,7 +85,7 @@ $pageTitle = $this->title ? $this->title : \Yii::$app->name;
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="http://uploads.bioware.ru/profile/photo-thumb-1.png?_r=1420268727" class="img-circle"
+                        <img src="<?= $this->context->user->getAvatarUrl() ?>" class="img-circle"
                              alt="User Image"/>
                     </div>
                     <div class="pull-left info">
