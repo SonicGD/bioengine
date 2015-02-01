@@ -1,15 +1,25 @@
 <?php
 
 use bioengine\common\modules\articles\models\Article;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
+use bioengine\common\modules\main\models\Topic;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model Article */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var             $this yii\web\View
+ * @var             $model Article
+ * @var             $form yii\widgets\ActiveForm
+ *
+ * @var Game[]      $games
+ * @var Developer[] $developers
+ * @var Topic[]     $topics
+ */
+
 
 // The controller action that will render the list
 $url = \yii\helpers\Url::to(['cat-list']);
@@ -19,16 +29,27 @@ $script = <<<EOF
     };
 EOF;
 $this->registerJs($script, View::POS_HEAD);
+$script = <<<EOF
+    gameSelect=$('#article-game_id');
+    developerSelect=$('#article-developer_id');
+    topicSelect=$('#article-topic_id');
+    catSelect=$('#article-cat_id');
+EOF;
+$this->registerJs($script, View::POS_END);
 ?>
 <script type="text/javascript">
 
+    var gameSelect;
+    var developerSelect;
+    var topicSelect;
+    var catSelect;
     var baseUrl = '<?=$url?>';
     function getUrl() {
-        var id = $('#article-cat-id').val();
-        var gameId = $('#article-game_id').val();
-        var developerId = $('#article-developer_id').val();
-        var topicId = $('#article-topic_id').val();
-        return baseUrl + "?id=" + id + "&gameId=" + gameId + "&developerId=" + developerId + "&topicId=" + topicId;
+
+        var gameId = gameSelect.val();
+        var developerId = developerSelect.val();
+        var topicId = topicSelect.val();
+        return baseUrl + "?gameId=" + gameId + "&developerId=" + developerId + "&topicId=" + topicId;
     }
 
     var inChange = false;
@@ -38,42 +59,41 @@ $this->registerJs($script, View::POS_HEAD);
         var value = false;
         switch (type) {
             case 'game':
-                $('#article-developer_id').val(0).trigger("change");
-                $('#article-topic_id').val(0).trigger("change");
-                value = $('#article-game_id').val();
+                developerSelect.val(0).trigger("change");
+                topicSelect.val(0).trigger("change");
+                value = gameSelect.val();
                 break;
             case 'developer':
-                $('#article-game_id').val(0).trigger("change");
-                $('#article-topic_id').val(0).trigger("change");
-                value = $('#article-developer_id').val();
+                gameSelect.val(0).trigger("change");
+                topicSelect.val(0).trigger("change");
+                value = developerSelect.val();
                 break;
             case 'topic':
-                $('#article-developer_id').val(0).trigger("change");
-                $('#article-game_id').val(0).trigger("change");
-                value = $('#article-topic_id').val();
+                developerSelect.val(0).trigger("change");
+                gameSelect.val(0).trigger("change");
+                value = topicSelect.val();
                 break;
         }
-        $('#article-cat_id').select2("val", "");
+        catSelect.select2("val", "");
         if (value > 0) {
-            $('#article-cat_id').removeAttr('disabled');
+            catSelect.removeAttr('disabled');
         }
         else {
-            $('#article-cat_id').attr('disabled', 'disabled');
+            catSelect.attr('disabled', 'disabled');
         }
         inChange = false;
     }
-    function getData(query) {
-
+    function getData(callback) {
+        var id = catSelect.val();
         var url = getUrl();
 
         var data = {
-            query: query.term,
-            page: query.page
+            catId: id
         };
 
         $.post(url, data, function (results) {
-            query.callback(results);
-        });
+            callback(results);
+        }, 'json');
 
 
     }
@@ -87,39 +107,39 @@ $this->registerJs($script, View::POS_HEAD);
             <div class="box box-primary">
                 <div class="box-body">
                     <?= $form->field($model, 'game_id')->widget(Select2::classname(), [
-                        'data'          => array_merge(["" => ""], $games),
+                        'data'          => array_merge(['' => ''], $games),
                         'language'      => 'ru',
                         'options'       => ['placeholder' => 'Игра'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
                         'pluginEvents'  => [
-                            "change" => 'function() { selectType("game"); }',
+                            'change' => 'function() { selectType("game"); }'
                         ]
 
                     ]) ?>
 
                     <?= $form->field($model, 'developer_id')->widget(Select2::classname(), [
-                        'data'          => array_merge(["" => ""], $developers),
+                        'data'          => array_merge(['' => ''], $developers),
                         'language'      => 'ru',
                         'options'       => ['placeholder' => 'Разработчик'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
                         'pluginEvents'  => [
-                            "change" => 'function() { selectType("developer"); }',
+                            'change' => 'function() { selectType("developer"); }'
                         ]
                     ]) ?>
 
                     <?= $form->field($model, 'topic_id')->widget(Select2::classname(), [
-                        'data'          => array_merge(["" => ""], $topics),
+                        'data'          => array_merge(['' => ''], $topics),
                         'language'      => 'ru',
                         'options'       => ['placeholder' => 'Тема'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
                         'pluginEvents'  => [
-                            "change" => 'function() { selectType("topic"); }',
+                            'change' => 'function() { selectType("topic"); }'
                         ]
                     ]) ?>
 
@@ -134,7 +154,7 @@ $this->registerJs($script, View::POS_HEAD);
                     <?= $form->field($model, 'title')->textInput(['maxlength' => 150]) ?>
 
                     <?= $form->field($model, 'cat_id')->widget(Select2::classname(), [
-                        'options'       => ['placeholder' => 'Выберите раздел', 'disabled' => $model->isNewRecord],
+                        'options'       => ['placeholder' => 'Выберите категорию', 'disabled' => $model->isNewRecord],
                         'pluginOptions' => [
                             'allowClear'    => true,
                             //'query'              => new JsExpression('function(query){getData(query);}'),
@@ -142,10 +162,10 @@ $this->registerJs($script, View::POS_HEAD);
                                 'url'      => new JsExpression('returnUrl'),
                                 'dataType' => 'json',
                                 'data'     => new JsExpression('function(term,page) { return {search:term}; }'),
-                                'results'  => new JsExpression('function(data,page) { return {results:data.results}; }'),
+                                'results'  => new JsExpression('function(data,page) { return {results:data.results}; }')
                             ],
-                            'initSelection' => new JsExpression('function(element, callback) { return 0; }')
-                        ],
+                            'initSelection' => new JsExpression('function(element, callback) { getData(callback); }')
+                        ]
 
                     ]) ?>
 

@@ -78,6 +78,7 @@ class IndexController extends BackendController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             list($games, $developers, $topics) = $this->getSelectValues();
+
             return $this->render(
                 'create',
                 [
@@ -104,6 +105,7 @@ class IndexController extends BackendController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             list($games, $developers, $topics) = $this->getSelectValues();
+
             return $this->render(
                 'update',
                 [
@@ -156,41 +158,50 @@ class IndexController extends BackendController
         ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
         $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
         ArrayHelper::unShiftAssoc($topics, 0, 'Выберите тему');
+
         return array($games, $developers, $topics);
     }
 
     /**
      * @param null $search
-     * @param null $id
      * @param null $gameId
      * @param null $developerId
      * @param null $topicId
      */
-    public function actionCatList($search = null, $id = null, $gameId = null, $developerId = null, $topicId = null)
+    public function actionCatList($search = null, $gameId = null, $developerId = null, $topicId = null)
     {
-        $out = ['more' => false, 'results' => []];
-        $query = ArticleCat::find();
-
-        if ($gameId) {
-            $query->andWhere(['game_id' => $gameId]);
-        }
-        if ($developerId) {
-            $query->andWhere(['topic_id' => $developerId]);
-        }
-        if ($topicId) {
-            $query->andWhere(['topic_id' => $topicId]);
-        }
-        if ($search) {
-            $query->andWhere('title LIKE "%' . $search . '%"');
-        }
-        $command = $query->createCommand();
-        $data = $command->queryAll();
-        if ($data) {
-            foreach ($data as $entry) {
-                $out['results'][] = ['id' => $entry['id'], 'text' => $entry['title']];
+        if ($catId = \Yii::$app->request->getBodyParam('catId', null)) {
+            $out = [];
+            $cat = ArticleCat::findOne($catId);
+            if ($cat) {
+                $out = ['id' => $cat->id, 'text' => $cat->title];
             }
         } else {
-            $out['results'] = ['id' => 0, 'text' => 'No matching records found'];
+
+            $out = ['more' => false, 'results' => []];
+            $query = ArticleCat::find();
+
+            if ($gameId) {
+                $query->andWhere(['game_id' => $gameId]);
+            }
+            if ($developerId) {
+                $query->andWhere(['developer_id' => $developerId]);
+            }
+            if ($topicId) {
+                $query->andWhere(['topic_id' => $topicId]);
+            }
+            if ($search) {
+                $query->andWhere('title LIKE "%' . $search . '%"');
+            }
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            if ($data) {
+                foreach ($data as $entry) {
+                    $out['results'][] = ['id' => $entry['id'], 'text' => $entry['title']];
+                }
+            } else {
+                $out['results'] = ['id' => 0, 'text' => 'No matching records found'];
+            }
         }
         echo Json::encode($out);
     }

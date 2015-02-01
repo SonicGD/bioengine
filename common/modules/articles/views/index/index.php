@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\common\modules\articles\models\Article;
 use bioengine\common\modules\articles\models\search\ArticleSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -35,25 +36,45 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel'  => $searchModel,
             'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'url:url',
-                'source',
-                'cat_id',
-                'game_id',
-                // 'developer_id',
-                // 'topic_id',
-                // 'game_old',
-                // 'title',
-                // 'announce:ntext',
-                // 'text:ntext',
-                // 'author_id',
-                // 'count',
-                // 'date',
-                // 'pub',
-                // 'fs',
-
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
+                'id',
+                'title',
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'cat.title',
+                    'label'     => 'Категория',
+                    'format'    => 'html',
+                    'value'     => function (Article $data) {
+                        return Html::a($data->cat->title, $data->cat->getListUrl());
+                    }
+                ],
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'ParentTitle',
+                    'label'     => 'Раздел',
+                    'format'    => 'html',
+                    'value'     => function (Article $data) {
+                        return Html::a($data->getParentTitle(), $data->getParentListUrl());
+                    }
+                ],
+                [
+                    'attribute' => 'author.name',
+                    'label'     => 'Раздел',
+                    'format'    => 'html',
+                    'value'     => function (Article $data) {
+                        return Html::a($data->author->members_display_name, $data->getAuthorListUrl());
+                    }
+                ],
+                'date:date',
+                [
+                    'attribute' => 'pub',
+                    'label'     => 'Опубликовано',
+                    'format'    => 'raw',
+                    'value'     => function (Article $data) {
+                        return $data->pub ? 'Да' : 'Нет';
+                    }
+                ],
+                ['class' => 'yii\grid\ActionColumn']
+            ]
         ]
     ); ?>
 

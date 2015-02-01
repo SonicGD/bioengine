@@ -3,7 +3,9 @@
 namespace bioengine\common\modules\articles\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use Yii;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "articles_cats".
@@ -64,5 +66,8 @@ class ArticleCat extends BioActiveRecord
         ];
     }
 
-
+    public function getListUrl()
+    {
+        return Url::toRoute(['/articles/cats/list', 'catId' => $this->id]);
+    }
 }

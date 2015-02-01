@@ -22,7 +22,7 @@ class ArticleSearch extends Article
                 ['id', 'cat_id', 'game_id', 'developer_id', 'topic_id', 'author_id', 'count', 'date', 'pub', 'fs'],
                 'integer'
             ],
-            [['url', 'source', 'game_old', 'title', 'announce', 'text'], 'safe'],
+            [['url', 'source', 'game_old', 'title', 'announce', 'text'], 'safe']
         ];
     }
 
@@ -45,10 +45,10 @@ class ArticleSearch extends Article
     public function search($params)
     {
         $query = Article::find();
-
+        $query->orderBy(['id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider(
             [
-                'query' => $query,
+                'query' => $query
             ]
         );
 
@@ -67,7 +67,7 @@ class ArticleSearch extends Article
                 'count'        => $this->count,
                 'date'         => $this->date,
                 'pub'          => $this->pub,
-                'fs'           => $this->fs,
+                'fs'           => $this->fs
             ]
         );
 

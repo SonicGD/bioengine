@@ -174,7 +174,7 @@ class CatsController extends BackendController
             $query->andWhere(['game_id' => $gameId]);
         }
         if ($developerId) {
-            $query->andWhere(['topic_id' => $developerId]);
+            $query->andWhere(['developer_id' => $developerId]);
         }
         if ($topicId) {
             $query->andWhere(['topic_id' => $topicId]);
