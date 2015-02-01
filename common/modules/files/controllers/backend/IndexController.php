@@ -26,9 +26,9 @@ class IndexController extends BackendController
             'verbs' => [
                 'class'   => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+                    'delete' => ['post']
+                ]
+            ]
         ];
     }
 
@@ -45,7 +45,7 @@ class IndexController extends BackendController
             'index',
             [
                 'searchModel'  => $searchModel,
-                'dataProvider' => $dataProvider,
+                'dataProvider' => $dataProvider
             ]
         );
     }
@@ -60,7 +60,7 @@ class IndexController extends BackendController
         return $this->render(
             'view',
             [
-                'model' => $this->findModel($id),
+                'model' => $this->findModel($id)
             ]
         );
     }
@@ -78,12 +78,13 @@ class IndexController extends BackendController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             list($games, $developers) = $this->getSelectValues();
+
             return $this->render(
                 'create',
                 [
                     'model'      => $model,
                     'games'      => $games,
-                    'developers' => $developers,
+                    'developers' => $developers
                 ]
             );
         }
@@ -103,12 +104,13 @@ class IndexController extends BackendController
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             list($games, $developers) = $this->getSelectValues();
+
             return $this->render(
                 'update',
                 [
                     'model'      => $model,
                     'games'      => $games,
-                    'developers' => $developers,
+                    'developers' => $developers
                 ]
             );
         }
@@ -152,6 +154,7 @@ class IndexController extends BackendController
         ArrayHelper::unShiftAssoc($games, 0, 'Выберите игру');
         $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
         ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
+
         return array($games, $developers);
     }
 
@@ -160,9 +163,8 @@ class IndexController extends BackendController
      * @param null $id
      * @param null $gameId
      * @param null $developerId
-     * @param null $topicId
      */
-    public function actionCatList($search = null, $id = null, $gameId = null, $developerId = null, $topicId = null)
+    public function actionCatList($search = null, $id = null, $gameId = null, $developerId = null)
     {
         $out = ['more' => false, 'results' => []];
         $query = FileCat::find();
@@ -171,10 +173,7 @@ class IndexController extends BackendController
             $query->andWhere(['game_id' => $gameId]);
         }
         if ($developerId) {
-            $query->andWhere(['topic_id' => $developerId]);
-        }
-        if ($topicId) {
-            $query->andWhere(['topic_id' => $topicId]);
+            $query->andWhere(['developer_id' => $developerId]);
         }
         if ($search) {
             $query->andWhere('title LIKE "%' . $search . '%"');
