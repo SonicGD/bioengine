@@ -3,94 +3,98 @@
 namespace bioengine\common\modules\ipb\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\modules\ipb\helpers\IpbHelper;
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "members".
  *
- * @property integer $member_id
- * @property string  $name
- * @property integer $member_group_id
- * @property string  $email
- * @property integer $joined
- * @property string  $ip_address
- * @property integer $posts
- * @property string  $title
- * @property integer $allow_admin_mails
- * @property string  $time_offset
- * @property integer $skin
- * @property integer $warn_level
- * @property integer $warn_lastwarn
- * @property integer $language
- * @property integer $last_post
- * @property string  $restrict_post
- * @property integer $view_sigs
- * @property integer $view_img
- * @property integer $bday_day
- * @property integer $bday_month
- * @property integer $bday_year
- * @property integer $msg_count_new
- * @property integer $msg_count_total
- * @property integer $msg_count_reset
- * @property integer $msg_show_notification
- * @property string  $misc
- * @property integer $last_visit
- * @property integer $last_activity
- * @property integer $dst_in_use
- * @property integer $coppa_user
- * @property string  $mod_posts
- * @property string  $auto_track
- * @property string  $temp_ban
- * @property integer $sub_end
- * @property string  $login_anonymous
- * @property string  $ignored_users
- * @property string  $mgroup_others
- * @property string  $org_perm_id
- * @property string  $member_login_key
- * @property integer $member_login_key_expire
- * @property integer $subs_pkg_chosen
- * @property integer $has_blog
- * @property integer $has_gallery
- * @property string  $members_editor_choice
- * @property integer $members_auto_dst
- * @property string  $members_display_name
- * @property string  $members_seo_name
- * @property integer $members_created_remote
- * @property string  $members_cache
- * @property integer $members_disable_pm
- * @property string  $members_l_display_name
- * @property string  $members_l_username
- * @property string  $failed_logins
- * @property integer $failed_login_count
- * @property string  $members_profile_views
- * @property integer $forum_icons
- * @property string  $chat_color
- * @property integer $reputation
- * @property string  $members_pass_hash
- * @property string  $members_pass_salt
- * @property integer $member_banned
- * @property string  $identity_url
- * @property string  $member_uploader
- * @property string  $members_bitoptions
- * @property string  $fb_uid
- * @property string  $fb_emailhash
- * @property integer $fb_lastsync
- * @property string  $members_day_posts
- * @property string  $live_id
- * @property string  $twitter_id
- * @property string  $twitter_token
- * @property string  $twitter_secret
- * @property integer $notification_cnt
- * @property integer $tc_lastsync
- * @property string  $fb_session
- * @property string  $fb_token
- * @property string  $vk_uid
- * @property string  $ips_mobile_token
- * @property string  $ban_reason
- * @property string  $vk_token
- * @property integer $use_sign
+ * @property integer          $member_id
+ * @property string           $name
+ * @property integer          $member_group_id
+ * @property string           $email
+ * @property integer          $joined
+ * @property string           $ip_address
+ * @property integer          $posts
+ * @property string           $title
+ * @property integer          $allow_admin_mails
+ * @property string           $time_offset
+ * @property integer          $skin
+ * @property integer          $warn_level
+ * @property integer          $warn_lastwarn
+ * @property integer          $language
+ * @property integer          $last_post
+ * @property string           $restrict_post
+ * @property integer          $view_sigs
+ * @property integer          $view_img
+ * @property integer          $bday_day
+ * @property integer          $bday_month
+ * @property integer          $bday_year
+ * @property integer          $msg_count_new
+ * @property integer          $msg_count_total
+ * @property integer          $msg_count_reset
+ * @property integer          $msg_show_notification
+ * @property string           $misc
+ * @property integer          $last_visit
+ * @property integer          $last_activity
+ * @property integer          $dst_in_use
+ * @property integer          $coppa_user
+ * @property string           $mod_posts
+ * @property string           $auto_track
+ * @property string           $temp_ban
+ * @property integer          $sub_end
+ * @property string           $login_anonymous
+ * @property string           $ignored_users
+ * @property string           $mgroup_others
+ * @property string           $org_perm_id
+ * @property string           $member_login_key
+ * @property integer          $member_login_key_expire
+ * @property integer          $subs_pkg_chosen
+ * @property integer          $has_blog
+ * @property integer          $has_gallery
+ * @property string           $members_editor_choice
+ * @property integer          $members_auto_dst
+ * @property string           $members_display_name
+ * @property string           $members_seo_name
+ * @property integer          $members_created_remote
+ * @property string           $members_cache
+ * @property integer          $members_disable_pm
+ * @property string           $members_l_display_name
+ * @property string           $members_l_username
+ * @property string           $failed_logins
+ * @property integer          $failed_login_count
+ * @property string           $members_profile_views
+ * @property integer          $forum_icons
+ * @property string           $chat_color
+ * @property integer          $reputation
+ * @property string           $members_pass_hash
+ * @property string           $members_pass_salt
+ * @property integer          $member_banned
+ * @property string           $identity_url
+ * @property string           $member_uploader
+ * @property string           $members_bitoptions
+ * @property string           $fb_uid
+ * @property string           $fb_emailhash
+ * @property integer          $fb_lastsync
+ * @property string           $members_day_posts
+ * @property string           $live_id
+ * @property string           $twitter_id
+ * @property string           $twitter_token
+ * @property string           $twitter_secret
+ * @property integer          $notification_cnt
+ * @property integer          $tc_lastsync
+ * @property string           $fb_session
+ * @property string           $fb_token
+ * @property string           $vk_uid
+ * @property string           $ips_mobile_token
+ * @property string           $ban_reason
+ * @property string           $vk_token
+ * @property integer          $use_sign
+ *
+ * @property IpbProfilePortal $profilePortal
  */
-class IpbMember extends BioActiveRecord
+class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
@@ -280,5 +284,127 @@ class IpbMember extends BioActiveRecord
             'vk_token'                => Yii::t('app', 'Vk Token'),
             'use_sign'                => Yii::t('app', 'Use Sign'),
         ];
+    }
+
+    /**
+     * @param $name
+     * @return static
+     */
+    public static function findByName($name)
+    {
+        return self::findOne(['name' => $name]);
+    }
+
+    /**
+     * Finds an identity by the given ID.
+     * @param string|integer $id the ID to be looked for
+     * @return IdentityInterface the identity object that matches the given ID.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
+    public static function findIdentity($id)
+    {
+        return self::findOne($id);
+    }
+
+    /**
+     * Finds an identity by the given token.
+     * @param mixed $token the token to be looked for
+     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
+     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
+     * @return IdentityInterface the identity object that matches the given token.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return self::findOne(['member_login_key' => $token]);
+    }
+
+    /**
+     * Returns an ID that can uniquely identify a user identity.
+     * @return string|integer an ID that uniquely identifies a user identity.
+     */
+    public function getId()
+    {
+        return $this->member_id;
+    }
+
+    /**
+     * Returns a key that can be used to check the validity of a given identity ID.
+     *
+     * The key should be unique for each individual user, and should be persistent
+     * so that it can be used to check the validity of the user identity.
+     *
+     * The space of such keys should be big enough to defeat potential identity attacks.
+     *
+     * This is required if [[User::enableAutoLogin]] is enabled.
+     * @return string a key that is used to check the validity of a given identity ID.
+     * @see validateAuthKey()
+     */
+    public function getAuthKey()
+    {
+        return $this->member_login_key;
+    }
+
+    /**
+     * Validates the given auth key.
+     *
+     * This is required if [[User::enableAutoLogin]] is enabled.
+     * @param string $authKey the given auth key
+     * @return boolean whether the given auth key is valid.
+     * @see getAuthKey()
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->member_login_key === $authKey;
+    }
+
+    /**
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password)
+    {
+        $password = IpbHelper::parseCleanValue($password);
+        $hash = $this->generateCompiledPassHash(md5($password), $this->members_pass_salt);
+
+        return $hash === $this->members_pass_hash;
+    }
+
+    /**
+     * @param $md5_once_password
+     * @param $salt
+     * @return string
+     */
+    private function generateCompiledPassHash($md5_once_password, $salt)
+    {
+        return md5(md5($salt) . $md5_once_password);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrl()
+    {
+
+        $photo = $this->profilePortal->pp_main_photo;
+        if ($photo !== '' && strpos($photo, 'default_large.png') === false) {
+            return \Yii::$app->params['uploads_url'] . '/' . $photo;
+        } elseif ($this->profilePortal->avatar_type === 'upload') {
+            return \Yii::$app->params['uploads_url'] . '/' . $this->profilePortal->avatar_location;
+        } elseif ($this->profilePortal->avatar_type === 'url') {
+            return $this->profilePortal->avatar_location;
+        }
+
+        return \Yii::$app->params['site_url'] . '/themes/nuke/img/ava.jpg'; //TODO: FIX
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfilePortal()
+    {
+        return $this->hasOne(IpbProfilePortal::className(), ['pp_member_id' => 'member_id']);
     }
 }

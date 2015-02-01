@@ -10,7 +10,7 @@ $config = [
     'viewPath'            => '@bioengine/backend/views',
     'components'          => [
         'user'         => [
-            'identityClass'   => 'common\models\User',
+            'identityClass'   => \bioengine\common\modules\ipb\models\IpbMember::class,
             'enableAutoLogin' => true,
         ],
         'log'          => [
@@ -47,7 +47,7 @@ $config = [
         ],
         'request'      => [
             'class'               => \yii\web\Request::className(),
-            'cookieValidationKey' => 'somesecretvalisadasddationkey',
+            'cookieValidationKey' => 'dkflk*984n934nv:JOIfeio',
             'parsers'             => [
                 'application/json' => 'yii\web\JsonParser',
             ]
