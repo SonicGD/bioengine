@@ -1,17 +1,27 @@
 <?php
 namespace bioengine\backend\controllers;
 
+use bioengine\common\components\BackendController;
 use bioengine\common\modules\ipb\models\IpbPost;
-use yii\web\Controller;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends BackendController
 {
     public function actionIndex()
     {
         IpbPost::find()->all();
+
         return $this->render('index');
+    }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction'
+            ]
+        ];
     }
 }
