@@ -1,6 +1,7 @@
 <?php
 
 use bioengine\common\modules\main\models\search\TopicSearch;
+use bioengine\common\modules\main\models\Topic;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -38,7 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
                 'title',
                 'url:url',
-                'logo:image',
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'logo',
+                    'label'     => 'Лого',
+                    'format'    => 'html',
+                    'value'     => function (Topic $data) {
+                        return $data->logo ? Html::img($data->getLogoUrl()) : 'n/a';
+                    }
+                ],
                 'desc:ntext',
                 ['class' => 'yii\grid\ActionColumn'],
             ],

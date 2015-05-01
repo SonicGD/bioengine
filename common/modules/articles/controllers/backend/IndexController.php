@@ -26,9 +26,9 @@ class IndexController extends BackendController
             'verbs' => [
                 'class'   => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+                    'delete' => ['post']
+                ]
+            ]
         ];
     }
 
@@ -45,7 +45,7 @@ class IndexController extends BackendController
             'index',
             [
                 'searchModel'  => $searchModel,
-                'dataProvider' => $dataProvider,
+                'dataProvider' => $dataProvider
             ]
         );
     }
@@ -60,7 +60,7 @@ class IndexController extends BackendController
         return $this->render(
             'view',
             [
-                'model' => $this->findModel($id),
+                'model' => $this->findModel($id)
             ]
         );
     }
@@ -159,7 +159,7 @@ class IndexController extends BackendController
         $topics = ArrayHelper::map(Topic::find()->all(), 'id', 'title');
         ArrayHelper::unShiftAssoc($topics, 0, 'Выберите тему');
 
-        return array($games, $developers, $topics);
+        return [$games, $developers, $topics];
     }
 
     /**
@@ -172,6 +172,9 @@ class IndexController extends BackendController
     {
         if ($catId = \Yii::$app->request->getBodyParam('catId', null)) {
             $out = [];
+            /**
+             * @var ArticleCat $cat
+             */
             $cat = ArticleCat::findOne($catId);
             if ($cat) {
                 $out = ['id' => $cat->id, 'text' => $cat->title];

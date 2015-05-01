@@ -1,6 +1,6 @@
 <?php
 
-use bioengine\modules\articles\models\Article;
+use bioengine\common\modules\articles\models\Article;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-danger',
                 'data'  => [
                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                    'method'  => 'post',
-                ],
+                    'method'  => 'post'
+                ]
             ]
         ) ?>
     </p>
@@ -35,22 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'      => $model,
             'attributes' => [
                 'id',
-                'url:url',
-                'source',
-                'cat_id',
-                'game_id',
-                'developer_id',
-                'topic_id',
-                'game_old',
+                [
+                    'format' => 'url',
+                    'label'  => 'Полный адрес',
+                    'value'  => $model->getPublicUrl(true)
+                ],
+                'source:url',
+                [
+                    'label' => 'Раздел',
+                    'value' => $model->getParentTitle()
+                ],
+                [
+                    'label' => 'Категория',
+                    'value' => $model->cat->title
+                ],
                 'title',
-                'announce:ntext',
-                'text:ntext',
-                'author_id',
+                'announce:html',
+                [
+                    'label' => 'Автор',
+                    'value' => $model->author->members_display_name
+                ],
                 'count',
-                'date',
-                'pub',
-                'fs',
-            ],
+                'date:datetime',
+                [
+                    'label' => 'Опубликовано',
+                    'value' => $model->pub ? 'Да' : 'Нет'
+                ]
+            ]
         ]
     ) ?>
 

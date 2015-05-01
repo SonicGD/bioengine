@@ -6,6 +6,7 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\web\UrlRule;
 use yii\web\UrlRuleInterface;
+use bioengine\common\components\ArrayHelper as BioArrayHelper;
 
 /**
  * Class UrlHelper
@@ -104,4 +105,39 @@ class UrlHelper
 
         return \Yii::$app->urlManager->createAbsoluteUrl($params);
     }
+
+    /**
+     * @param       $route
+     * @param array $params
+     * @param bool  $absolute
+     *
+     * @return string
+     */
+    public static function createUrl($route, $params = [], $absolute = false, $www = true)
+    {
+        BioArrayHelper::arrayUnShiftAssoc($params, 0, $route);
+        if ($www) {
+            $url = \Yii::$app->urlManager->createUrl($params);
+            if ($absolute) {
+                $url = \Yii::$app->params['site_url'] . $url;
+            }
+        } else {
+            $url = $absolute ?
+                \Yii::$app->urlManager->createAbsoluteUrl($params) : \Yii::$app->urlManager->createUrl($params);
+        }
+
+        return $url;
+    }
+
+    /**
+     * @param $url
+     * @return string
+     */
+    public static function getAbsoluteUrl($url)
+    {
+        $url = \Yii::$app->params['site_url'] . $url;
+
+        return $url;
+    }
+
 }

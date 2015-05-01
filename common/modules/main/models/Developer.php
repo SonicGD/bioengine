@@ -72,4 +72,12 @@ class Developer extends BioActiveRecord
             'voted_users' => Yii::t('main/developers', 'Voted Users'),
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['developers_images_path'] . $this->logo;
+    }
 }

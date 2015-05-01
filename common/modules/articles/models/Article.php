@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\articles\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use bioengine\common\helpers\UserHelper;
 use bioengine\common\modules\ipb\models\IpbMember;
 use bioengine\common\modules\main\models\Developer;
@@ -146,7 +147,7 @@ class Article extends BioActiveRecord
         $title = 'n/a';
         switch (true) {
             case $this->game_id > 0:
-                $title = $this->game->admin_title;
+                $title = $this->game->admin_title ?: $this->game->title;
                 break;
             case $this->developer_id > 0:
                 $title = $this->developer->name;
@@ -185,5 +186,16 @@ class Article extends BioActiveRecord
     public function getAuthorListUrl()
     {
         return Url::toRoute(['/articles/index/author', 'authorId' => $this->author_id]);
+    }
+
+    public function getPublicUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/articles/index/show',
+            [
+                'parentUrl'  => 'fsfsd',
+                'catUrl'     => 'asad',
+                'articleUrl' => $this->url
+            ], $absolute, true);
     }
 }

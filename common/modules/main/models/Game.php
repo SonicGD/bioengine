@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\main\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use Yii;
 
 /**
@@ -89,7 +90,7 @@ class Game extends BioActiveRecord
                 'max' => 255
             ],
             [['admin_title'], 'string', 'max' => 8],
-            [['genre'], 'string', 'max' => 20],
+            [['ngenre'], 'string', 'max' => 20],
             [['dev'], 'string', 'max' => 40]
         ];
     }
@@ -127,5 +128,21 @@ class Game extends BioActiveRecord
             'rate_neg'     => Yii::t('app', 'Rate Neg'),
             'voted_users'  => Yii::t('app', 'Voted Users'),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getBigLogoUrl()
+    {
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_path'] . 'big' . DIRECTORY_SEPARATOR . $this->logo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSmallLogoUrl()
+    {
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_path'] . 'small' . DIRECTORY_SEPARATOR . $this->small_logo;
     }
 }

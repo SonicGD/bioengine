@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\search\DeveloperSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -37,6 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\SerialColumn'],
                 //'url:url',
                 'name',
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'logo',
+                    'label'     => 'Лого',
+                    'format'    => 'html',
+                    'value'     => function (Developer $data) {
+                        return $data->logo ? Html::img($data->getLogoUrl()) : 'n/a';
+                    }
+                ],
                 //'info:ntext',
                 //'desc:ntext',
                 // 'logo',

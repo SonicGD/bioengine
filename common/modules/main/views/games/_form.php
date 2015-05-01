@@ -57,10 +57,10 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'logo')->widget(FileInput::classname(), [
                         'options'       => ['accept' => 'image/*'],
                         'pluginOptions' => [
-                            'initialPreview'   => [
-                                Html::img($model->logo,
+                            'initialPreview'   => $model->logo ? [
+                                Html::img($model->bigLogoUrl,
                                     ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
-                            ],
+                            ] : '',
                             'initialCaption'   => "logo",
                             'overwriteInitial' => true
                         ]
@@ -78,10 +78,14 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'small_logo')->widget(FileInput::classname(), [
                         'options'       => ['accept' => 'image/*'],
                         'pluginOptions' => [
-                            'initialPreview'   => [
-                                Html::img($model->small_logo,
-                                    ['class' => 'file-preview-image', 'alt' => 'small logo', 'title' => 'small logo']),
-                            ],
+                            'initialPreview'   => $model->small_logo ? [
+                                Html::img($model->smallLogoUrl,
+                                    [
+                                        'class' => 'file-preview-image',
+                                        'alt'   => 'small logo',
+                                        'title' => 'small logo'
+                                    ])
+                            ] : '',
                             'initialCaption'   => "Small logo",
                             'overwriteInitial' => true
                         ]

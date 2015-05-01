@@ -49,4 +49,12 @@ class Topic extends BioActiveRecord
             'desc'  => Yii::t('app', 'Desc'),
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getLogoUrl()
+    {
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['topics_images_path'] . $this->logo;
+    }
 }

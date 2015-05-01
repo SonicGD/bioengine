@@ -62,7 +62,7 @@ class ArticleCat extends BioActiveRecord
             'descr'        => Yii::t('app', 'Descr'),
             'game_old'     => Yii::t('app', 'Game Old'),
             'content'      => Yii::t('app', 'Content'),
-            'articles'     => Yii::t('app', 'Articles'),
+            'articles'     => Yii::t('app', 'Articles')
         ];
     }
 
