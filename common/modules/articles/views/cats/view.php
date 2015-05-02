@@ -1,11 +1,11 @@
 <?php
 
-use bioengine\modules\articles\models\Article;
+use bioengine\common\modules\articles\models\ArticleCat;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model Article */
+/* @var $model ArticleCat */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Articles'), 'url' => ['index']];
@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-danger',
                 'data'  => [
                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                    'method'  => 'post',
-                ],
+                    'method'  => 'post'
+                ]
             ]
         ) ?>
     </p>
@@ -35,16 +35,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'      => $model,
             'attributes' => [
                 'id',
-                'url:url',
-                'pid',
-                'game_id',
-                'developer_id',
-                'topic_id',
-                'game_old',
+                [
+                    'format' => 'url',
+                    'label'  => 'Полный адрес',
+                    'value'  => $model->getPublicUrl(true)
+                ],
+                [
+                    'label' => 'Родительская Категория',
+                    'value' => $model->parent ? $model->parent->title : 'Нет'
+                ],
+                [
+                    'label' => 'Раздел',
+                    'value' => $model->getParentTitle()
+                ],
                 'title',
                 'descr:html',
-                'content:html',
-            ],
+                'content:html'
+            ]
         ]
     ) ?>
 

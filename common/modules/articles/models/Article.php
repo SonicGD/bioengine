@@ -160,6 +160,24 @@ class Article extends BioActiveRecord
         return $title;
     }
 
+    public function getParentUrl()
+    {
+        $title = 'n/a';
+        switch (true) {
+            case $this->game_id > 0:
+                $title = $this->game->url;
+                break;
+            case $this->developer_id > 0:
+                $title = $this->developer->url;
+                break;
+            case $this->topic_id > 0:
+                $title = $this->topic->url;
+                break;
+        }
+
+        return $title;
+    }
+
     public function getParentListUrl()
     {
         $url = '#';
@@ -193,8 +211,8 @@ class Article extends BioActiveRecord
         return UrlHelper::createUrl(
             '/articles/index/show',
             [
-                'parentUrl'  => 'fsfsd',
-                'catUrl'     => 'asad',
+                'parentUrl'  => $this->getParentUrl(),
+                'catUrl'     => $this->cat->url,
                 'articleUrl' => $this->url
             ], $absolute, true);
     }

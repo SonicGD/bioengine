@@ -11,6 +11,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Статьи');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="article-index">
 
@@ -58,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'attribute' => 'author.name',
-                    'label'     => 'Раздел',
+                    'label'     => 'Автор',
                     'format'    => 'html',
                     'value'     => function (Article $data) {
                         return Html::a($data->author->members_display_name, $data->getAuthorListUrl());

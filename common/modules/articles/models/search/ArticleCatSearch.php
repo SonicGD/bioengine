@@ -47,7 +47,7 @@ class ArticleCatSearch extends ArticleCat
     public function search($params)
     {
         $query = ArticleCat::find();
-
+        $query->orderBy(['id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider(
             [
                 'query' => $query,

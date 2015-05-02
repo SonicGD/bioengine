@@ -111,6 +111,7 @@ class UrlHelper
      * @param array $params
      * @param bool  $absolute
      *
+     * @param bool  $www
      * @return string
      */
     public static function createUrl($route, $params = [], $absolute = false, $www = true)

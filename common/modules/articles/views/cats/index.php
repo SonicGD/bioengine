@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\common\modules\articles\models\ArticleCat;
 use bioengine\common\modules\articles\models\search\ArticleSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -35,13 +36,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel'  => $searchModel,
             'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
-                'title:url',
+                'id',
+                'title',
                 'url:url',
-                'pid',
-                'game_id',
-                'developer_id',
-                'topic_id',
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'cat.title',
+                    'label'     => 'Родительская категория',
+                    'format'    => 'html',
+                    'value'     => function (ArticleCat $data) {
+                        return $data->parent ? Html::a($data->parent->title, $data->parent->getListUrl()) : 'Нет';
+                    }
+                ],
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'ParentTitle',
+                    'label'     => 'Раздел',
+                    'format'    => 'html',
+                    'value'     => function (ArticleCat $data) {
+                        return Html::a($data->getParentTitle(), $data->getParentListUrl());
+                    }
+                ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],
         ]

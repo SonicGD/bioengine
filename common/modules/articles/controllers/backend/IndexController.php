@@ -38,6 +38,7 @@ class IndexController extends BackendController
      */
     public function actionIndex()
     {
+
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
