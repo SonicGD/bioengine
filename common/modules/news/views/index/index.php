@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\common\modules\news\models\News;
 use bioengine\common\modules\news\models\search\NewsSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -35,14 +36,46 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel'  => $searchModel,
             'columns'      => [
-                ['class' => 'yii\grid\SerialColumn'],
                 'id',
-                'game_id',
-                'developer_id',
-                'topic_id',
+                'title',
+                [
+                    'class'     => 'yii\grid\DataColumn',
+                    'attribute' => 'ParentTitle',
+                    'label'     => 'Раздел',
+                    'format'    => 'html',
+                    'value'     => function (News $data) {
+                        return Html::a($data->getParentTitle(), $data->getParentListUrl());
+                    }
+                ],
+                [
+                    'attribute' => 'author.name',
+                    'label'     => 'Автор',
+                    'format'    => 'html',
+                    'value'     => function (News $data) {
+                        return Html::a($data->author->members_display_name, $data->getAuthorListUrl());
+                    }
+                ],
+                'date:datetime',
+                'last_change_date:datetime',
+                [
+                    'attribute' => 'pub',
+                    'label'     => 'Опубликовано',
+                    'format'    => 'raw',
+                    'value'     => function (News $data) {
+                        return $data->pub ? 'Да' : 'Нет';
+                    }
+                ],
+                [
+                    'attribute' => 'sticky',
+                    'label'     => 'Важная',
+                    'format'    => 'raw',
+                    'value'     => function (News $data) {
+                        return $data->sticky ? 'Да' : 'Нет';
+                    }
+                ],
                 // 'source',
                 // 'game_old',
-                'title',
+
                 // 'short_text:ntext',
                 // 'add_text:ntext',
                 // 'author_id',

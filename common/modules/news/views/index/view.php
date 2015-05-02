@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-danger',
                 'data'  => [
                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                    'method'  => 'post',
-                ],
+                    'method'  => 'post'
+                ]
             ]
         ) ?>
     </p>
@@ -35,29 +35,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'      => $model,
             'attributes' => [
                 'id',
-                'game_id',
-                'developer_id',
-                'topic_id',
-                'url:url',
-                'source',
-                'game_old',
+                [
+                    'label' => 'Раздел',
+                    'value' => $model->getParentTitle()
+                ],
+                [
+                    'format' => 'url',
+                    'label'  => 'Полный адрес',
+                    'value'  => $model->getPublicUrl(true)
+                ],
+                'source:url',
                 'title',
-                'short_text:ntext',
-                'add_text:ntext',
-                'author_id',
-                'tid',
-                'pid',
-                'sticky',
-                'date',
-                'last_change_date',
-                'pub',
-                'addgames',
-                'rate_pos',
-                'rate_neg',
-                'voted_users:ntext',
-                'comments',
-                'twitter_id',
-            ],
+                'short_text:html',
+                'add_text:html',
+                [
+                    'label' => 'Автор',
+                    'value' => $model->author->members_display_name
+                ],
+                'date:datetime',
+                'last_change_date:datetime',
+                [
+                    'label' => 'Опубликовано',
+                    'value' => $model->pub ? 'Да' : 'Нет'
+                ],
+                [
+                    'label' => 'Важная',
+                    'value' => $model->sticky ? 'Да' : 'Нет'
+                ]
+            ]
         ]
     ) ?>
 
