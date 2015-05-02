@@ -35,32 +35,42 @@ $this->params['breadcrumbs'][] = $this->title;
             'model'      => $model,
             'attributes' => [
                 'id',
-                'id_old',
-                'developer_id',
-                'url:url',
+                [
+                    'attribute' => 'developer_id',
+                    'value'     => $model->developer->name
+                ],
+                [
+                    'format' => 'url',
+                    'label'  => 'Полный адрес',
+                    'value'  => $model->getPublicUrl(true)
+                ],
                 'title',
-                'admin_title',
                 'genre',
                 'release_date',
                 'platforms',
-                'dev',
-                'desc:ntext',
+                'desc:html',
                 'keywords:ntext',
                 'publisher',
                 'localizator',
-                'status',
-                'logo',
-                'small_logo',
-                'status_old',
-                'date',
+                [
+                    'attribute' => 'logo',
+                    'format'    => 'html',
+                    'value'     => $model->logo ? Html::img($model->getBigLogoUrl()) : 'n/a'
+                ],
+                [
+                    'attribute' => 'small_logo',
+                    'format'    => 'html',
+                    'value'     => $model->small_logo ? Html::img($model->getSmallLogoUrl()) : 'n/a'
+                ],
+                'date:datetime',
                 'tweettag',
-                'news_desc:ntext',
-                'info:ntext',
-                'specs:ntext',
-                'ozon:ntext',
-                'rate_pos',
-                'rate_neg',
-                'voted_users:ntext',
+                'news_desc:html',
+                //'info:ntext',
+                //'specs:ntext',
+                //'ozon:ntext',
+                //'rate_pos',
+                //'rate_neg',
+                //'voted_users:ntext',
             ],
         ]
     ) ?>

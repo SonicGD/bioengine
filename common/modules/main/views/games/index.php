@@ -1,5 +1,6 @@
 <?php
 
+use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\search\GameSearch;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -37,32 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'      => [
                 ['class' => 'yii\grid\SerialColumn'],
                 'url:url',
+                [
+                    'attribute' => 'developer_id',
+                    'value'     => function (Game $game) {
+                        return $game->developer->name;
+                    }
+                ],
                 'title',
-                // 'admin_title',
-                // 'genre',
-                // 'release_date',
-                // 'platforms',
-                // 'dev',
-                // 'desc:ntext',
-                // 'keywords:ntext',
-                // 'publisher',
-                // 'localizator',
-                // 'status',
-                // 'logo',
-                // 'small_logo',
-                // 'status_old',
-                // 'date',
-                // 'tweettag',
-                // 'news_desc:ntext',
-                // 'info:ntext',
-                // 'specs:ntext',
-                // 'ozon:ntext',
-                // 'rate_pos',
-                // 'rate_neg',
-                // 'voted_users:ntext',
-
-                ['class' => 'yii\grid\ActionColumn'],
-            ],
+                ['class' => 'yii\grid\ActionColumn']
+            ]
         ]
     ); ?>
 

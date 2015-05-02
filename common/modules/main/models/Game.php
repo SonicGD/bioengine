@@ -9,33 +9,35 @@ use Yii;
 /**
  * This is the model class for table "games".
  *
- * @property integer $id
- * @property string  $id_old
- * @property integer $developer_id
- * @property string  $url
- * @property string  $title
- * @property string  $admin_title
- * @property string  $genre
- * @property string  $release_date
- * @property string  $platforms
- * @property string  $dev
- * @property string  $desc
- * @property string  $keywords
- * @property string  $publisher
- * @property string  $localizator
- * @property integer $status
- * @property string  $logo
- * @property string  $small_logo
- * @property string  $status_old
- * @property integer $date
- * @property string  $tweettag
- * @property string  $news_desc
- * @property string  $info
- * @property string  $specs
- * @property string  $ozon
- * @property integer $rate_pos
- * @property integer $rate_neg
- * @property string  $voted_users
+ * @property integer   $id
+ * @property string    $id_old
+ * @property integer   $developer_id
+ * @property string    $url
+ * @property string    $title
+ * @property string    $admin_title
+ * @property string    $genre
+ * @property string    $release_date
+ * @property string    $platforms
+ * @property string    $dev
+ * @property string    $desc
+ * @property string    $keywords
+ * @property string    $publisher
+ * @property string    $localizator
+ * @property integer   $status
+ * @property string    $logo
+ * @property string    $small_logo
+ * @property string    $status_old
+ * @property integer   $date
+ * @property string    $tweettag
+ * @property string    $news_desc
+ * @property string    $info
+ * @property string    $specs
+ * @property string    $ozon
+ * @property integer   $rate_pos
+ * @property integer   $rate_neg
+ * @property string    $voted_users
+ *
+ * @property Developer $developer
  */
 class Game extends BioActiveRecord
 {
@@ -90,7 +92,7 @@ class Game extends BioActiveRecord
                 'max' => 255
             ],
             [['admin_title'], 'string', 'max' => 8],
-            [['ngenre'], 'string', 'max' => 20],
+            [['genre'], 'string', 'max' => 20],
             [['dev'], 'string', 'max' => 40]
         ];
     }
@@ -135,7 +137,7 @@ class Game extends BioActiveRecord
      */
     public function getBigLogoUrl()
     {
-        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_path'] . 'big' . DIRECTORY_SEPARATOR . $this->logo;
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_url'] . 'big/' . $this->logo;
     }
 
     /**
@@ -143,6 +145,20 @@ class Game extends BioActiveRecord
      */
     public function getSmallLogoUrl()
     {
-        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_path'] . 'small' . DIRECTORY_SEPARATOR . $this->small_logo;
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['games_images_url'] . 'small/' . $this->small_logo;
+    }
+
+    public function getDeveloper()
+    {
+        return $this->hasOne(Developer::class, ['id' => 'developer_id']);
+    }
+
+    public function getPublicUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/games/index/show',
+            [
+                'gameUrl' => $this->url
+            ], $absolute, true);
     }
 }

@@ -10,6 +10,7 @@ use bioengine\common\modules\main\models\search\GameSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * GamesController implements the CRUD actions for Game model.
@@ -41,7 +42,7 @@ class GamesController extends BackendController
             'index',
             [
                 'searchModel'  => $searchModel,
-                'dataProvider' => $dataProvider,
+                'dataProvider' => $dataProvider
             ]
         );
     }
@@ -56,7 +57,7 @@ class GamesController extends BackendController
         return $this->render(
             'view',
             [
-                'model' => $this->findModel($id),
+                'model' => $this->findModel($id)
             ]
         );
     }
@@ -70,18 +71,9 @@ class GamesController extends BackendController
     {
         $model = new Game();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            $developers = $this->getSelectValues();
-            return $this->render(
-                'create',
-                [
-                    'model'      => $model,
-                    'developers' => $developers,
-                ]
-            );
-        }
+        $developers = $this->getSelectValues();
+
+        return $this->save($model, $developers);
     }
 
     /**
@@ -93,19 +85,53 @@ class GamesController extends BackendController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $developers = $this->getSelectValues();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            $developers = $this->getSelectValues();
-            return $this->render(
-                'update',
-                [
-                    'model'      => $model,
-                    'developers' => $developers,
-                ]
-            );
+        return $this->save($model, $developers);
+    }
+
+    /**
+     * @param Game        $model
+     * @param Developer[] $developers
+     * @return string|\yii\web\Response
+     */
+    private function save(Game $model, array $developers)
+    {
+        if ($data = Yii::$app->request->post('Game', [])) {
+            $oldLogo = $model->logo;
+            $oldSmallLogo = $model->small_logo;
+            $model->setAttributes($data);
+            $file = UploadedFile::getInstance($model, 'logo');
+            if ($file) {
+                //save file
+                $file->saveAs(\Yii::$app->params['games_images_path'] . DIRECTORY_SEPARATOR . '/big/' . DIRECTORY_SEPARATOR . $file->name);
+                $model->logo = $file->name;
+            } else {
+                $model->logo = $oldLogo;
+            }
+
+            $fileSmall = UploadedFile::getInstance($model, 'small_logo');
+            if ($fileSmall) {
+                //save file
+                $file->saveAs(\Yii::$app->params['games_images_path'] . DIRECTORY_SEPARATOR . '/small/' . DIRECTORY_SEPARATOR . $file->name);
+                $model->small_logo = $file->name;
+            } else {
+                $model->small_logo = $oldSmallLogo;
+            }
+
+
+            if ($model->validate() && $model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render(
+            $model->isNewRecord ? 'create' : 'update',
+            [
+                'model'      => $model,
+                'developers' => $developers
+            ]
+        );
     }
 
     /**
@@ -144,6 +170,7 @@ class GamesController extends BackendController
     {
         $developers = ArrayHelper::map(Developer::find()->all(), 'id', 'name');
         ArrayHelper::unShiftAssoc($developers, 0, 'Выберите разработчика');
+
         return $developers;
     }
 }

@@ -55,6 +55,6 @@ class Topic extends BioActiveRecord
      */
     public function getLogoUrl()
     {
-        return \Yii::$app->params['assets_url'] . \Yii::$app->params['topics_images_path'] . $this->logo;
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['topics_images_url'] . $this->logo;
     }
 }

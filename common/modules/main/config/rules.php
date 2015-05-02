@@ -1,3 +1,6 @@
 <?php
 
-return [];
+return [
+    '/<gameUrl:\w+>' => '/games/index/show'
+
+];
