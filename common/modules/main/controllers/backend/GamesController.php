@@ -104,7 +104,7 @@ class GamesController extends BackendController
             $file = UploadedFile::getInstance($model, 'logo');
             if ($file) {
                 //save file
-                $file->saveAs(\Yii::$app->params['games_images_path'] . DIRECTORY_SEPARATOR . '/big/' . DIRECTORY_SEPARATOR . $file->name);
+                $file->saveAs(\Yii::$app->params['games_images_path'] . '/big/' . $file->name);
                 $model->logo = $file->name;
             } else {
                 $model->logo = $oldLogo;
@@ -113,14 +113,27 @@ class GamesController extends BackendController
             $fileSmall = UploadedFile::getInstance($model, 'small_logo');
             if ($fileSmall) {
                 //save file
-                $file->saveAs(\Yii::$app->params['games_images_path'] . DIRECTORY_SEPARATOR . '/small/' . DIRECTORY_SEPARATOR . $file->name);
-                $model->small_logo = $file->name;
+                $fileSmall->saveAs(\Yii::$app->params['games_images_path'] . '/small/' . $fileSmall->name);
+                $model->small_logo = $fileSmall->name;
             } else {
                 $model->small_logo = $oldSmallLogo;
             }
 
 
             if ($model->validate() && $model->save(false)) {
+                if ($oldLogo
+                    && $oldLogo !== $model->logo
+                    && $path = $model->getLogoPath(true, $oldLogo)
+                ) {
+                    @unlink($path);
+                }
+                if ($oldSmallLogo
+                    && $oldSmallLogo !== $model->small_logo
+                    && $path = $model->getLogoPath(false, $oldSmallLogo)
+                ) {
+                    @unlink($path);
+                }
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         }

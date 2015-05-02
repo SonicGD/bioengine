@@ -13,7 +13,9 @@ use yii\widgets\ActiveForm;
 
 <div class="game-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
     <div class="row">
         <div class="col-md-6">
             <div class="box box-primary">

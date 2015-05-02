@@ -57,20 +57,29 @@ class Game extends BioActiveRecord
         return [
             [
                 [
+                    'url',
+                    'title',
                     'developer_id',
                     'desc',
-                    'keywords',
-                    'localizator',
-                    'status',
-                    'news_desc',
-                    'info',
-                    'specs',
-                    'ozon',
-                    'rate_pos',
-                    'rate_neg',
-                    'voted_users'
+                    'news_desc'
                 ],
                 'required'
+            ],
+            [
+                ['logo'],
+                'required',
+                'when'       => function (self $model) {
+                    return $model->logo === '';
+                },
+                'whenClient' => 'function (attribute, value) { return ' . ($this->logo === '' ? 'true' : 'false') . '; }'
+            ],
+            [
+                ['small_logo'],
+                'required',
+                'when'       => function (self $model) {
+                    return $model->small_logo === '';
+                },
+                'whenClient' => 'function (attribute, value) { return ' . ($this->small_logo === '' ? 'true' : 'false') . '; }'
             ],
             [['developer_id', 'status', 'date', 'rate_pos', 'rate_neg'], 'integer'],
             [['desc', 'keywords', 'news_desc', 'info', 'specs', 'ozon', 'voted_users'], 'string'],
@@ -93,8 +102,24 @@ class Game extends BioActiveRecord
             ],
             [['admin_title'], 'string', 'max' => 8],
             [['genre'], 'string', 'max' => 20],
-            [['dev'], 'string', 'max' => 40]
+            [['dev'], 'string', 'max' => 40],
+            [['rate_pos', 'rate_neg', 'status'], 'default', 'value' => 0],
+            [['ozon', 'specs', 'voted_users'], 'default', 'value' => json_encode([])],
+            [['info', 'keywords'], 'default', 'value' => '']
         ];
+    }
+
+    public function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+            if ($this->isNewRecord) {
+                $this->date = time();
+            }
+
+            return true;
+        }
+
+        return false;;
     }
 
     /**
@@ -161,4 +186,36 @@ class Game extends BioActiveRecord
                 'gameUrl' => $this->url
             ], $absolute, true);
     }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $logoPath = $this->getLogoPath();
+        if ($logoPath) {
+            @unlink($logoPath);
+        }
+        $smallLogoPath = $this->getLogoPath(false);
+        if ($smallLogoPath) {
+            @unlink($smallLogoPath);
+        }
+    }
+
+    public function getLogoPath($big = true, $fileName = false)
+    {
+        $path = \Yii::$app->params['games_images_path'];
+        if ($big) {
+            if (!$this->logo) {
+                return false;
+            }
+            $path .= '/big/' . ($fileName ?: $this->logo);
+        } else {
+            if (!$this->small_logo) {
+                return false;
+            }
+            $path .= '/small/' . ($fileName ?: $this->small_logo);
+        }
+
+        return $path;
+    }
+
 }
