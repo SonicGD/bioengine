@@ -38,7 +38,15 @@ class Developer extends BioActiveRecord
     public function rules()
     {
         return [
-            [['url', 'name', 'info', 'desc', 'logo', 'location', 'peoples', 'site', 'voted_users'], 'required'],
+            [['url', 'name', 'info', 'desc', 'location', 'peoples', 'site'], 'required'],
+            [
+                ['logo'],
+                'required',
+                'when'       => function (self $model) {
+                    return $model->logo === '';
+                },
+                'whenClient' => 'function (attribute, value) { return ' . ($this->logo === '' ? 'true' : 'false') . '; }'
+            ],
             [['info', 'desc', 'location', 'peoples', 'voted_users'], 'string'],
             [['found_year', 'rate_pos', 'rate_neg'], 'integer'],
             [['url', 'name', 'logo', 'site'], 'string', 'max' => 255],
@@ -78,6 +86,6 @@ class Developer extends BioActiveRecord
      */
     public function getLogoUrl()
     {
-        return \Yii::$app->params['assets_url'] . \Yii::$app->params['developers_images_path'] . $this->logo;
+        return \Yii::$app->params['assets_url'] . \Yii::$app->params['developers_images_url'] . $this->logo;
     }
 }

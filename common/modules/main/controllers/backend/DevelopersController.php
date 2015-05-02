@@ -8,6 +8,7 @@ use bioengine\common\modules\main\models\search\DeveloperSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * DevelopersController implements the CRUD actions for Developer model.
@@ -68,16 +69,36 @@ class DevelopersController extends BackendController
     {
         $model = new Developer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render(
-                'create',
-                [
-                    'model' => $model,
-                ]
-            );
+        return $this->save($model);
+
+    }
+
+    private function save(Developer $model)
+    {
+        if ($data = Yii::$app->request->post('Developer', [])) {
+            $oldLogo = $model->logo;
+            $model->setAttributes($data);
+            $file = UploadedFile::getInstance($model, 'logo');
+            if ($file) {
+                //save file
+                $file->saveAs(\Yii::$app->params['developers_images_path'] . $file->name);
+                $model->logo = $file->name;
+            } else {
+                $model->logo = $oldLogo;
+            }
+
+
+            if ($model->validate() && $model->save(false)) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        return $this->render(
+            $model->isNewRecord ? 'create' : 'update',
+            [
+                'model' => $model
+            ]
+        );
     }
 
     /**
@@ -90,16 +111,7 @@ class DevelopersController extends BackendController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render(
-                'update',
-                [
-                    'model' => $model,
-                ]
-            );
-        }
+        return $this->save($model);
     }
 
     /**

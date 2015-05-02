@@ -8,10 +8,13 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model Developer */
 /* @var $form yii\widgets\ActiveForm */
+var_dump($model->errors);
 ?>
 
 <div class="developer-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
     <div class="row">
         <div class="col-md-6">
             <div class="box box-primary">
@@ -20,14 +23,14 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 
-                    <?= $form->field($model, 'logo')->widget(FileInput::classname(), [
+                    <?= $form->field($model, 'logo')->widget(FileInput::className(), [
                         'options'       => ['accept' => 'image/*'],
                         'pluginOptions' => [
-                            'initialPreview'   => [
-                                Html::img($model->logo,
-                                    ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo']),
-                            ],
-                            'initialCaption'   => "logo",
+                            'initialPreview'   => $model->logo ? [
+                                Html::img($model->getLogoUrl(),
+                                    ['class' => 'file-preview-image', 'alt' => 'logo', 'title' => 'logo'])
+                            ] : '',
+                            'initialCaption'   => 'logo',
                             'overwriteInitial' => true
                         ]
                     ]) ?>
