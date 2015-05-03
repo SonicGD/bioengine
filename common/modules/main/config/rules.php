@@ -1,6 +1,6 @@
 <?php
 
 return [
-    '/<gameUrl:\w+>' => '/games/index/show'
+    '/<gameUrl:\w+>' => '/games/show'
 
 ];

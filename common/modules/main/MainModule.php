@@ -4,6 +4,7 @@ namespace bioengine\common\modules\main;
 
 use bioengine\common\components\BioModule;
 use bioengine\common\components\MenuBuilder;
+use bioengine\common\modules\main\models\Game;
 use yii\i18n\PhpMessageSource;
 
 /**
@@ -13,6 +14,13 @@ use yii\i18n\PhpMessageSource;
 class MainModule extends BioModule
 {
     public $controllerNamespace = 'bioengine\common\modules\main\controllers\backend';
+
+    public function bootstrap($app)
+    {
+        parent::bootstrap($app);
+        $games = Game::find()->indexBy('url')->all();
+        \Yii::$app->games = $games;
+    }
 
     public function init()
     {

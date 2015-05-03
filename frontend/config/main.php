@@ -4,7 +4,15 @@ $config = [
     'id'                  => 'app-frontend',
     'name'                => 'BioEngine',
     'basePath'            => dirname(__DIR__),
-    //'bootstrap'           => ['log', 'main', 'news', 'articles', 'gallery', 'files', 'polls'],
+    'bootstrap'           => [
+        'log',
+        'mainModule',
+        'newsModule',
+        'articlesModule',
+        'galleryModule',
+        'filesModule',
+        'pollsModule'
+    ],
     'controllerNamespace' => 'bioengine\frontend\controllers',
     'vendorPath'          => dirname(dirname(__DIR__)) . '/vendor',
     'viewPath'            => '@bioengine/frontend/views',
@@ -30,6 +38,11 @@ $config = [
             'enablePrettyUrl' => true,
             'suffix'          => '.html',
             'rules'           => [
+                [
+                    'class'   => \bioengine\frontend\components\GameRule::class,
+                    'pattern' => '<gameUrl:(.)+>',
+                    'route'   => 'game/shows'
+                ],
                 //default
                 [
                     'pattern' => '<controller:\w+>/<action:\w+>',
@@ -47,28 +60,28 @@ $config = [
         ],
     ],
     'modules'             => [
-        'gii'      => [
+        'gii'            => [
             'class'      => 'yii\gii\Module',
             'allowedIPs' => ['192.168.56.1'],
         ],
-       /* 'main'     => [
+        'mainModule'     => [
             'class' => \bioengine\common\modules\main\MainModule::className(),
         ],
-        'news'     => [
+        'newsModule'     => [
             'class' => \bioengine\common\modules\news\NewsModule::className(),
         ],
-        'articles' => [
+        'articlesModule' => [
             'class' => \bioengine\common\modules\articles\ArticlesModule::className(),
         ],
-        'files'    => [
+        'filesModule'    => [
             'class' => \bioengine\common\modules\files\FilesModule::className(),
         ],
-        'gallery'  => [
+        'galleryModule'  => [
             'class' => \bioengine\common\modules\gallery\GalleryModule::className(),
         ],
-        'polls'    => [
+        'pollsModule'    => [
             'class' => \bioengine\common\modules\polls\PollsModule::className(),
-        ],*/
+        ],
     ],
 ];
 
