@@ -227,7 +227,7 @@ class Game extends BioActiveRecord
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/news/game',
+            '/news/root',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);
@@ -236,7 +236,7 @@ class Game extends BioActiveRecord
     public function getGalleryUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/gallery/game',
+            '/gallery/root',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);
@@ -245,7 +245,7 @@ class Game extends BioActiveRecord
     public function getFilesUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/files/game',
+            '/files/root',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);
@@ -254,7 +254,7 @@ class Game extends BioActiveRecord
     public function getArticlesUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/articles/game',
+            '/articles/root',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);
