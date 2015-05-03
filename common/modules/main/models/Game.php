@@ -229,7 +229,7 @@ class Game extends BioActiveRecord
         return UrlHelper::createUrl(
             '/news/root',
             [
-                'gameUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
@@ -238,7 +238,7 @@ class Game extends BioActiveRecord
         return UrlHelper::createUrl(
             '/gallery/root',
             [
-                'gameUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
@@ -247,7 +247,7 @@ class Game extends BioActiveRecord
         return UrlHelper::createUrl(
             '/files/root',
             [
-                'gameUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
@@ -256,7 +256,7 @@ class Game extends BioActiveRecord
         return UrlHelper::createUrl(
             '/articles/root',
             [
-                'gameUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
