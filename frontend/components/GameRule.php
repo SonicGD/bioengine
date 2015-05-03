@@ -37,8 +37,8 @@ class GameRule extends UrlRule
         if (!$pathInfo) {
             return false;
         }
-        if ($page = Page::getByUrl($pathInfo)) {
-            return ['site/page', ['pageId' => $page->id]];
+        if (array_key_exists($pathInfo, \Yii::$app->games)) {
+            return ['games/show', ['gameId' => \Yii::$app->games[$pathInfo]->id]];
         }
 
         return false;
