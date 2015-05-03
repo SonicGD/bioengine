@@ -4,6 +4,10 @@ namespace bioengine\common\modules\main\models;
 
 use bioengine\common\components\BioActiveRecord;
 use bioengine\common\helpers\UrlHelper;
+use bioengine\common\modules\articles\models\Article;
+use bioengine\common\modules\files\models\File;
+use bioengine\common\modules\gallery\models\GalleryPic;
+use bioengine\common\modules\news\models\News;
 use Yii;
 
 /**
@@ -238,8 +242,74 @@ class Game extends BioActiveRecord
             ], $absolute, true);
     }
 
+    public function getFilesUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/files/game',
+            [
+                'gameUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getArticlesUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/articles/game',
+            [
+                'gameUrl' => $this->url
+            ], $absolute, true);
+    }
+
     public function getIcon()
     {
         return $this->getSmallLogoUrl();
+    }
+
+    public function getLastArticles($count = 5)
+    {
+        return Article::find()
+            ->where([
+                'pub'     => 1,
+                'game_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
+
+    public function getLastPics($count = 15)
+    {
+        return GalleryPic::find()
+            ->where([
+                'pub'     => 1,
+                'game_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
+
+    public function getLastNews($count = 5)
+    {
+        return News::find()
+            ->where([
+                'pub'     => 1,
+                'game_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
+
+    public function getLastFiles($count = 5)
+    {
+        return File::find()
+            ->where([
+                //  'pub'     => 1,
+                'game_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
     }
 }
