@@ -8,17 +8,19 @@ use Yii;
 /**
  * This is the model class for table "gallery".
  *
- * @property integer $id
- * @property string  $game_old
- * @property integer $cat_id
- * @property integer $game_id
- * @property integer $developer_id
- * @property string  $files
- * @property string  $desc
- * @property integer $author_id
- * @property integer $count
- * @property integer $date
- * @property integer $pub
+ * @property integer    $id
+ * @property string     $game_old
+ * @property integer    $cat_id
+ * @property integer    $game_id
+ * @property integer    $developer_id
+ * @property string     $files
+ * @property string     $desc
+ * @property integer    $author_id
+ * @property integer    $count
+ * @property integer    $date
+ * @property integer    $pub
+ *
+ * @property GalleryCat $cat
  */
 class GalleryPic extends BioActiveRecord
 {
@@ -61,5 +63,38 @@ class GalleryPic extends BioActiveRecord
             'date'         => Yii::t('app', 'Date'),
             'pub'          => Yii::t('app', 'Pub'),
         ];
+    }
+
+    public function getCat()
+    {
+        return $this->hasOne(GalleryCat::className(), ['id' => 'cat_id']);
+    }
+
+    public function getThumbUrl($width, $height)
+    {
+        return 'http://www.bioware.ru/gallery/thumb/' . $this->id . '/' . $width . '/' . $height;
+    }
+
+    private $_files = [];
+
+    public function getFiles()
+    {
+        if (!$this->_files) {
+            $this->_files = unserialize($this->files);
+        }
+
+        return $this->_files;
+    }
+
+    public function getFullUrl()
+    {
+        return $this->getFileUrl(0);
+    }
+
+    public function getFileUrl($fileNumber)
+    {
+        $fileName = $this->getFiles()[$fileNumber]['name'];
+
+        return \Yii::$app->params['images_url'] . '/' . $this->cat->getFullUrl() . $fileName;
     }
 }

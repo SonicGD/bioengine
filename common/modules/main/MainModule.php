@@ -2,9 +2,12 @@
 
 namespace bioengine\common\modules\main;
 
+use bioengine\common\BioEngine;
 use bioengine\common\components\BioModule;
 use bioengine\common\components\MenuBuilder;
+use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
+use bioengine\common\modules\main\models\Topic;
 use yii\i18n\PhpMessageSource;
 
 /**
@@ -19,7 +22,11 @@ class MainModule extends BioModule
     {
         parent::bootstrap($app);
         $games = Game::find()->indexBy('url')->all();
-        \Yii::$app->games = $games;
+        $developers = Developer::find()->indexBy('url')->all();
+        $topics = Topic::find()->indexBy('url')->all();
+        BioEngine::getInstance()->setGames($games);
+        BioEngine::getInstance()->setDevelopers($developers);
+        BioEngine::getInstance()->setTopics($topics);
     }
 
     public function init()

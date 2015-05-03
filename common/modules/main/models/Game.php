@@ -41,6 +41,8 @@ use Yii;
  */
 class Game extends BioActiveRecord
 {
+    public $parentKey = 'game_id';
+
     /**
      * @inheritdoc
      */
@@ -222,6 +224,15 @@ class Game extends BioActiveRecord
     {
         return UrlHelper::createUrl(
             '/news/game',
+            [
+                'gameUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getGalleryUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/gallery/game',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);

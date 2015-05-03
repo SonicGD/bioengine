@@ -17,6 +17,8 @@ use Yii;
  */
 class Topic extends BioActiveRecord
 {
+    public $parentKey = 'topic_id';
+
     /**
      * @inheritdoc
      */
@@ -71,5 +73,14 @@ class Topic extends BioActiveRecord
     public function getIcon()
     {
         return $this->getLogoUrl();
+    }
+
+    public function getGalleryUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/gallery/topic',
+            [
+                'topicUrl' => $this->url
+            ], $absolute, true);
     }
 }

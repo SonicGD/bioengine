@@ -3,19 +3,25 @@
 namespace bioengine\common\modules\gallery\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
 use Yii;
 
 /**
  * This is the model class for table "gallery_cats".
  *
- * @property integer $id
- * @property string  $game_old
- * @property integer $pid
- * @property integer $game_id
- * @property integer $developer_id
- * @property string  $title
- * @property string  $desc
- * @property string  $url
+ * @property integer    $id
+ * @property string     $game_old
+ * @property integer    $pid
+ * @property integer    $game_id
+ * @property integer    $developer_id
+ * @property string     $title
+ * @property string     $desc
+ * @property string     $url
+ *
+ * @property GalleryCat $parent
+ * @property Game       $game
+ * @property Developer  $developer
  */
 class GalleryCat extends BioActiveRecord
 {
@@ -57,5 +63,48 @@ class GalleryCat extends BioActiveRecord
             'desc'         => Yii::t('app', 'Desc'),
             'url'          => Yii::t('app', 'Url'),
         ];
+    }
+
+    public function getParent()
+    {
+        return $this->hasOne(self::className(), ['id' => 'pid']);
+    }
+
+    public function getGame()
+    {
+        return $this->hasOne(Game::className(), ['id' => 'game_id']);
+    }
+
+    public function getDeveloper()
+    {
+        return $this->hasOne(Developer::className(), ['id' => 'developer_id']);
+    }
+
+    public function getFullUrl()
+    {
+        $url = '';
+        if ($this->pid) {
+            $url .= $this->parent->getFullUrl() . '/';
+        } else {
+            $url .= $this->getRootUrl() . '/';
+        }
+        $url .= $this->url . '/';
+
+        return $url;
+    }
+
+    public function getRootUrl()
+    {
+        $title = 'n/a';
+        switch (true) {
+            case $this->game_id > 0:
+                $title = $this->game->url;
+                break;
+            case $this->developer_id > 0:
+                $title = $this->developer->url;
+                break;
+        }
+
+        return $title;
     }
 }

@@ -25,6 +25,8 @@ use Yii;
  */
 class Developer extends BioActiveRecord
 {
+    public $parentKey = 'developer_id';
+
     /**
      * @inheritdoc
      */
@@ -94,6 +96,15 @@ class Developer extends BioActiveRecord
     {
         return UrlHelper::createUrl(
             '/news/developer',
+            [
+                'developerUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getGalleryUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/gallery/developer',
             [
                 'developerUrl' => $this->url
             ], $absolute, true);
