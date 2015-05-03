@@ -3,24 +3,29 @@
 namespace bioengine\common\modules\gallery\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
 use Yii;
 
 /**
  * This is the model class for table "gallery".
  *
- * @property integer    $id
- * @property string     $game_old
- * @property integer    $cat_id
- * @property integer    $game_id
- * @property integer    $developer_id
- * @property string     $files
- * @property string     $desc
- * @property integer    $author_id
- * @property integer    $count
- * @property integer    $date
- * @property integer    $pub
+ * @property integer             $id
+ * @property string              $game_old
+ * @property integer             $cat_id
+ * @property integer             $game_id
+ * @property integer             $developer_id
+ * @property string              $files
+ * @property string              $desc
+ * @property integer             $author_id
+ * @property integer             $count
+ * @property integer             $date
+ * @property integer             $pub
  *
- * @property GalleryCat $cat
+ * @property Game                $game
+ * @property Developer           $developer
+ * @property GalleryCat          $cat
  */
 class GalleryPic extends BioActiveRecord
 {
@@ -95,6 +100,39 @@ class GalleryPic extends BioActiveRecord
     {
         $fileName = $this->getFiles()[$fileNumber]['name'];
 
-        return \Yii::$app->params['images_url'] . '/' . $this->cat->getFullUrl() . $fileName;
+        return \Yii::$app->params['images_url'] . '/' . $this->getRootUrl() . '/' . $this->cat->getFullUrl() . $fileName;
     }
+
+    public function getRootUrl()
+    {
+        $title = 'n/a';
+        switch (true) {
+            case $this->game_id > 0:
+                $title = $this->game->url;
+                break;
+            case $this->developer_id > 0:
+                $title = $this->developer->url;
+                break;
+        }
+
+        return $title;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGame()
+    {
+        return $this->hasOne(Game::className(), ['id' => 'game_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeveloper()
+    {
+        return $this->hasOne(Developer::className(), ['id' => 'developer_id']);
+    }
+
+
 }

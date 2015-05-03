@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\gallery\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use Yii;
@@ -85,8 +86,6 @@ class GalleryCat extends BioActiveRecord
         $url = '';
         if ($this->pid) {
             $url .= $this->parent->getFullUrl() . '/';
-        } else {
-            $url .= $this->getRootUrl() . '/';
         }
         $url .= $this->url . '/';
 
@@ -106,5 +105,31 @@ class GalleryCat extends BioActiveRecord
         }
 
         return $title;
+    }
+
+
+    public function getParentUrl()
+    {
+        $title = 'n/a';
+        switch (true) {
+            case $this->game_id > 0:
+                $title = $this->game->url;
+                break;
+            case $this->developer_id > 0:
+                $title = $this->developer->url;
+                break;
+        }
+
+        return $title;
+    }
+
+    public function getPublicUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/gallery/cat',
+            [
+                'parentUrl' => $this->getParentUrl(),
+                'catUrl'    => $this->getFullUrl()
+            ], $absolute, true);
     }
 }
