@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\files\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use Yii;
 
 /**
@@ -28,6 +29,8 @@ use Yii;
  * @property integer $author_id
  * @property integer $count
  * @property integer $date
+ *
+ * @property FileCat $cat
  */
 class File extends BioActiveRecord
 {
@@ -94,13 +97,52 @@ class File extends BioActiveRecord
         }
         $text = preg_replace("#<p>\s*\[video#i", "[video", $text);
         $text = preg_replace("#video\]\s*(<br \/>)?<\/p>#i", "video]", $text);
-        $player_yt = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$5\"><img style=\"\" src=\"/themes/" . Yii::app(
-            )->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a><p style=\"text-align:center\"><a rel=\"external nofollow\" href=\"$4\">РЎРјРѕС‚СЂРµС‚СЊ РЅР° YouTube</a></p>";
+        $player_yt = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$5\"><img style=\"\" src=\"/themes/" . Yii::app()->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a><p style=\"text-align:center\"><a rel=\"external nofollow\" href=\"$4\">РЎРјРѕС‚СЂРµС‚СЊ РЅР° YouTube</a></p>";
         $text = preg_replace("#\[video id\=(([0-9]+)?) uri\=(.*?) yt\=(.*?)\](.*?)\[/video\]#i", $player_yt, $text);
-        $player = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$4\"><img style=\"\" src=\"/themes/" . Yii::app(
-            )->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a>";
+        $player = "<a style=\"background:url('" . \Yii::$app->params["site_url"] . "/files/vthumb/$1/') center center no-repeat; display:block; background-size: contain;\" class=\"player\" id=\"mediaplayer$1\" data-id=\"$1\" href=\"$4\"><img style=\"\" src=\"/themes/" . Yii::app()->theme->name . "/img/play_large.png\" alt=\"thumb\" /></a>";
         $text = preg_replace("#\[video id\=(([0-9]+)?) uri\=(.*?)\](.*?)\[/video\]#i", $player, $text);
 
         return $text;
+    }
+
+    public function getCat()
+    {
+        return $this->hasOne(FileCat::className(), ['id' => 'cat_id']);
+    }
+
+    public function getPublicUrl($absolute = false)
+    {
+        $url = UrlHelper::createUrl(
+            '/files/show',
+            [
+                'parentUrl' => $this->cat->getParentUrl(),
+                'catUrl'    => $this->cat->getFullUrl(),
+                'fileUrl'   => $this->url
+            ], $absolute, true);
+
+        return $url;
+    }
+
+    public function getSizeInMb()
+    {
+        return round($this->size / 1024 / 1024, 2);
+    }
+
+    public function getDownloadUrl($absolute = false)
+    {
+        $url = UrlHelper::createUrl(
+            '/files/download',
+            [
+                'parentUrl' => $this->cat->getParentUrl(),
+                'catUrl'    => $this->cat->getFullUrl(),
+                'fileUrl'   => $this->url
+            ], $absolute, true);
+
+        return $url;
+    }
+
+    public function getDirectUrl($absolute = false)
+    {
+        return $this->link;
     }
 }
