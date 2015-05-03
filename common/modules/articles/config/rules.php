@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '/<parentUrl:\w+>/articles>'                                              => '/articles/root',
+    '/<parentUrl:\w+>/articles'                                              => '/articles/root',
     '/<parentUrl:\w+>/articles/<catUrl:[a-z0-9_\/]+>/<articleUrl:[a-z0-9_]+>' => '/articles/show',
     [
         'pattern'      => '/<parentUrl:\w+>/articles/<catUrl:[a-z0-9_\/]+>',

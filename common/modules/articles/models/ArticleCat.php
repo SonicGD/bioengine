@@ -181,7 +181,7 @@ class ArticleCat extends BioActiveRecord
     public function getPublicUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/articles/index/cat',
+            '/articles/cat',
             [
                 'parentUrl' => $this->getParentUrl(),
                 'catUrl'    => $this->getFullUrl()
@@ -196,5 +196,22 @@ class ArticleCat extends BioActiveRecord
         }
 
         return false;
+    }
+
+    public function getLastArticles($count = 5)
+    {
+        return Article::find()
+            ->where([
+                'pub'    => 1,
+                'cat_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
+
+    public function getChildren()
+    {
+        return $this->hasMany(self::className(), ['pid' => 'id']);
     }
 }

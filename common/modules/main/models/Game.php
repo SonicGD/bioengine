@@ -187,7 +187,7 @@ class Game extends BioActiveRecord
     public function getPublicUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/games/index/show',
+            '/games/show',
             [
                 'gameUrl' => $this->url
             ], $absolute, true);
@@ -227,7 +227,7 @@ class Game extends BioActiveRecord
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/news/root',
+            '/site/root',
             [
                 'parentUrl' => $this->url
             ], $absolute, true);

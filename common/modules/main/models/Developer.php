@@ -95,7 +95,7 @@ class Developer extends BioActiveRecord
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/news/developer',
+            '/site/developer',
             [
                 'developerUrl' => $this->url
             ], $absolute, true);

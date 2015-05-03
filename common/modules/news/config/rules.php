@@ -2,8 +2,13 @@
 
 return [
     [
+        'pattern'      => '/<parentUrl:\w+>/news/page/<page:\d+>',
+        'route'        => '/site/root',
+        'encodeParams' => false
+    ],
+    [
         'pattern'      => '/<parentUrl:\w+>/news',
-        'route'        => '/news/root',
+        'route'        => '/site/root',
         'encodeParams' => false
     ],
     '/<year:\d+>/<month:\d+>/<day:\d+>/<newsUrl:\w+>' => '/news/show',

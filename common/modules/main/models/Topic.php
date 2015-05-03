@@ -64,9 +64,9 @@ class Topic extends BioActiveRecord
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/news/topic',
+            '/site/root',
             [
-                'topicUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
@@ -78,9 +78,18 @@ class Topic extends BioActiveRecord
     public function getGalleryUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/gallery/topic',
+            '/gallery/root',
             [
-                'topicUrl' => $this->url
+                'parentUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getArticlesUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/articles/root',
+            [
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 }
