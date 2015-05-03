@@ -209,7 +209,7 @@ class Article extends BioActiveRecord
     public function getPublicUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/articles/index/show',
+            '/articles/show',
             [
                 'parentUrl'  => $this->getParentUrl(),
                 'catUrl'     => $this->cat->url,
