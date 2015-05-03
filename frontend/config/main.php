@@ -1,10 +1,10 @@
 <?php
-
+define('BIO_ENV', 'frontend');
 $config = [
     'id'                  => 'app-frontend',
     'name'                => 'BioEngine',
     'basePath'            => dirname(__DIR__),
-    'bootstrap'           => ['log', 'main', 'news', 'articles', 'gallery', 'files', 'polls'],
+    //'bootstrap'           => ['log', 'main', 'news', 'articles', 'gallery', 'files', 'polls'],
     'controllerNamespace' => 'bioengine\frontend\controllers',
     'vendorPath'          => dirname(dirname(__DIR__)) . '/vendor',
     'viewPath'            => '@bioengine/frontend/views',
@@ -51,7 +51,7 @@ $config = [
             'class'      => 'yii\gii\Module',
             'allowedIPs' => ['192.168.56.1'],
         ],
-        'main'     => [
+       /* 'main'     => [
             'class' => \bioengine\common\modules\main\MainModule::className(),
         ],
         'news'     => [
@@ -68,7 +68,7 @@ $config = [
         ],
         'polls'    => [
             'class' => \bioengine\common\modules\polls\PollsModule::className(),
-        ],
+        ],*/
     ],
 ];
 

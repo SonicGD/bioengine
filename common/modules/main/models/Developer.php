@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\main\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use Yii;
 
 /**
@@ -87,5 +88,24 @@ class Developer extends BioActiveRecord
     public function getLogoUrl()
     {
         return \Yii::$app->params['assets_url'] . \Yii::$app->params['developers_images_url'] . $this->logo;
+    }
+
+    public function getNewsUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/news/developer',
+            [
+                'developerUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getIcon()
+    {
+        return $this->getLogoUrl();
+    }
+
+    public function getTitle()
+    {
+        return $this->name; //TODO: Rename name to title
     }
 }

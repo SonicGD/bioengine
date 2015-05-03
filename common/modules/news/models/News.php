@@ -15,34 +15,36 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "news".
  *
- * @property integer        $id
- * @property integer        $game_id
- * @property integer        $developer_id
- * @property integer        $topic_id
- * @property string         $url
- * @property string         $source
- * @property string         $game_old
- * @property string         $title
- * @property string         $short_text
- * @property string         $add_text
- * @property integer        $author_id
- * @property integer        $tid
- * @property integer        $pid
- * @property integer        $sticky
- * @property integer        $date
- * @property integer        $last_change_date
- * @property integer        $pub
- * @property string         $addgames
- * @property integer        $rate_pos
- * @property integer        $rate_neg
- * @property string         $voted_users
- * @property integer        $comments
- * @property string         $twitter_id
+ * @property integer              $id
+ * @property integer              $game_id
+ * @property integer              $developer_id
+ * @property integer              $topic_id
+ * @property string               $url
+ * @property string               $source
+ * @property string               $game_old
+ * @property string               $title
+ * @property string               $short_text
+ * @property string               $add_text
+ * @property integer              $author_id
+ * @property integer              $tid
+ * @property integer              $pid
+ * @property integer              $sticky
+ * @property integer              $date
+ * @property integer              $last_change_date
+ * @property integer              $pub
+ * @property string               $addgames
+ * @property integer              $rate_pos
+ * @property integer              $rate_neg
+ * @property string               $voted_users
+ * @property integer              $comments
+ * @property string               $twitter_id
  *
- * @property Game           $game
- * @property Developer      $developer
- * @property Topic          $topic
- * @property IpbMember      $author
+ * @property Game                 $game
+ * @property Developer            $developer
+ * @property Topic                $topic
+ * @property IpbMember            $author
+ *
+ * @property Game|Developer|Topic $parents
  */
 class News extends BioActiveRecord
 {
@@ -160,24 +162,6 @@ class News extends BioActiveRecord
         return false;
     }
 
-    public function getParentTitle()
-    {
-        $title = 'n/a';
-        switch (true) {
-            case $this->game_id > 0:
-                $title = $this->game->admin_title ?: $this->game->title;
-                break;
-            case $this->developer_id > 0:
-                $title = $this->developer->name;
-                break;
-            case $this->topic_id > 0:
-                $title = $this->topic->title;
-                break;
-        }
-
-        return $title;
-    }
-
     public function getParentListUrl()
     {
         $url = '#';
@@ -233,12 +217,41 @@ class News extends BioActiveRecord
     public function getPublicUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/news/index/show',
+            '/news/show',
             [
                 'year'    => date('Y', $this->date),
                 'month'   => date('m', $this->date),
                 'day'     => date('d', $this->date),
                 'newsUrl' => $this->url
             ], $absolute, true);
+    }
+
+    public function getHasMore()
+    {
+        return $this->add_text !== '';
+    }
+
+    public function getParent()
+    {
+        $parent = null;
+        switch (true) {
+            case $this->game_id > 0:
+                $parent = $this->game;
+                break;
+            case $this->developer_id > 0:
+                $parent = $this->developer;
+                break;
+            case $this->topic_id > 0:
+                $parent = $this->topic;
+                break;
+        }
+
+        return $parent;
+
+    }
+
+    public function getForumUrl()
+    {
+        return '#';
     }
 }

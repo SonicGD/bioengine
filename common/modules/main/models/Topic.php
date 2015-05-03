@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\main\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
 use Yii;
 
 /**
@@ -56,5 +57,19 @@ class Topic extends BioActiveRecord
     public function getLogoUrl()
     {
         return \Yii::$app->params['assets_url'] . \Yii::$app->params['topics_images_url'] . $this->logo;
+    }
+
+    public function getNewsUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/news/topic',
+            [
+                'topicUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getIcon()
+    {
+        return $this->getLogoUrl();
     }
 }

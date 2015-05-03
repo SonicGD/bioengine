@@ -218,4 +218,17 @@ class Game extends BioActiveRecord
         return $path;
     }
 
+    public function getNewsUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/news/game',
+            [
+                'gameUrl' => $this->url
+            ], $absolute, true);
+    }
+
+    public function getIcon()
+    {
+        return $this->getSmallLogoUrl();
+    }
 }

@@ -50,4 +50,9 @@ class Menu extends BioActiveRecord
             'date'  => Yii::t('app', 'Date'),
         ];
     }
+
+    public function getItems()
+    {
+        return json_decode($this->code, true);
+    }
 }

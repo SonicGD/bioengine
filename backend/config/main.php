@@ -1,5 +1,5 @@
 <?php
-
+define('BIO_ENV', 'backend');
 $config = [
     'id'                  => 'app-backend',
     'name'                => 'BioEngine',
