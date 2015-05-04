@@ -254,4 +254,10 @@ class News extends BioActiveRecord
     {
         return '#';
     }
+
+    public function getCommentsText()
+    {
+        return \Yii::t('app', '{n, plural, =0{Обсудить на форуме} =1{1 комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}',
+            ['n' => $this->comments]);
+    }
 }
