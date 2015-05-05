@@ -214,7 +214,7 @@ class News extends BioActiveRecord
         return $this->hasOne(Topic::className(), ['id' => 'topic_id']);
     }
 
-    public function getPublicUrl($absolute = true)
+    public function getPublicUrl($absolute = false)
     {
         return UrlHelper::createUrl(
             '/news/show',
