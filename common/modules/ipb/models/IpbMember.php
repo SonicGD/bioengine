@@ -4,6 +4,8 @@ namespace bioengine\common\modules\ipb\models;
 
 use bioengine\common\components\BioActiveRecord;
 use bioengine\common\modules\ipb\helpers\IpbHelper;
+use IPBWI\ipbwi;
+use IPBWI\ipbwi_member;
 use Yii;
 use yii\web\IdentityInterface;
 
@@ -299,8 +301,8 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
      * Finds an identity by the given ID.
      * @param string|integer $id the ID to be looked for
      * @return IdentityInterface the identity object that matches the given ID.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
+     *                           Null should be returned if such an identity cannot be found
+     *                           or the identity is not in an active state (disabled, deleted, etc.)
      */
     public static function findIdentity($id)
     {
@@ -310,11 +312,11 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
     /**
      * Finds an identity by the given token.
      * @param mixed $token the token to be looked for
-     * @param mixed $type the type of the token. The value of this parameter depends on the implementation.
-     * For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
+     * @param mixed $type  the type of the token. The value of this parameter depends on the implementation.
+     *                     For example, [[\yii\filters\auth\HttpBearerAuth]] will set this parameter to be `yii\filters\auth\HttpBearerAuth`.
      * @return IdentityInterface the identity object that matches the given token.
-     * Null should be returned if such an identity cannot be found
-     * or the identity is not in an active state (disabled, deleted, etc.)
+     *                     Null should be returned if such an identity cannot be found
+     *                     or the identity is not in an active state (disabled, deleted, etc.)
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -387,17 +389,18 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAvatarUrl()
     {
-
-        $photo = $this->profilePortal->pp_main_photo;
-        if ($photo !== '' && strpos($photo, 'default_large.png') === false) {
-            return \Yii::$app->params['uploads_url'] . '/' . $photo;
-        } elseif ($this->profilePortal->avatar_type === 'upload') {
-            return \Yii::$app->params['uploads_url'] . '/' . $this->profilePortal->avatar_location;
-        } elseif ($this->profilePortal->avatar_type === 'url') {
-            return $this->profilePortal->avatar_location;
+        $ipbwi = new ipbwi();
+        /**
+         * @var ipbwi_member $member
+         */
+        $member = $ipbwi->member;
+        $photo = \IPSMember::buildProfilePhoto($member->info());
+        $src = $photo['pp_thumb_photo'];
+        if ($src) {
+            return $src;
+        } else {
+            return \Yii::$app->params['site_url'] . '/themes/nuke/img/ava.jpg'; //TODO: FIX
         }
-
-        return \Yii::$app->params['site_url'] . '/themes/nuke/img/ava.jpg'; //TODO: FIX
     }
 
     /**
@@ -407,4 +410,20 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->hasOne(IpbProfilePortal::className(), ['pp_member_id' => 'member_id']);
     }
+
+    public function getProfileUrl()
+    {
+        return '/forum/user/' . $this->member_id . '/';
+    }
+
+    public function getLogoutUrl()
+    {
+        return '/forum/index.php?app=core&module=global&section=login&do=logout&k=' . $this->getFormHash();
+    }
+
+    public function getFormHash()
+    {
+        return md5($this->email . '&' . $this->member_login_key . '&' . $this->joined);
+    }
+
 }

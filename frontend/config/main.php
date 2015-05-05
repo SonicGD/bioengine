@@ -18,8 +18,8 @@ $config = [
     'viewPath'            => '@bioengine/frontend/views',
     'components'          => [
         'user'         => [
-            'identityClass'   => 'common\models\User',
-            'enableAutoLogin' => true,
+            'identityClass'   => \bioengine\common\modules\ipb\models\IpbMember::class,
+            'enableAutoLogin' => true
         ],
         'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

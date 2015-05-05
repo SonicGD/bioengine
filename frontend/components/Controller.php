@@ -2,8 +2,10 @@
 
 namespace bioengine\frontend\components;
 
+use bioengine\common\modules\ipb\models\IpbMember;
 use bioengine\common\modules\main\models\Settings;
 use IPBWI\ipbwi;
+use IPBWI\ipbwi_member;
 use yii\web\Cookie;
 
 /**
@@ -12,7 +14,7 @@ use yii\web\Cookie;
  */
 class Controller extends \yii\web\Controller
 {
-    public $breadcrumbs = array();
+    public $breadcrumbs = [];
     public $title = "";
     public $session_id = false;
     public $session = false;
@@ -22,7 +24,7 @@ class Controller extends \yii\web\Controller
     public $keywords = "";
     public $description = "";
     public $video = 0;
-    public $settings = array();
+    public $settings = [];
 
     public function Init()
     {
@@ -51,8 +53,26 @@ class Controller extends \yii\web\Controller
             }
         }
 
-        /*$ipbwi = new ipbwi();
-        $member_info = $ipbwi->member->info();*/
+        $ipbwi = new ipbwi();
+        /**
+         * @var ipbwi_member $member
+         */
+        $member = $ipbwi->member;
+        if (\Yii::$app->user->isGuest) {
+
+            if ($member->isLoggedIn()) {
+                /**
+                 * @var IpbMember $user
+                 */
+                $user = IpbMember::findOne($member->info()['member_id']);
+                if ($user) {
+                    \Yii::$app->user->login($user, 3600 * 24 * 30);
+                }
+            }
+        } else {
+            \Yii::$app->user->identity->getAvatarUrl();
+        }
+
 
         /**
          * @var Settings[] $settings
