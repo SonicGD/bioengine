@@ -19,4 +19,11 @@ class UserHelper
         return \Yii::$app->user->identity;
     }
 
+    /**
+     * @return int
+     */
+    public static function getSessionId()
+    {
+        return (int)\Yii::$app->request->cookies['session_id'];
+    }
 }

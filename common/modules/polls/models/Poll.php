@@ -3,6 +3,9 @@
 namespace bioengine\common\modules\polls\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\UrlHelper;
+use bioengine\common\helpers\UserHelper;
+use bioengine\common\modules\ipb\models\IpbMember;
 use Yii;
 
 /**
@@ -67,6 +70,7 @@ class Poll extends BioActiveRecord
                 $items[] = $opt['text'];
             }
         }
+
         return implode(PHP_EOL, $items);
     }
 
@@ -85,5 +89,59 @@ class Poll extends BioActiveRecord
             }
         }
         $this->options = json_encode($options);
+    }
+
+    public static function getCurrent()
+    {
+        /***
+         * @var self $poll
+         */
+        $poll = self::find()->where(['onoff' => 1])->orderBy(['poll_id' => SORT_DESC])->one();
+        if ($poll) {
+            $poll->isVoted();
+        }
+
+        return $poll;
+    }
+
+    public $voted = false;
+
+    public function isVoted()
+    {
+        $query = PollWho::find();
+        $user = UserHelper::getUser();
+        if ($user instanceof IpbMember) {
+            $query->where(['poll_id' => $this->poll_id, 'user_id' => $user->member_id]);
+        } else {
+            $query->where([
+                'poll_id'    => $this->poll_id,
+                'user_id'    => 0,
+                'ip'         => $_SERVER['REMOTE_ADDR'],
+                'session_id' => UserHelper::getSessionId()
+            ]);
+        }
+        if ($query->count() > 0) {
+            $this->voted = true;
+        }
+    }
+
+    public function getOptionsArr()
+    {
+        return json_decode($this->options);
+
+    }
+
+    public function getVotesArr()
+    {
+        return json_decode($this->votes);
+    }
+
+    public function getVoteUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/polls/vote',
+            [
+                'pollId' => $this->poll_id
+            ], $absolute, true);
     }
 }
