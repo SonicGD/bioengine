@@ -37,9 +37,9 @@ class GameRule extends UrlRule
         if (!$pathInfo) {
             return false;
         }
-        if (array_key_exists($pathInfo, \Yii::$app->games)) {
+        /*if (array_key_exists($pathInfo, \Yii::$app::games)) {
             return ['games/show', ['gameId' => \Yii::$app->games[$pathInfo]->id]];
-        }
+        }*/
 
         return false;
     }

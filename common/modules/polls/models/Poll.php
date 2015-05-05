@@ -106,6 +106,9 @@ class Poll extends BioActiveRecord
 
     public $voted = false;
 
+    /**
+     * @return bool
+     */
     public function isVoted()
     {
         $query = PollWho::find();
@@ -123,6 +126,8 @@ class Poll extends BioActiveRecord
         if ($query->count() > 0) {
             $this->voted = true;
         }
+
+        return $this->voted;
     }
 
     public function getOptionsArr()
@@ -143,5 +148,19 @@ class Poll extends BioActiveRecord
             [
                 'pollId' => $this->poll_id
             ], $absolute, true);
+    }
+
+    public function recount()
+    {
+        $votes = [];
+        $query = PollWho::find();
+        foreach ($this->getOptionsArr() as $k => $v) {
+            $query->where(['poll_id' => $this->poll_id, 'voteoption' => $k]);
+            $count = $query->count();
+            $votes['opt_' . $k] = $count;
+        }
+
+        $this->votes = json_encode($votes);
+        $this->save();
     }
 }
