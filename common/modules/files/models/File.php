@@ -4,33 +4,39 @@ namespace bioengine\common\modules\files\models;
 
 use bioengine\common\components\BioActiveRecord;
 use bioengine\common\helpers\UrlHelper;
+use bioengine\common\modules\ipb\models\IpbMember;
+use bioengine\common\modules\main\models\Developer;
+use bioengine\common\modules\main\models\Game;
 use Yii;
 
 /**
  * This is the model class for table "files".
  *
- * @property integer $id
- * @property string  $url
- * @property string  $game_old
- * @property integer $cat_id
- * @property integer $game_id
- * @property integer $developer_id
- * @property string  $title
- * @property string  $desc
- * @property string  $announce
- * @property string  $file
- * @property string  $link
- * @property integer $size
- * @property integer $stream
- * @property string  $streamfile
- * @property integer $yt_status
- * @property string  $yt_title
- * @property string  $yt_url
- * @property integer $author_id
- * @property integer $count
- * @property integer $date
+ * @property integer   $id
+ * @property string    $url
+ * @property string    $game_old
+ * @property integer   $cat_id
+ * @property integer   $game_id
+ * @property integer   $developer_id
+ * @property string    $title
+ * @property string    $desc
+ * @property string    $announce
+ * @property string    $file
+ * @property string    $link
+ * @property integer   $size
+ * @property integer   $stream
+ * @property string    $streamfile
+ * @property integer   $yt_status
+ * @property string    $yt_title
+ * @property string    $yt_url
+ * @property integer   $author_id
+ * @property integer   $count
+ * @property integer   $date
  *
- * @property FileCat $cat
+ * @property FileCat   $cat
+ * @property Game      $game
+ * @property Developer $developer
+ * @property IpbMember $author
  */
 class File extends BioActiveRecord
 {
@@ -144,5 +150,42 @@ class File extends BioActiveRecord
     public function getDirectUrl($absolute = false)
     {
         return $this->link;
+    }
+
+    public function getParent()
+    {
+        $parent = null;
+        switch (true) {
+            case $this->game_id > 0:
+                $parent = $this->game;
+                break;
+            case $this->developer_id > 0:
+                $parent = $this->developer;
+                break;
+        }
+
+        return $parent;
+
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGame()
+    {
+        return $this->hasOne(Game::className(), ['id' => 'game_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeveloper()
+    {
+        return $this->hasOne(Developer::className(), ['id' => 'developer_id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(IpbMember::className(), ['member_id' => 'author_id']);
     }
 }
