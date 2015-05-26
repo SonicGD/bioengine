@@ -16,6 +16,7 @@ class Controller extends \yii\web\Controller
 {
     public $breadcrumbs = [];
     public $title = "";
+    public $pageTitle = "";
     public $session_id = false;
     public $session = false;
     public $session_member_id = 0;
