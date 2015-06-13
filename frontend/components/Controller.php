@@ -117,4 +117,9 @@ class Controller extends \yii\web\Controller
     {
 
     }
+
+    public function getEncodedTitle()
+    {
+        return htmlspecialchars_decode($this->pageTitle);
+    }
 } 
