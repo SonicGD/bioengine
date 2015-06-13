@@ -9,6 +9,7 @@ use bioengine\common\modules\ipb\models\IpbMember;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
+use bioengine\common\modules\news\models\search\NewsSearch;
 use Yii;
 use yii\helpers\Url;
 
@@ -145,7 +146,7 @@ class News extends BioActiveRecord
     public function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            if ($this->isNewRecord) {
+            if ($this->isNewRecord && !$this instanceof NewsSearch) {
                 $this->date = time();
                 $this->rate_pos = 0;
                 $this->rate_neg = 0;
@@ -257,7 +258,8 @@ class News extends BioActiveRecord
 
     public function getCommentsText()
     {
-        return \Yii::t('app', '{n, plural, =0{Обсудить на форуме} =1{1 комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}',
+        return \Yii::t('app',
+            '{n, plural, =0{Обсудить на форуме} =1{1 комментарий} one{# комментарий} few{# комментария} many{# комментариев} other{# комментария}}',
             ['n' => $this->comments]);
     }
 }

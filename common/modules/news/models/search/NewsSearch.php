@@ -92,14 +92,10 @@ class NewsSearch extends News
             ]
         );
 
-        $query->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'source', $this->source])
-            ->andFilterWhere(['like', 'game_old', $this->game_old])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'short_text', $this->short_text])
-            ->andFilterWhere(['like', 'add_text', $this->add_text])
-            ->andFilterWhere(['like', 'addgames', $this->addgames])
-            ->andFilterWhere(['like', 'voted_users', $this->voted_users]);
+        $query
+            ->orFilterWhere(['like', 'title', $this->title])
+            ->orFilterWhere(['like', 'short_text', $this->short_text])
+            ->orFilterWhere(['like', 'add_text', $this->add_text]);
 
         return $dataProvider;
     }
