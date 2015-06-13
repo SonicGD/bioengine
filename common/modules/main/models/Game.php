@@ -7,6 +7,7 @@ use bioengine\common\helpers\UrlHelper;
 use bioengine\common\modules\articles\models\Article;
 use bioengine\common\modules\files\models\File;
 use bioengine\common\modules\gallery\models\GalleryPic;
+use bioengine\common\modules\main\models\search\GameSearch;
 use bioengine\common\modules\news\models\News;
 use Yii;
 
@@ -118,7 +119,7 @@ class Game extends BioActiveRecord
     public function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            if ($this->isNewRecord) {
+            if ($this->isNewRecord && !$this instanceof GameSearch) {
                 $this->date = time();
             }
 
