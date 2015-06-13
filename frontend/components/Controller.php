@@ -27,6 +27,8 @@ class Controller extends \yii\web\Controller
     public $video = 0;
     public $settings = [];
 
+    public $ipbwi;
+
     public function Init()
     {
 
@@ -54,11 +56,11 @@ class Controller extends \yii\web\Controller
             }
         }
 
-        $ipbwi = new ipbwi();
+        $this->ipbwi = new ipbwi();
         /**
          * @var ipbwi_member $member
          */
-        $member = $ipbwi->member;
+        $member = $this->ipbwi->member;
         if (\Yii::$app->user->isGuest) {
 
             if ($member->isLoggedIn()) {
