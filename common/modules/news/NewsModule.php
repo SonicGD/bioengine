@@ -31,12 +31,12 @@ class NewsModule extends BioModule
     {
         $items = [];
         $items[] = MenuBuilder::createMenuItem(
-            'news / index',
+            'news/index',
             [],
             'Список новостей'
         );
         $items[] = MenuBuilder::createMenuItem(
-            'news / index / create',
+            'news/index/create',
             [],
             'Добавить новость'
         );
@@ -45,7 +45,7 @@ class NewsModule extends BioModule
             'Новости',
             $items,
             20,
-            'fa - newspaper - o'
+            'fa-newspaper-o'
         );
     }
 
