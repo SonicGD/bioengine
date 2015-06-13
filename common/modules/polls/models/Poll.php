@@ -149,7 +149,7 @@ class Poll extends BioActiveRecord
             $arr = [
                 'id'     => $option->id,
                 'text'   => $option->text,
-                'result' => $all > 0 ? $optVotes / $all : 0
+                'result' => $all > 0 ? round($optVotes / $all, 2) : 0
             ];
             $results[] = $arr;
         }
