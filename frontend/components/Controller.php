@@ -26,6 +26,7 @@ class Controller extends \yii\web\Controller
     public $description = "";
     public $video = 0;
     public $settings = [];
+    public $themeName = 'default';
 
     public $ipbwi;
 
