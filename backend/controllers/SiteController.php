@@ -11,8 +11,6 @@ class SiteController extends BackendController
 {
     public function actionIndex()
     {
-        IpbPost::find()->all();
-
         return $this->render('index');
     }
 
