@@ -133,12 +133,32 @@ class Poll extends BioActiveRecord
     public function getOptionsArr()
     {
         return json_decode($this->options);
+    }
 
+    public function getResults()
+    {
+        $options = json_decode($this->options);
+        $votes = $this->getVotesArr();
+        $all = 0;
+        foreach ($votes as $vote) {
+            $all += $vote;
+        }
+        $results = [];
+        foreach ($options as $k => $option) {
+            $optVotes = $votes['opt_' . $option->id];
+            $arr = [
+                'id'     => $option->id,
+                'text'   => $option->text,
+                'result' => $all > 0 ? $optVotes / $all : 0
+            ];
+            $results[] = $arr;
+        }
+        return $results;
     }
 
     public function getVotesArr()
     {
-        return json_decode($this->votes);
+        return json_decode($this->votes, true);
     }
 
     public function getVoteUrl($absolute = false)
