@@ -11,21 +11,21 @@ use Yii;
 /**
  * This is the model class for table "gallery".
  *
- * @property integer             $id
- * @property string              $game_old
- * @property integer             $cat_id
- * @property integer             $game_id
- * @property integer             $developer_id
- * @property string              $files
- * @property string              $desc
- * @property integer             $author_id
- * @property integer             $count
- * @property integer             $date
- * @property integer             $pub
+ * @property integer    $id
+ * @property string     $game_old
+ * @property integer    $cat_id
+ * @property integer    $game_id
+ * @property integer    $developer_id
+ * @property string     $files
+ * @property string     $desc
+ * @property integer    $author_id
+ * @property integer    $count
+ * @property integer    $date
+ * @property integer    $pub
  *
- * @property Game                $game
- * @property Developer           $developer
- * @property GalleryCat          $cat
+ * @property Game       $game
+ * @property Developer  $developer
+ * @property GalleryCat $cat
  */
 class GalleryPic extends BioActiveRecord
 {
@@ -134,5 +134,23 @@ class GalleryPic extends BioActiveRecord
         return $this->hasOne(Developer::className(), ['id' => 'developer_id']);
     }
 
+    public function getPublicUrl($absolute = false)
+    {
+        $position = $this->getPosition();
+        $page = ceil($position / GalleryCat::PICS_ON_PAGE);
+        $catUrl = $this->cat->getPublicUrl($absolute, $page);
+        return $catUrl;
+    }
 
+    /**
+     * @return int|string
+     */
+    public function getPosition()
+    {
+        return self::find()->where(['cat_id' => $this->cat_id, 'pub' => $this->pub])->andWhere([
+            '>',
+            'id',
+            $this->id
+        ])->orderBy(['id' => SORT_DESC])->count();
+    }
 }

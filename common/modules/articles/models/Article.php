@@ -11,32 +11,33 @@ use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
 use Yii;
 use yii\helpers\Url;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "articles".
  *
- * @property integer        $id
- * @property string         $url
- * @property string         $source
- * @property integer        $cat_id
- * @property integer        $game_id
- * @property integer        $developer_id
- * @property integer        $topic_id
- * @property string         $game_old
- * @property string         $title
- * @property string         $announce
- * @property string         $text
- * @property integer        $author_id
- * @property integer        $count
- * @property integer        $date
- * @property integer        $pub
- * @property integer        $fs
+ * @property integer    $id
+ * @property string     $url
+ * @property string     $source
+ * @property integer    $cat_id
+ * @property integer    $game_id
+ * @property integer    $developer_id
+ * @property integer    $topic_id
+ * @property string     $game_old
+ * @property string     $title
+ * @property string     $announce
+ * @property string     $text
+ * @property integer    $author_id
+ * @property integer    $count
+ * @property integer    $date
+ * @property integer    $pub
+ * @property integer    $fs
  *
- * @property ArticleCat     $cat
- * @property Game           $game
- * @property Developer      $developer
- * @property Topic          $topic
- * @property IpbMember      $author
+ * @property ArticleCat $cat
+ * @property Game       $game
+ * @property Developer  $developer
+ * @property Topic      $topic
+ * @property IpbMember  $author
  */
 class Article extends BioActiveRecord
 {
@@ -149,7 +150,8 @@ class Article extends BioActiveRecord
             case $this->game_id > 0:
                 $title = $this->game->admin_title ?: $this->game->title;
                 break;
-            case $this->developer_id > 0:
+            case
+                $this->developer_id > 0:
                 $title = $this->developer->name;
                 break;
             case $this->topic_id > 0:
@@ -215,5 +217,99 @@ class Article extends BioActiveRecord
                 'catUrl'     => $this->cat->url,
                 'articleUrl' => $this->url
             ], $absolute, true);
+    }
+
+    public static function getByParent($parentUrl, $catUrl, $articleUrl)
+    {
+        if ($parentUrl && $catUrl && $articleUrl) {
+            if (strpos($catUrl, '/')) {
+                $patharr = explode('/', $catUrl);
+                $catUrl = $patharr[count($patharr) - 1];
+            }
+
+            $query = Article::find();
+
+            $query->where(['pub' => 1]);
+
+
+            $query->andWhere(['url' => $articleUrl]);
+
+            $param = false;
+            $value = false;
+            $parent = false;
+            $game = Game::find()->where(['url' => $parentUrl])->one();
+            if ($game) {
+                $param = 'game_id';
+                $value = $game->id;
+                $parent = $game;
+            } else {
+                $developer = Developer::find()->where(['url' => $parentUrl])->one();
+                if ($developer) {
+                    $param = 'developer_id';
+                    $value = $developer->id;
+                    $parent = $developer;
+                } else {
+                    $topic = Topic::find()->where(['url' => $parentUrl])->one();
+                    if ($topic) {
+                        $param = 'topic_id';
+                        $value = $topic->id;
+                        $parent = $topic;
+                    }
+                }
+            }
+
+            if ($param) {
+                $query->andWhere([$param => $value]);
+                /**
+                 * @var Article $article
+                 */
+                $articles = $query->all();
+                if ($articles) {
+                    $article = null;
+                    if (count($articles) > 1) {
+                        foreach ($articles as $tmp) {
+                            if ($article) {
+                                continue;
+                            }
+                            if ($article->cat->url === $catUrl) {
+                                $article = $tmp;
+                            }
+                        }
+                    } else {
+                        $article = $articles[0];
+                    }
+                    if ($article) {
+                        return [$article, $parent, $article->cat];
+                    } else {
+                        throw new HttpException(404, 'Страница не найдена');
+                    }
+                } else {
+                    throw new HttpException(404, 'Страница не найдена');
+                }
+            } else {
+                throw new HttpException(404, 'Страница не найдена');
+            }
+        }
+    }
+
+    /**
+     * @param $url
+     * @return bool|Article
+     * @throws HttpException
+     */
+    public static function getByUrl($url)
+    {
+        $regexp = '/(\w+)\/articles\/([a-z0-9_\/]+)\/([a-z0-9_]+)/';
+        preg_match($regexp, $url, $matches);
+        if ($matches) {
+            $parentUrl = $matches[1];
+            $catUrl = $matches[2];
+            $articleUrl = $matches[3];
+
+            list($article) = static::getByParent($parentUrl, $catUrl, $articleUrl);
+            return $article;
+        }
+
+        return false;
     }
 }

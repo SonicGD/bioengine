@@ -8,6 +8,7 @@ use bioengine\common\modules\ipb\models\IpbMember;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use Yii;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "files".
@@ -187,5 +188,89 @@ class File extends BioActiveRecord
     public function getAuthor()
     {
         return $this->hasOne(IpbMember::className(), ['member_id' => 'author_id']);
+    }
+
+    public static function getByParent($parentUrl, $catUrl, $fileUrl)
+    {
+        if ($parentUrl && $catUrl && $fileUrl) {
+            if (strpos($catUrl, '/')) {
+                $patharr = explode('/', $catUrl);
+                $catUrl = $patharr[count($patharr) - 1];
+            }
+            $developer = false;
+            $query = File::find();
+
+            $query->andWhere(['url' => $fileUrl]);
+
+            $param = false;
+            $value = false;
+            $parent = false;
+            $game = Game::find()->where(['url' => $parentUrl])->one();
+            if ($game) {
+                $param = 'game_id';
+                $value = $game->id;
+                $parent = $game;
+            } else {
+                $developer = Developer::find()->where(['url' => $parentUrl])->one();
+                if ($developer) {
+                    $param = 'developer_id';
+                    $value = $developer->id;
+                    $parent = $developer;
+                }
+            }
+
+            if ($param) {
+                $query->andWhere([$param => $value]);
+                /**
+                 * @var File $file
+                 */
+                $files = $query->all();
+                if ($files) {
+                    $file = null;
+                    if (count($files) > 1) {
+                        foreach ($files as $tmp) {
+                            if ($file) {
+                                continue;
+                            }
+                            if ($file->cat->url === $catUrl) {
+                                $file = $tmp;
+                            }
+                        }
+                    } else {
+                        $file = $files[0];
+                    }
+                    if ($file) {
+                        return [$file, $parent, $file->cat];
+                    } else {
+                        throw new HttpException(404, 'Страница не найдена');
+                    }
+                } else {
+                    throw new HttpException(404, 'Страница не найдена');
+                }
+            } else {
+                throw new HttpException(404, 'Страница не найдена');
+            }
+        }
+    }
+
+    /**
+     * @param $url
+     * @return bool|File
+     * @throws HttpException
+     */
+    public static function getByUrl($url)
+    {
+        $regexp = '/(\w+)\/files\/([a-z0-9_\/]+)\/([a-z0-9_]+)/';
+        preg_match($regexp, $url, $matches);
+        if ($matches) {
+            $parentUrl = $matches[1];
+            $catUrl = $matches[2];
+            $fileUrl = $matches[3];
+
+            list($file) = static::getByParent($parentUrl, $catUrl, $fileUrl);
+            return $file;
+        }
+
+        return false;
     }
 }

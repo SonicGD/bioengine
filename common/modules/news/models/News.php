@@ -163,6 +163,24 @@ class News extends BioActiveRecord
         return false;
     }
 
+    public function getParentTitle()
+    {
+        $title = 'n/a';
+        switch (true) {
+            case $this->game_id > 0:
+                $title = $this->game->admin_title ?: $this->game->title;
+                break;
+            case $this->developer_id > 0:
+                $title = $this->developer->name;
+                break;
+            case $this->topic_id > 0:
+                $title = $this->topic->title;
+                break;
+        }
+
+        return $title;
+    }
+
     public function getParentListUrl()
     {
         $url = '#';

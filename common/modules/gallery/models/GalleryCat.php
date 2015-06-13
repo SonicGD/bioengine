@@ -26,6 +26,9 @@ use Yii;
  */
 class GalleryCat extends BioActiveRecord
 {
+
+    const PICS_ON_PAGE = 24;
+
     /**
      * @inheritdoc
      */
@@ -123,13 +126,17 @@ class GalleryCat extends BioActiveRecord
         return $title;
     }
 
-    public function getPublicUrl($absolute = false)
+    public function getPublicUrl($absolute = false, $page = null)
     {
+        $params = [
+            'parentUrl' => $this->getParentUrl(),
+            'catUrl'    => $this->getFullUrl()
+        ];
+        if ($page) {
+            $params['page'] = $page;
+        }
         return UrlHelper::createUrl(
             '/gallery/cat',
-            [
-                'parentUrl' => $this->getParentUrl(),
-                'catUrl'    => $this->getFullUrl()
-            ], $absolute, true);
+            $params, $absolute, true);
     }
 }
