@@ -14,10 +14,4 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
-
-    public function actionLogin($login, $password)
-    {
-        \Yii::$app->response->format = Response::FORMAT_JSON;
-        return ['result' => false];
-    }
 }
