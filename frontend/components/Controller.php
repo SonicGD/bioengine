@@ -73,7 +73,7 @@ class Controller extends \yii\web\Controller
         } else {
             \Yii::$app->user->identity->getAvatarUrl();
         }
-
+        setlocale(LC_ALL, 'C');
 
         /**
          * @var Settings[] $settings
