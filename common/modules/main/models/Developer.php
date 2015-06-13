@@ -101,6 +101,15 @@ class Developer extends BioActiveRecord
             ], $absolute, true);
     }
 
+    public function getArticlesUrl($absolute = false)
+    {
+        return UrlHelper::createUrl(
+            '/articles/root',
+            [
+                'parentUrl' => $this->url
+            ], $absolute, true);
+    }
+
     public function getGalleryUrl($absolute = false)
     {
         return UrlHelper::createUrl(
