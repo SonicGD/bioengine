@@ -61,6 +61,7 @@ class File extends BioActiveRecord
                 'integer'
             ],
             [['desc', 'announce'], 'string'],
+            [['desc', 'announce'], 'default', 'value' => ''],
             [['url', 'title', 'link', 'streamfile', 'yt_url', 'yt_id'], 'string', 'max' => 255],
             [['game_old'], 'string', 'max' => 40],
             [['file'], 'string', 'max' => 50],
