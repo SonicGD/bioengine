@@ -313,4 +313,9 @@ class Game extends BioActiveRecord
             ->orderBy(['id' => SORT_DESC])
             ->all();
     }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
 }
