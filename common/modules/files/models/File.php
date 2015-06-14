@@ -30,6 +30,7 @@ use yii\web\HttpException;
  * @property integer   $yt_status
  * @property string    $yt_title
  * @property string    $yt_url
+ * @property string    $yt_id
  * @property integer   $author_id
  * @property integer   $count
  * @property integer   $date
@@ -61,7 +62,7 @@ class File extends BioActiveRecord
             ],
             [['desc', 'announce'], 'required'],
             [['desc', 'announce'], 'string'],
-            [['url', 'title', 'link', 'streamfile', 'yt_url'], 'string', 'max' => 255],
+            [['url', 'title', 'link', 'streamfile', 'yt_url', 'yt_id'], 'string', 'max' => 255],
             [['game_old'], 'string', 'max' => 40],
             [['file'], 'string', 'max' => 50],
             [['yt_title'], 'string', 'max' => 60]
