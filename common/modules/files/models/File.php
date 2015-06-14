@@ -60,7 +60,6 @@ class File extends BioActiveRecord
                 ['cat_id', 'game_id', 'developer_id', 'size', 'stream', 'yt_status', 'author_id', 'count', 'date'],
                 'integer'
             ],
-            [['desc', 'announce'], 'required'],
             [['desc', 'announce'], 'string'],
             [['url', 'title', 'link', 'streamfile', 'yt_url', 'yt_id'], 'string', 'max' => 255],
             [['game_old'], 'string', 'max' => 40],
