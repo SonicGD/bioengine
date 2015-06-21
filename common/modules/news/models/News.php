@@ -273,8 +273,6 @@ class News extends BioActiveRecord
 
     public function getForumUrl()
     {
-        $info = IpbTopic::getInfo($this->tid);
-        var_dump($info);
         return '/forum/topic/' . $this->tid . '/page__view__getnewpost';
     }
 
