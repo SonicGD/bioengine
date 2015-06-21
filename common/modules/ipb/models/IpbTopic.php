@@ -3,6 +3,7 @@
 namespace bioengine\common\modules\ipb\models;
 
 use bioengine\common\components\BioActiveRecord;
+use bioengine\common\helpers\IPBWiHelper;
 use Yii;
 
 /**
@@ -138,5 +139,10 @@ class IpbTopic extends BioActiveRecord
             'moved_on'            => Yii::t('app', 'Moved On'),
             'banned_members'      => Yii::t('app', 'Banned Members'),
         ];
+    }
+
+    public static function getInfo($topicId)
+    {
+        return IPBWiHelper::getIpbWI()->topic->info($topicId);
     }
 }

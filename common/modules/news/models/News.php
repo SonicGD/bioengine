@@ -6,10 +6,12 @@ use bioengine\common\components\BioActiveRecord;
 use bioengine\common\helpers\UrlHelper;
 use bioengine\common\helpers\UserHelper;
 use bioengine\common\modules\ipb\models\IpbMember;
+use bioengine\common\modules\ipb\models\IpbTopic;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
 use bioengine\common\modules\news\models\search\NewsSearch;
+use IPBWI\ipbwi;
 use Yii;
 use yii\helpers\Url;
 
@@ -271,7 +273,9 @@ class News extends BioActiveRecord
 
     public function getForumUrl()
     {
-        return '#';
+        $info = IpbTopic::getInfo($this->tid);
+        var_dump($info);
+        return '/forum/topic/' . $this->tid . '/page__view__getnewpost';
     }
 
     public function getCommentsText()
