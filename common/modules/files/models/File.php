@@ -243,15 +243,16 @@ class File extends BioActiveRecord
                     if ($file) {
                         return [$file, $parent, $file->cat];
                     } else {
-                        throw new HttpException(404, 'Страница не найдена');
+                        return false;
                     }
                 } else {
-                    throw new HttpException(404, 'Страница не найдена');
+                    return false;
                 }
             } else {
-                throw new HttpException(404, 'Страница не найдена');
+                return false;
             }
         }
+        return false;
     }
 
     /**
