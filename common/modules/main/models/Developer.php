@@ -95,9 +95,9 @@ class Developer extends BioActiveRecord
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/site/developer',
+            '/site/root',
             [
-                'developerUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
@@ -113,9 +113,9 @@ class Developer extends BioActiveRecord
     public function getGalleryUrl($absolute = false)
     {
         return UrlHelper::createUrl(
-            '/gallery/developer',
+            '/gallery/root',
             [
-                'developerUrl' => $this->url
+                'parentUrl' => $this->url
             ], $absolute, true);
     }
 
