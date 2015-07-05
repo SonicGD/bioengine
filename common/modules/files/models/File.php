@@ -275,4 +275,11 @@ class File extends BioActiveRecord
 
         return false;
     }
+    public function getCountText()
+    {
+        return \Yii::t('app',
+            '{n, plural, =0{Нет просмотров} =1{1 просмотр} one{# просмотр} few{# просмотра} many{# просмотров} other{# просмотров}}',
+            ['n' => $this->count]);
+    }
+
 }
