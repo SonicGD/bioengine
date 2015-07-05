@@ -111,6 +111,14 @@ class Article extends BioActiveRecord
         ];
     }
 
+    public function afterFind()
+    {
+        $announce = trim(strip_tags($this->announce));
+        if ($announce === '' || $announce === '&nbsp;') {
+            $this->announce = '';
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
