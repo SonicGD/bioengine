@@ -41,13 +41,6 @@ class Controller extends \yii\web\Controller
 
         parent::init();
 
-        $requestUri = \Yii::$app->request->url;
-        if (!\Yii::$app->request->isAjax && !strpos($requestUri, '.html') && !strpos($requestUri, '?')) {
-            if ("/" != $requestUri{strlen($requestUri) - 1}) {
-                $this->redirect($requestUri . "/", true, 301);
-            }
-        }
-
         /**
          * @var Settings[] $settings
          */
