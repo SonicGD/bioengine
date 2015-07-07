@@ -6,7 +6,9 @@ use bioengine\common\components\BioActiveRecord;
 use bioengine\common\helpers\UrlHelper;
 use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
+use Imagine\Image\Box;
 use Yii;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "gallery".
@@ -96,11 +98,23 @@ class GalleryPic extends BioActiveRecord
         return $this->getFileUrl(0);
     }
 
+    public function getFileName($fileNumber = 0)
+    {
+        return $this->getFiles()[$fileNumber]['name'];
+    }
+
     public function getFileUrl($fileNumber)
+    {
+        $fileName = $this->getFileName($fileNumber);
+
+        return \Yii::$app->params['images_url'] . '/' . $this->getRootUrl() . '/' . $this->cat->getFullUrl() . $fileName;
+    }
+
+    public function getFilePath($fileNumber)
     {
         $fileName = $this->getFiles()[$fileNumber]['name'];
 
-        return \Yii::$app->params['images_url'] . '/' . $this->getRootUrl() . '/' . $this->cat->getFullUrl() . $fileName;
+        return $this->cat->getPath() . DIRECTORY_SEPARATOR . $fileName;
     }
 
     public function getRootUrl()
@@ -152,5 +166,31 @@ class GalleryPic extends BioActiveRecord
             'id',
             $this->id
         ])->orderBy(['id' => SORT_DESC])->count();
+    }
+
+    public function getThumbPath($width, $height, $index = 0)
+    {
+        $path = $this->cat->getPath() . DIRECTORY_SEPARATOR . 'thumb' . DIRECTORY_SEPARATOR;
+
+        $thumbPath = $path . $this->id . '_' . $width . '_' . $height . '_' . $index . '.jpg';
+        if (is_file($thumbPath)) {
+            return $thumbPath;
+        }
+
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+
+        $filePath = $this->getFilePath($index);
+
+        if (!is_file($filePath)) {
+            die('no pic');
+        }
+
+        $image = Image::getImagine()->open($filePath);
+        $image->resize(new Box($width, $height));
+        $image->save($thumbPath);
+
+        return $thumbPath;
     }
 }

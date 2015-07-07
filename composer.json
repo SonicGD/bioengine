@@ -28,7 +28,8 @@
     "bower-asset/components-font-awesome": "*",
     "nao-pon/elfinder-nightly": "2.1.*@dev",
     "yiisoft/yii2-jui": "2.*",
-    "bower-asset/jquery-ui": "~1.11@dev"
+    "bower-asset/jquery-ui": "~1.11@dev",
+    "yiisoft/yii2-imagine": "^2.0@dev"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",

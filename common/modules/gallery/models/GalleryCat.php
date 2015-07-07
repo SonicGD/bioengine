@@ -139,4 +139,9 @@ class GalleryCat extends BioActiveRecord
             '/gallery/cat',
             $params, $absolute, true);
     }
+
+    public function getPath()
+    {
+        return \Yii::$app->params['images_path'] . DIRECTORY_SEPARATOR . $this->getParentUrl();
+    }
 }
