@@ -8,6 +8,7 @@ use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use Imagine\Image\Box;
 use Yii;
+use yii\helpers\Url;
 use yii\imagine\Image;
 
 /**
@@ -79,7 +80,7 @@ class GalleryPic extends BioActiveRecord
 
     public function getThumbUrl($width, $height)
     {
-        return 'http://www.bioware.ru/gallery/thumb/' . $this->id . '/' . $width . '/' . $height;
+        return Url::toRoute(['gallery/thumb', 'picId' => $this->id, 'width' => $width, 'height' => $height]);
     }
 
     private $_files = [];
