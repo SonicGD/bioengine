@@ -187,8 +187,37 @@ class GalleryPic extends BioActiveRecord
             die('no pic');
         }
 
+        $size = getimagesize($filePath);
+        $origHeight = $size[1];
+        $origWidth = $size[0];
+        $newWidth = $width;
+        $newHeight = $height;
+        if ($height > 0) {
+            if ($origWidth > $origHeight) {
+                $ratio = $origWidth / $origHeight;
+                //echo "ratio: ".$ratio."<br />";
+                $newHeight = $width / $ratio;
+                //echo "newHeight: ".$newHeight."<br />";
+                if ($newHeight > $height) {
+                    $hratio = $newHeight / $height;
+                    $newWidth = $newWidth / $hratio;
+                    $newHeight = $height;
+                }
+            } elseif ($origHeight > $origWidth) {
+                $ratio = $origHeight / $origWidth;
+                //echo "ratio: ".$ratio;
+                $newWidth = $height / $ratio;
+                if ($newWidth > $width) {
+                    $wratio = $newWidth / $width;
+                    $newHeight = $newHeight / $wratio;
+                    $newWidth = $width;
+                }
+            }
+        }
+
+
         $image = Image::getImagine()->open($filePath);
-        $image->resize(new Box($width, $height));
+        $image->resize(new Box($newWidth, $newHeight));
         $image->save($thumbPath);
 
         return $thumbPath;
