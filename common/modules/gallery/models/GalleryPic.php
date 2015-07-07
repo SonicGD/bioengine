@@ -170,7 +170,7 @@ class GalleryPic extends BioActiveRecord
 
     public function getThumbPath($width, $height, $index = 0)
     {
-        $path = $this->cat->getPath() . DIRECTORY_SEPARATOR . 'thumb' . DIRECTORY_SEPARATOR;
+        $path = $this->cat->getPath() . 'thumb' . DIRECTORY_SEPARATOR;
 
         $thumbPath = $path . $this->id . '_' . $width . '_' . $height . '_' . $index . '.jpg';
         if (is_file($thumbPath)) {
@@ -184,7 +184,7 @@ class GalleryPic extends BioActiveRecord
         $filePath = $this->getFilePath($index);
 
         if (!is_file($filePath)) {
-            die('no pic');
+            die('no pic ' . $filePath);
         }
 
         $size = getimagesize($filePath);
