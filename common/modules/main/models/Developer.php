@@ -92,6 +92,14 @@ class Developer extends BioActiveRecord
         return \Yii::$app->params['assets_url'] . \Yii::$app->params['developers_images_url'] . $this->logo;
     }
 
+    /**
+     * @return string
+     */
+    public function getLogoPath()
+    {
+        return \Yii::$app->params['developers_images_path'] . $this->logo;
+    }
+
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
@@ -122,6 +130,20 @@ class Developer extends BioActiveRecord
     public function getIcon()
     {
         return $this->getLogoUrl();
+    }
+
+    public function getIconSize()
+    {
+        $path = $this->getLogoPath();
+        if (is_file($path)) {
+            return filesize($path);
+        }
+        return 1;
+    }
+
+    public function getIconPath()
+    {
+        return $this->getLogoPath();
     }
 
     public function getTitle()

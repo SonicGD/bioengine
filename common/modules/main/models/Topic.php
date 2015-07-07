@@ -61,6 +61,20 @@ class Topic extends BioActiveRecord
         return \Yii::$app->params['assets_url'] . \Yii::$app->params['topics_images_url'] . $this->logo;
     }
 
+    public function getLogoPath()
+    {
+        return \Yii::$app->params['topics_images_path'] . $this->logo;
+    }
+
+    public function getIconSize()
+    {
+        $path = $this->getLogoPath();
+        if (is_file($path)) {
+            return filesize($path);
+        }
+        return 1;
+    }
+
     public function getNewsUrl($absolute = false)
     {
         return UrlHelper::createUrl(
@@ -73,6 +87,11 @@ class Topic extends BioActiveRecord
     public function getIcon()
     {
         return $this->getLogoUrl();
+    }
+
+    public function getIconPath()
+    {
+        return $this->getLogoPath();
     }
 
     public function getGalleryUrl($absolute = false)

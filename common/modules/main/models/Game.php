@@ -266,6 +266,20 @@ class Game extends BioActiveRecord
         return $this->getSmallLogoUrl();
     }
 
+    public function getIconPath()
+    {
+        return $this->getLogoPath(false);
+    }
+
+    public function getIconSize()
+    {
+        $path = $this->getLogoPath();
+        if (is_file($path)) {
+            return filesize($path);
+        }
+        return 1;
+    }
+
     public function getLastArticles($count = 5)
     {
         return Article::find()
