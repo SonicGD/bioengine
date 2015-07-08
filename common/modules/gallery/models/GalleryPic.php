@@ -215,6 +215,13 @@ class GalleryPic extends BioActiveRecord
                 }
             }
         }
+        else
+        {
+            $ratio = $origWidth / $origHeight;
+            //echo "ratio: ".$ratio."<br />";
+            $newHeight = $width / $ratio;
+            //echo "newHeight: ".$newHeight."<br />";
+        }
 
 
         $image = Image::getImagine()->open($filePath);
