@@ -4,6 +4,7 @@ namespace bioengine\common\modules\ipb\models;
 
 use bioengine\common\components\BioActiveRecord;
 use bioengine\common\modules\ipb\helpers\IpbHelper;
+use bioengine\common\modules\main\models\SiteTeam;
 use IPBWI\ipbwi;
 use IPBWI\ipbwi_member;
 use Yii;
@@ -426,4 +427,160 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
         return md5($this->email . '&' . $this->member_login_key . '&' . $this->joined);
     }
 
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->member_group_id === 4;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSiteTeam()
+    {
+        return SiteTeam::find()->where(['member_id' => $this->member_id, 'active' => 1])->count() > 0;
+    }
+
+    /**
+     * @return SiteTeam
+     */
+    public function getSiteTeamRights()
+    {
+        return SiteTeam::find()->where(['member_id' => $this->member_id])->one();
+    }
+
+    public function hasRights($action)
+    {
+        if ($this->isAdmin()) {
+            return true;
+        } elseif ($this->isSiteTeam()) {
+            $rights = $this->getSiteTeamRights();
+            switch ($action) {
+                case 'Developers':
+                case 'addDevelopers':
+                    if ($rights->developers > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editDevelopers':
+                    if ($rights->developers > 1) {
+                        return true;
+                    }
+                    break;
+                case 'Games':
+                case 'addGames':
+                    if ($rights->games > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editGames':
+                    if ($rights->games > 1) {
+                        return true;
+                    }
+                    break;
+                case 'News':
+                case 'addNews':
+                    if ($rights->news > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editNews':
+                    if ($rights->news > 1) {
+                        return true;
+                    }
+                    break;
+                case 'pubNews':
+                    if ($rights->news > 2) {
+                        return true;
+                    }
+                    break;
+                case 'fullNews':
+                    if ($rights->news > 3) {
+                        return true;
+                    }
+                    break;
+                case 'Articles':
+                case 'addArticles':
+                    if ($rights->articles > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editArticles':
+                    if ($rights->articles > 1) {
+                        return true;
+                    }
+                    break;
+                case 'pubArticles':
+                    if ($rights->articles > 2) {
+                        return true;
+                    }
+                    break;
+                case 'fullArticles':
+                    if ($rights->articles > 3) {
+                        return true;
+                    }
+                    break;
+                case 'Files':
+                case 'addFiles':
+                    if ($rights->files > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editFiles':
+                    if ($rights->files > 1) {
+                        return true;
+                    }
+                    break;
+                case 'pubFile':
+                    if ($rights->files > 2) {
+                        return true;
+                    }
+                    break;
+                case 'fullFiles':
+                    if ($rights->files > 3) {
+                        return true;
+                    }
+                    break;
+                case 'Gallery':
+                case 'addGallery':
+                    if ($rights->gallery > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editGallery':
+                    if ($rights->gallery > 1) {
+                        return true;
+                    }
+                    break;
+                case 'pubGallery':
+                    if ($rights->gallery > 2) {
+                        return true;
+                    }
+                    break;
+                case 'fullGallery':
+                    if ($rights->gallery > 3) {
+                        return true;
+                    }
+                    break;
+                case 'Polls':
+                case 'addPolls':
+                    if ($rights->polls > 0) {
+                        return true;
+                    }
+                    break;
+                case 'editPolls':
+                    if ($rights->polls > 1) {
+                        return true;
+                    }
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }
+        return false;
+    }
 }
+
