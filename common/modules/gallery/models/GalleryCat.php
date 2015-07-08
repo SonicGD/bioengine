@@ -144,4 +144,16 @@ class GalleryCat extends BioActiveRecord
     {
         return \Yii::$app->params['images_path'] . DIRECTORY_SEPARATOR . $this->getParentUrl() . DIRECTORY_SEPARATOR . $this->getFullUrl();
     }
+
+    public function getLastPics($count = 5)
+    {
+        return GalleryPic::find()
+            ->where([
+                'pub'    => 1,
+                'cat_id' => $this->id
+            ])
+            ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
 }
