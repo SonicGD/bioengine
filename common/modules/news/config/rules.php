@@ -12,5 +12,6 @@ return [
         'encodeParams' => false
     ],
     '/<year:\d+>/<month:\d+>/<day:\d+>/<newsUrl:\w+>' => '/news/show',
-    '/page/<page:\d+>'                                => '/site/index'
+    '/page/<page:\d+>'                                => '/site/index',
+    '/rss'                                            => 'news/rss'
 ];
