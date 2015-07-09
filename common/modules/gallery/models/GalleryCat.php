@@ -11,18 +11,20 @@ use Yii;
 /**
  * This is the model class for table "gallery_cats".
  *
- * @property integer    $id
- * @property string     $game_old
- * @property integer    $pid
- * @property integer    $game_id
- * @property integer    $developer_id
- * @property string     $title
- * @property string     $desc
- * @property string     $url
+ * @property integer      $id
+ * @property string       $game_old
+ * @property integer      $pid
+ * @property integer      $game_id
+ * @property integer      $developer_id
+ * @property string       $title
+ * @property string       $desc
+ * @property string       $url
  *
- * @property GalleryCat $parent
- * @property Game       $game
- * @property Developer  $developer
+ * @property GalleryCat   $parent
+ * @property Game         $game
+ * @property Developer    $developer
+ * @property GalleryCat[] $children
+ * @property GalleryPic[] $pics
  */
 class GalleryCat extends BioActiveRecord
 {
@@ -155,5 +157,15 @@ class GalleryCat extends BioActiveRecord
             ->limit($count)
             ->orderBy(['id' => SORT_DESC])
             ->all();
+    }
+
+    public function getChildren()
+    {
+        return $this->hasMany(self::className(), ['pid' => 'id']);
+    }
+
+    public function getPics()
+    {
+        return $this->hasMany(GalleryPic::className(), ['cat_id' => 'id']);
     }
 }

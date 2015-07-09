@@ -11,19 +11,20 @@ use Yii;
 /**
  * This is the model class for table "files_cats".
  *
- * @property integer    $id
- * @property integer    $pid
- * @property integer    $game_id
- * @property integer    $developer_id
- * @property string     $game_old
- * @property string     $title
- * @property string     $descr
- * @property string     $url
+ * @property integer   $id
+ * @property integer   $pid
+ * @property integer   $game_id
+ * @property integer   $developer_id
+ * @property string    $game_old
+ * @property string    $title
+ * @property string    $descr
+ * @property string    $url
  *
- * @property Game       $game
- * @property Developer  $developer
- * @property FileCat    $parent
- * @property FileCat[]  $children
+ * @property Game      $game
+ * @property Developer $developer
+ * @property FileCat   $parent
+ * @property FileCat[] $children
+ * @property File[]    $files
  */
 class FileCat extends BioActiveRecord
 {
@@ -107,6 +108,11 @@ class FileCat extends BioActiveRecord
     public function getGame()
     {
         return $this->hasOne(Game::className(), ['id' => 'game_id']);
+    }
+
+    public function getFiles()
+    {
+        return $this->hasMany(File::className(), ['cat_id' => 'id']);
     }
 
     public function getDeveloper()

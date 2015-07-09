@@ -13,22 +13,23 @@ use yii\helpers\Url;
 /**
  * This is the model class for table "articles_cats".
  *
- * @property integer             $id
- * @property integer             $pid
- * @property integer             $game_id
- * @property integer             $developer_id
- * @property integer             $topic_id
- * @property string              $title
- * @property string              $url
- * @property string              $descr
- * @property string              $game_old
- * @property string              $content
- * @property integer             $articles
+ * @property integer      $id
+ * @property integer      $pid
+ * @property integer      $game_id
+ * @property integer      $developer_id
+ * @property integer      $topic_id
+ * @property string       $title
+ * @property string       $url
+ * @property string       $descr
+ * @property string       $game_old
+ * @property string       $content
+ * @property integer      $articles
  *
- * @property Game                $game
- * @property Developer           $developer
- * @property Topic               $topic
- * @property ArticleCat          $parent
+ * @property Game         $game
+ * @property Developer    $developer
+ * @property Topic        $topic
+ * @property ArticleCat   $parent
+ * @property ArticleCat[] $children
  *
  */
 class ArticleCat extends BioActiveRecord
@@ -206,6 +207,20 @@ class ArticleCat extends BioActiveRecord
                 'cat_id' => $this->id
             ])
             ->limit($count)
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
+
+    /**
+     * @return Article[]
+     */
+    public function getArticles()
+    {
+        return Article::find()
+            ->where([
+                'pub'    => 1,
+                'cat_id' => $this->id
+            ])
             ->orderBy(['id' => SORT_DESC])
             ->all();
     }

@@ -7,12 +7,12 @@ return [
         'encodeParams' => false
     ],
     [
-        'pattern'      => '/<parentUrl:\w+>/files/<catUrl:[a-z0-9_\/]+>/<fileUrl:[a-z0-9_]+>/download',
+        'pattern'      => '/<parentUrl:\w+>/files/<catUrl:[a-z0-9_\/]+>/<fileUrl:[a-z0-9_-]+>/download',
         'route'        => '/files/download',
         'encodeParams' => false
     ],
     [
-        'pattern'      => '/<parentUrl:\w+>/files/<catUrl:[a-z0-9_\/]+>/<fileUrl:[a-z0-9_]+>',
+        'pattern'      => '/<parentUrl:\w+>/files/<catUrl:[a-z0-9_\/]+>/<fileUrl:[a-z0-9_-]+>',
         'route'        => '/files/show',
         'encodeParams' => false
     ],
