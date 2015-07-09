@@ -15,15 +15,15 @@ use yii\web\Cookie;
 class Controller extends \yii\web\Controller
 {
     public $breadcrumbs = [];
-    public $title = "";
-    public $pageTitle = "";
+    public $title = '';
+    public $pageTitle = '';
     public $session_id = false;
     public $session = false;
     public $session_member_id = 0;
-    public $currentUrl = "";
+    public $currentUrl = '';
     public $guest = true;
-    public $keywords = "";
-    public $description = "";
+    public $keywords = '';
+    public $description = '';
     public $video = 0;
     public $settings = [];
     public $themeName = 'default';
@@ -33,11 +33,11 @@ class Controller extends \yii\web\Controller
     public function Init()
     {
 
-        if (\Yii::$app->request->get('module') && \Yii::$app->request->get('module') == 'rss') {
-            $this->redirect(\Yii::$app->params["site_url"] . "/rss/", true, 301);
+        if (\Yii::$app->request->get('module') && \Yii::$app->request->get('module') === 'rss') {
+            $this->redirect(\Yii::$app->params['site_url'] . '/rss/', 301);
         }
         //if (\Yii::$app->request->get('theme',false) && \Yii::$app->request->get('theme') != '') \Yii::$app-> = $_GET['theme'];
-        $this->currentUrl = \Yii::$app->params["site_url"] . $_SERVER["REQUEST_URI"];
+        $this->currentUrl = \Yii::$app->params['site_url'] . $_SERVER['REQUEST_URI'];
 
         parent::init();
 
@@ -84,7 +84,7 @@ class Controller extends \yii\web\Controller
         $this->description = $this->settings['description'];
 
         if (isset($_POST['hash'])) {
-            $this->layout = "//layouts/hash";
+            $this->layout = '//layouts/hash';
         }
     }
 
