@@ -8,8 +8,10 @@ use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use Imagine\Image\Box;
 use Yii;
+use yii\helpers\FileHelper;
 use yii\helpers\Url;
 use yii\imagine\Image;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "gallery".
@@ -78,10 +80,6 @@ class GalleryPic extends BioActiveRecord
         return $this->hasOne(GalleryCat::className(), ['id' => 'cat_id']);
     }
 
-    public function getThumbUrl($width, $height)
-    {
-        return Url::toRoute(['gallery/thumb', 'picId' => $this->id, 'width' => $width, 'height' => $height]);
-    }
 
     private $_files = [];
 
@@ -169,23 +167,34 @@ class GalleryPic extends BioActiveRecord
         ])->orderBy(['id' => SORT_DESC])->count();
     }
 
-    public function getThumbPath($width, $height, $index = 0)
+    public function getThumbUrl($width, $height, $index = 0)
     {
-        $path = $this->cat->getPath() . 'thumb' . DIRECTORY_SEPARATOR;
-
-        $thumbPath = $path . $this->id . '_' . $width . '_' . $height . '_' . $index . '.jpg';
-        if (is_file($thumbPath)) {
-            return $thumbPath;
-        }
-
-        if (!is_dir($path)) {
-            mkdir($path);
-        }
-
         $filePath = $this->getFilePath($index);
 
         if (!is_file($filePath)) {
-            die('no pic ' . $filePath);
+            return '#';
+        }
+
+        $dir = dirname($filePath) . DIRECTORY_SEPARATOR . 'thumb';
+
+        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+
+
+        $thumbPath = $dir . DIRECTORY_SEPARATOR . $this->id . '_' . $width . '_' . $height . '_' . $index . '.' . $ext;
+
+        if (!is_file($thumbPath)) {
+            $this->createThumb($thumbPath, $width, $height, $index);
+        }
+        $thumbUrl = str_ireplace(\Yii::$app->params['images_path'], \Yii::$app->params['images_url'], $thumbPath);
+        return $thumbUrl;
+    }
+
+    private function createThumb($thumbPath, $width, $height, $index = 0)
+    {
+        $filePath = $this->getFilePath($index);
+
+        if (!is_dir(dirname($thumbPath))) {
+            mkdir(dirname($thumbPath));
         }
 
         $size = getimagesize($filePath);
@@ -201,7 +210,7 @@ class GalleryPic extends BioActiveRecord
                 //echo "newHeight: ".$newHeight."<br />";
                 if ($newHeight > $height) {
                     $hratio = $newHeight / $height;
-                    $newWidth = $newWidth / $hratio;
+                    $newWidth /= $hratio;
                     $newHeight = $height;
                 }
             } elseif ($origHeight > $origWidth) {
@@ -210,19 +219,16 @@ class GalleryPic extends BioActiveRecord
                 $newWidth = $height / $ratio;
                 if ($newWidth > $width) {
                     $wratio = $newWidth / $width;
-                    $newHeight = $newHeight / $wratio;
+                    $newHeight /= $wratio;
                     $newWidth = $width;
                 }
             }
-        }
-        else
-        {
+        } else {
             $ratio = $origWidth / $origHeight;
             //echo "ratio: ".$ratio."<br />";
             $newHeight = $width / $ratio;
             //echo "newHeight: ".$newHeight."<br />";
         }
-
 
         $image = Image::getImagine()->open($filePath);
         $image->resize(new Box($newWidth, $newHeight));
