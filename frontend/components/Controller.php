@@ -33,14 +33,15 @@ class Controller extends \yii\web\Controller
     public function Init()
     {
 
+        \Yii::trace('Start init');
         if (\Yii::$app->request->get('module') && \Yii::$app->request->get('module') === 'rss') {
             $this->redirect(\Yii::$app->params['site_url'] . '/rss/', 301);
         }
         //if (\Yii::$app->request->get('theme',false) && \Yii::$app->request->get('theme') != '') \Yii::$app-> = $_GET['theme'];
         $this->currentUrl = \Yii::$app->params['site_url'] . $_SERVER['REQUEST_URI'];
-
+        \Yii::trace('Parent init');
         parent::init();
-
+        \Yii::trace('Load settings');
         /**
          * @var Settings[] $settings
          */
@@ -49,43 +50,38 @@ class Controller extends \yii\web\Controller
                 $this->settings[$setting->name] = $setting->value;
             }
         }
-
+        \Yii::trace('Init ipbwi');
         $this->ipbwi = new ipbwi();
         /**
          * @var ipbwi_member $member
          */
         $member = $this->ipbwi->member;
         if (\Yii::$app->user->isGuest) {
-
+            \Yii::trace('User os guest');
             if ($member->isLoggedIn()) {
+                \Yii::trace('Member logged in');
                 /**
                  * @var IpbMember $user
                  */
+                \Yii::trace('Find User');
                 $user = IpbMember::findOne($member->info()['member_id']);
                 if ($user) {
+                    \Yii::trace('Login...');
                     \Yii::$app->user->login($user, 3600 * 24 * 30);
                 }
             }
         } else {
+            \Yii::trace('Get avatar url');
             \Yii::$app->user->identity->getAvatarUrl();
         }
+        \Yii::trace('Fix locale');
         setlocale(LC_ALL, 'C');
 
-        /**
-         * @var Settings[] $settings
-         */
-        if ($settings = Settings::find()->all()) {
-            foreach ($settings as $setting) {
-                $this->settings[$setting->name] = $setting->value;
-            }
-        }
-
+        \Yii::trace('Set keywords and description');
         $this->keywords = $this->settings['keywords'];
         $this->description = $this->settings['description'];
 
-        if (isset($_POST['hash'])) {
-            $this->layout = '//layouts/hash';
-        }
+        \Yii::trace('Init complete');
     }
 
     public function hasCookie($name)
