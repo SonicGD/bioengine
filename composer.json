@@ -49,12 +49,6 @@
     "post-update-cmd": [
     ]
   },
-  "config": {
-    "github-oauth": {
-      "github.com": "88c745eb265bb64d95995edfaaf4ae220aa741bb"
-    },
-    "process-timeout": 1800
-  },
   "extra": {
     "writable": [
       "backend/runtime",
