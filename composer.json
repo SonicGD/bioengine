@@ -16,9 +16,9 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.4.0",
-    "yiisoft/yii2": "~2.0.3",
-    "yiisoft/yii2-bootstrap": "~2.0.3",
-    "yiisoft/yii2-swiftmailer": "~2.0.3",
+    "yiisoft/yii2": "~2.0.5",
+    "yiisoft/yii2-bootstrap": "~2.0.5",
+    "yiisoft/yii2-swiftmailer": "~2.0.5",
     "almasaeed2010/adminlte": "1.*",
     "2amigos/yii2-ckeditor-widget": "~1.0.4",
     "kartik-v/yii2-widget-select2": "1.*",
