@@ -12,6 +12,8 @@ use bioengine\common\modules\main\models\Developer;
 use bioengine\common\modules\main\models\Game;
 use bioengine\common\modules\main\models\Topic;
 use bioengine\common\modules\news\models\News;
+use samdark\sitemap\Index;
+use samdark\sitemap\Sitemap;
 use yii\i18n\PhpMessageSource;
 
 /**
@@ -117,95 +119,109 @@ class MainModule extends BioModule
         );
     }
 
-    public static function generateSiteMap($xmlPath)
+    /**
+     * @param string $folder
+     * @param string $rootUrl
+     */
+    public static function generateSiteMap($folder, $rootUrl)
     {
-        $lastReleaseDate = date('Y-m-d', time());
-        $xml = <<<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://www.bioware.ru/</loc>
-      <lastmod>{$lastReleaseDate}</lastmod>
-      <changefreq>daily</changefreq>
-      <priority>1</priority>
-   </url>
 
-EOF;
+        // create sitemap index file
+        $index = new Index($folder . '/sitemap.xml');
+
+        $mainSiteMap = new Sitemap($folder . '/sitemap.main.xml');
+        $mainSiteMap->addItem($rootUrl, time(), Sitemap::DAILY, 1);
+        $mainSiteMap->write();
+
+        self::fillIndexSitemap($index, $mainSiteMap, $rootUrl);
+
         //games
+        $gamesSitemap = new Sitemap($folder . '/sitemap.games.xml');
         /**
          * @var Game[] $games
          */
         $games = Game::find()->all();
         foreach ($games as $game) {
-            $date = date('Y-m-d', $game->date);
             $url = $game->getPublicUrl(true);
-            $priority = 0.9;
             if (!$url) {
                 continue;
             }
-            $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$date}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>{$priority}</priority>
-   </url>
-EOF;
+            $gamesSitemap->addItem($url, $game->date, Sitemap::DAILY, 0.9);
         }
+
+        $gamesSitemap->write();
+
+        self::fillIndexSitemap($index, $gamesSitemap, $rootUrl);
+
         //news
+        $newsSitemap = new Sitemap($folder . '/sitemap.news.xml');
         /**
          * @var News[] $allNews
          */
         $allNews = News::find()->where(['pub' => 1])->all();
         foreach ($allNews as $news) {
-            $date = date('Y-m-d', $news->last_change_date);
             $url = $news->getPublicUrl(true);
-            $priority = 0.9;
             if (!$url) {
                 continue;
             }
-            $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$date}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>{$priority}</priority>
-   </url>
-EOF;
+            $newsSitemap->addItem($url, $news->last_change_date, Sitemap::WEEKLY, 0.9);
         }
+        $newsSitemap->write();
+
+        self::fillIndexSitemap($index, $newsSitemap, $rootUrl);
+
         //articles
+        $articlesSitemap = new Sitemap($folder . '/sitemap.articles.xml');
         /**
          * @var ArticleCat[] $articleCats
          */
         $articleCats = ArticleCat::find()->all();
         foreach ($articleCats as $articleCat) {
-            self::generateArticleCatSitemap($articleCat, $xml);
+            self::generateArticleCatSitemap($articleCat, $articlesSitemap);
         }
+        $articlesSitemap->write();
+
+        self::fillIndexSitemap($index, $articlesSitemap, $rootUrl);
+
+
         //files
+        $filesSitemap = new Sitemap($folder . '/sitemap.files.xml');
         /**
          * @var FileCat[] $fileCats
          */
         $fileCats = FileCat::find()->all();
         foreach ($fileCats as $fileCat) {
-            self::generateFileCatSitemap($fileCat, $xml);
+            self::generateFileCatSitemap($fileCat, $filesSitemap);
         }
-        //gallery
+        $filesSitemap->write();
 
+        self::fillIndexSitemap($index, $filesSitemap, $rootUrl);
+
+        //gallery
+        $gallerySitemap = new Sitemap($folder . '/sitemap.gallery.xml');
         /**
          * @var GalleryCat[] $galleryCats
          */
         $galleryCats = GalleryCat::find()->all();
         foreach ($galleryCats as $galleryCat) {
-            self::generateGalleryCatSitemap($galleryCat, $xml);
+            self::generateGalleryCatSitemap($galleryCat, $gallerySitemap);
         }
+        $gallerySitemap->write();
 
-        $xml .= <<<EOF
-</urlset>
-EOF;
-        file_put_contents($xmlPath, $xml);
+        self::fillIndexSitemap($index, $gamesSitemap, $rootUrl);
+
+
+        $index->write();
     }
 
-    public static function generateArticleCatSitemap(ArticleCat $cat, &$xml)
+    public static function fillIndexSitemap(Index $index, Sitemap $sitemap, $rootUrl)
+    {
+        foreach ($sitemap->getSitemapUrls($rootUrl) as $url) {
+            $index->addSitemap($url);
+        }
+    }
+
+    public static function generateArticleCatSitemap(ArticleCat $cat, Sitemap $sitemap)
     {
         $catDate = 0;
         foreach ($cat->getArticles() as $article) {
@@ -215,84 +231,52 @@ EOF;
             if ($article->date > $catDate) {
                 $catDate = $article->date;
             }
-            $date = date('Y-m-d', $article->date);
             $url = $article->getPublicUrl(true);
-            $priority = 0.8;
             if (!$url) {
                 continue;
             }
-            $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$date}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>{$priority}</priority>
-   </url>
-EOF;
+            $sitemap->addItem($url, $article->date, Sitemap::WEEKLY, 0.8);
         }
 
         foreach ($cat->children as $child) {
-            self::generateArticleCatSitemap($child, $xml);
+            self::generateArticleCatSitemap($child, $sitemap);
         }
 
         if ($catDate === 0) {
             $catDate = time();
         }
-        $catDate = date('Y-m-d', $catDate);
         $url = $cat->getPublicUrl(true);
-        $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$catDate}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-   </url>
-EOF;
+        $sitemap->addItem($url, $catDate, Sitemap::WEEKLY, 0.7);
     }
 
-    public static function generateFileCatSitemap(FileCat $cat, &$xml)
+    public static function generateFileCatSitemap(FileCat $cat, Sitemap $sitemap)
     {
         $catDate = 0;
         foreach ($cat->files as $file) {
             if ($file->date > $catDate) {
                 $catDate = $file->date;
             }
-            $date = date('Y-m-d', $file->date);
+
             $url = $file->getPublicUrl(true);
-            $priority = 0.8;
+
             if (!$url) {
                 continue;
             }
-            $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$date}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>{$priority}</priority>
-   </url>
-EOF;
+            $sitemap->addItem($url, $file->date, Sitemap::WEEKLY, 0.8);
         }
 
         foreach ($cat->children as $child) {
-            self::generateFileCatSitemap($child, $xml);
+            self::generateFileCatSitemap($child, $sitemap);
         }
 
         if ($catDate === 0) {
             $catDate = time();
         }
-        $catDate = date('Y-m-d', $catDate);
         $url = $cat->getPublicUrl(true);
-        $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$catDate}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-   </url>
-EOF;
+        $sitemap->addItem($url, $catDate, Sitemap::WEEKLY, 0.7);
     }
 
-    public static function generateGalleryCatSitemap(GalleryCat $cat, &$xml)
+    public static function generateGalleryCatSitemap(GalleryCat $cat, Sitemap $sitemap)
     {
         $catDate = 0;
         foreach ($cat->pics as $pic) {
@@ -302,21 +286,13 @@ EOF;
         }
 
         foreach ($cat->children as $child) {
-            self::generateGalleryCatSitemap($child, $xml);
+            self::generateGalleryCatSitemap($child, $sitemap);
         }
 
         if ($catDate === 0) {
             $catDate = time();
         }
-        $catDate = date('Y-m-d', $catDate);
         $url = $cat->getPublicUrl(true);
-        $xml .= <<<EOF
-            <url>
-      <loc>{$url}</loc>
-      <lastmod>{$catDate}</lastmod>
-      <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-   </url>
-EOF;
+        $sitemap->addItem($url, $catDate, Sitemap::WEEKLY, 0.7);
     }
 }
