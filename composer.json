@@ -30,7 +30,9 @@
     "yiisoft/yii2-jui": "2.*",
     "bower-asset/jquery-ui": "~1.11@dev",
     "yiisoft/yii2-imagine": "^2.0@dev",
-    "samdark/sitemap": "2.0.*"
+    "samdark/sitemap": "2.0.*",
+    "sitkoru/yii2-ar-cache": "dev-cacheops",
+    "yiisoft/yii2-redis": "dev-hhvm-compat as 2.0.3"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
@@ -66,5 +68,11 @@
     "psr-4": {
       "bioengine\\": ""
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:SonicGD/yii2-redis.git"
+    }
+  ]
 }
