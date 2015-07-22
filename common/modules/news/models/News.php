@@ -102,7 +102,6 @@ class News extends BioActiveRecord
                     'title',
                     'url',
                     'short_text',
-                    'add_text',
                     'last_change_date',
                 ],
                 'required'
