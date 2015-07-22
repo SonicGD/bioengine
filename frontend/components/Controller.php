@@ -16,6 +16,9 @@ class Controller extends \yii\web\Controller
 {
     public $breadcrumbs = [];
     public $title = '';
+    public $siteTitle = '';
+    public $description = '';
+    public $image = '';
     public $pageTitle = '';
     public $session_id = false;
     public $session = false;
@@ -23,7 +26,6 @@ class Controller extends \yii\web\Controller
     public $currentUrl = '';
     public $guest = true;
     public $keywords = '';
-    public $description = '';
     public $video = 0;
     public $settings = [];
     public $themeName = 'default';
@@ -78,6 +80,8 @@ class Controller extends \yii\web\Controller
         setlocale(LC_ALL, 'C');
 
         \Yii::trace('Set keywords and description');
+        $this->siteTitle = $this->settings['siteTitle'];
+        $this->image = $this->settings['mainSiteImage'];
         $this->keywords = $this->settings['keywords'];
         $this->description = $this->settings['description'];
 
