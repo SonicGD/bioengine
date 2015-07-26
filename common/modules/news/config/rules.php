@@ -11,7 +11,7 @@ return [
         'route'        => '/site/root',
         'encodeParams' => false
     ],
-    '/<year:\d+>/<month:\d+>/<day:\d+>/<newsUrl:(.)+>'  => '/index/show',
+    '/<year:\d+>/<month:\d+>/<day:\d+>/<newsUrl:(.)+>'  => '/news/show',
     '/<year:\d+>/<month:\d+>/<day:\d+>/page/<page:\d+>' => '/site/date',
     '/<year:\d+>/<month:\d+>/<day:\d+>'                 => '/site/date',
     '/<year:\d+>/<month:\d+>/page/<page:\d+>'           => '/site/date',
