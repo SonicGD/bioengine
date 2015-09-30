@@ -12,6 +12,11 @@ return [
         'encodeParams' => false
     ],
     [
+        'pattern'      => '/<parentUrl:\w+>/gallery/<catUrl:[a-z0-9_\/]+>/show/<fileName:[a-z0-9_-]+>',
+        'route'        => '/gallery/show-by-file-name',
+        'encodeParams' => false
+    ],
+    [
         'pattern'      => '/<parentUrl:\w+>/gallery/<catUrl:[a-z0-9_\/]+>',
         'route'        => '/gallery/cat',
         'encodeParams' => false
