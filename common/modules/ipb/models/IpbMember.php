@@ -99,12 +99,14 @@ use yii\web\IdentityInterface;
  */
 class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
 {
+    public $avatarUrl;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%members}}';
+        return '{{%core_members}}';
     }
 
     /**

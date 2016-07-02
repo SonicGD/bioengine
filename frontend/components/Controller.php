@@ -4,8 +4,6 @@ namespace bioengine\frontend\components;
 
 use bioengine\common\modules\ipb\models\IpbMember;
 use bioengine\common\modules\main\models\Settings;
-use IPBWI\ipbwi;
-use IPBWI\ipbwi_member;
 use yii\web\Cookie;
 
 /**
@@ -30,8 +28,6 @@ class Controller extends \yii\web\Controller
     public $settings = [];
     public $themeName = 'default';
 
-    public $ipbwi;
-
     public function Init()
     {
 
@@ -52,32 +48,25 @@ class Controller extends \yii\web\Controller
                 $this->settings[$setting->name] = $setting->value;
             }
         }
-        \Yii::trace('Init ipbwi');
-        $this->ipbwi = new ipbwi();
-        /**
-         * @var ipbwi_member $member
-         */
-        $member = $this->ipbwi->member;
+
         if (\Yii::$app->user->isGuest) {
-            \Yii::trace('User os guest');
-            if ($member->isLoggedIn()) {
+            \Yii::trace('User is guest');
+            //get userId
+            $currentMember = $this->doIpsRequest('api/user.php');
+            if ($currentMember['member_id'] > 0) {
                 \Yii::trace('Member logged in');
                 /**
                  * @var IpbMember $user
                  */
                 \Yii::trace('Find User');
-                $user = IpbMember::findOne($member->info()['member_id']);
+                $user = IpbMember::findOne($currentMember['member_id']);
                 if ($user) {
                     \Yii::trace('Login...');
+                    $user->avatarUrl = $currentMember['avatarUrl'];
                     \Yii::$app->user->login($user, 3600 * 24 * 30);
                 }
             }
-        } else {
-            \Yii::trace('Get avatar url');
-            \Yii::$app->user->identity->getAvatarUrl();
         }
-        \Yii::trace('Fix locale');
-        setlocale(LC_ALL, 'C');
 
         \Yii::trace('Set keywords and description');
         $this->siteTitle = $this->settings['siteTitle'];
@@ -86,6 +75,23 @@ class Controller extends \yii\web\Controller
         $this->description = $this->settings['description'];
 
         \Yii::trace('Init complete');
+    }
+
+    private function doIpsRequest($path)
+    {
+        $communityUrl = \Yii::$app->params['ipb_url'];
+        $cookie_string = http_build_query($_COOKIE, null, ';');
+//Open connection
+
+        $curl = curl_init($communityUrl . $path);
+        curl_setopt_array($curl, [
+            CURLOPT_RETURNTRANSFER => true
+        ]);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ["Cookie: " . $cookie_string]);
+
+        $response = curl_exec($curl);
+
+        return json_decode($response);
     }
 
     public function hasCookie($name)
