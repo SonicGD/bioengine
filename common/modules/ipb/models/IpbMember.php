@@ -392,15 +392,8 @@ class IpbMember extends BioActiveRecord implements \yii\web\IdentityInterface
      */
     public function getAvatarUrl()
     {
-        $ipbwi = new ipbwi();
-        /**
-         * @var ipbwi_member $member
-         */
-        $member = $ipbwi->member;
-        $photo = \IPSMember::buildProfilePhoto($member->info());
-        $src = $photo['pp_thumb_photo'];
-        if ($src) {
-            return $src;
+        if ($this->avatarUrl) {
+            return $this->avatarUrl;
         } else {
             return \Yii::$app->params['site_url'] . '/themes/nuke/img/ava.jpg'; //TODO: FIX
         }
