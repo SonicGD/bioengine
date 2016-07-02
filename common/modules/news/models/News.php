@@ -272,7 +272,7 @@ class News extends BioActiveRecord
 
     public function getForumUrl()
     {
-        return \Yii::$app->params['forum_url'] . 'topic/' . $this->tid . '/?do=getNewComment';
+        return \Yii::$app->params['ipb_url'] . 'topic/' . $this->tid . '/?do=getNewComment';
     }
 
     public function getCommentsText()
