@@ -91,7 +91,7 @@ class Controller extends \yii\web\Controller
 
         $response = curl_exec($curl);
 
-        return json_decode($response);
+        return json_decode($response, true);
     }
 
     public function hasCookie($name)
